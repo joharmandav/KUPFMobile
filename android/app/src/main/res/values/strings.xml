@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KUPF</string>
+    <string name="facebook_app_id">1048533342480535</string>
+    <string name="fb_login_protocol_scheme">fb1048533342480535</string>
+    <string name="facebook_client_token">28dab19084eb1c9f1dec16cee6eb4ac4</string>
+</resources>
