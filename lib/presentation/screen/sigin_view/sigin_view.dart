@@ -206,6 +206,13 @@ class SignInView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            if (controller.localAuthController.isSupported)
+                              SocialIconWidget(
+                                color: mainColor.value,
+                                icon: MdiIcons.fingerprint,
+                                onPressed: controller.localAuthController.isEnable ? controller.localAuth : null,
+                              ),
+                            AppUtility.widthBox,
                             SocialIconWidget(
                               color: mainColor.value,
                               icon: controller.isPhone.value ? MdiIcons.email : MdiIcons.phone,
