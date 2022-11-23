@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kupf/app/server/api/api_provider.dart';
 import 'package:kupf/app/server/database/kupf_database.dart';
 import 'package:kupf/presentation/controller/main/general_controller.dart';
 import 'package:kupf/presentation/models/detailed_employee_model.dart';
 import 'package:kupf/presentation/models/ref_table_model.dart';
 
+import '../../../helper/toaster.dart';
 import '../../../languages/language_constants.dart';
+import '../connectivity_controller.dart';
 
 class ProfileBodyController extends GetxController {
 
   final DbManager db = DbManager();
   final controller = Get.find<GeneralController>();
+  final ConnectivityService _connectivityService = ConnectivityService();
   final TextEditingController employeeNameController = TextEditingController();
   final TextEditingController arabicNameController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
@@ -41,6 +45,7 @@ class ProfileBodyController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _connectivityService.initConnectivity();
     init();
     getDepartment();
     getOccupation();
@@ -81,7 +86,22 @@ class ProfileBodyController extends GetxController {
 
   Future<void> init() async {
     if (controller.status == 0) return;
-    detailedEmployeeModel = await db.getLogin(controller.storageBox.read("email") ?? controller.storageBox.read("phone"), controller.storageBox.read("password"), controller.storageBox.read("device"));
+    String device = await controller.deviceID();
+    if (await _connectivityService.checkConnectivity()) {
+      try {
+        detailedEmployeeModel = await ApiProvider().getEmployeeProfileById("16700123");
+      } on Exception catch (e) {
+        Toaster.showError(e.toString());
+        return;
+      }
+    }
+    else {
+      detailedEmployeeModel = await db.getLogin(
+          controller.storageBox.read("email") ??
+              controller.storageBox.read("phone"),
+          controller.storageBox.read("password"),
+          controller.storageBox.read("device"));
+    }
     if (detailedEmployeeModel == null) {
       controller.storageBox.write("status", 0);
       return;

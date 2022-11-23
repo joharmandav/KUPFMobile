@@ -80,8 +80,8 @@ class LoginController extends GetxController {
     isAction(true);
     final String userName = isPhone.value ? countryCode.value + phoneController.text : emailController.text;
     Get.log(userName);
-    String device = await deviceID();
     final controller = Get.find<GeneralController>();
+    String device = await controller.deviceID();
     if (await _connectivityService.checkConnectivity()) {
       try {
         final result = await loginApi(userName, passwordController.text);
@@ -136,8 +136,8 @@ class LoginController extends GetxController {
     bool auth = await localAuthController.authenticate();
 
     if (!auth) return;
-    String device = await deviceID();
     final controller = Get.find<GeneralController>();
+    String device = await controller.deviceID();
 
     String? phone = controller.storageBox.read('phone');
     String? email = controller.storageBox.read('email');
@@ -224,17 +224,6 @@ class LoginController extends GetxController {
       return;
     }
     Get.offAll(() => const MainView());
-  }
-
-  Future<String> deviceID() async {
-    if (GetPlatform.isAndroid) {
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      return androidInfo.id;
-    } else if (GetPlatform.isIOS) {
-      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      return iosInfo.identifierForVendor ?? "";
-    }
-    return "";
   }
 
 

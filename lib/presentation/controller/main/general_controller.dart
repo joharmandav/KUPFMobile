@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kupf/app/services/auth.dart';
@@ -9,6 +10,7 @@ import 'package:kupf/presentation/models/detailed_employee_model.dart';
 class GeneralController extends GetxController {
   GetStorage storageBox = GetStorage();
   Locale? selectedLocale;
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   final Rxn<DetailedEmployeeModel> _detailedEmployeeModel = Rxn<DetailedEmployeeModel>();
   // final Rxn<CRUPAuditModel> _crupAuditModel = Rxn<CRUPAuditModel>();
   // final Rxn<FunctionMSTModel> _functionMSTModel = Rxn<FunctionMSTModel>();
@@ -25,6 +27,17 @@ class GeneralController extends GetxController {
       _status(storageBox.read('status'));
       return false;
     }
+  }
+
+  Future<String> deviceID() async {
+    if (GetPlatform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      return androidInfo.id;
+    } else if (GetPlatform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      return iosInfo.identifierForVendor ?? "";
+    }
+    return "";
   }
 
   Future<void> storeData(String key, dynamic value) async {

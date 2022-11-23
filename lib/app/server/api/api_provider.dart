@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:kupf/presentation/models/service_setup_model.dart';
 
+import '../../../presentation/models/detailed_employee_model.dart';
+
 class ApiProvider extends GetConnect {
   @override
   void onInit() {
@@ -48,6 +50,19 @@ class ApiProvider extends GetConnect {
       final response = await httpClient.get("/ServiceSetup/GetServiceSetupById/$id");
       if (response.statusCode == 200) {
         return ServiceSetupModel.fromJson(json.decode(response.body));
+      }
+      return null;
+    } on Exception catch (e) {
+      Future.value(e);
+    }
+    return null;
+  }
+
+  Future<DetailedEmployeeModel?> getEmployeeProfileById(String id) async {
+    try {
+      final response = await httpClient.get("/Employee/GetEmployeeById?employeeId=$id");
+      if (response.statusCode == 200) {
+        return DetailedEmployeeModel.fromJson(json.decode(response.body));
       }
       return null;
     } on Exception catch (e) {
