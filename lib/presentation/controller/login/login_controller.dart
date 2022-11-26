@@ -27,6 +27,7 @@ enum SupportState {
 class LoginController extends GetxController {
   AuthServices authServices = AuthServices();
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  final _apiProvider = Get.find<ApiProvider>();
   DbManager db = DbManager();
   final ConnectivityService _connectivityService = ConnectivityService();
   SocialUserInfo info = SocialUserInfo();
@@ -82,22 +83,23 @@ class LoginController extends GetxController {
     Get.log(userName);
     final controller = Get.find<GeneralController>();
     String device = await controller.deviceID();
+    late final result;
     if (await _connectivityService.checkConnectivity()) {
       try {
-        final result = await loginApi(userName, passwordController.text);
+        result = await loginApi(userName, passwordController.text);
       } on Exception catch (e) {
         Toaster.showError(e.toString());
       }
 
     } else {
-      final result = await loginWithDB(userName, passwordController.text, device);
-      if (result == null) {
-        isAction(false);
-        Toaster.showError("User not found");
-        return;
-      }
-      controller.detailedEmployeeModel = result;
+      result = await loginWithDB(userName, passwordController.text, device);
     }
+    if (result == null) {
+      isAction(false);
+      Toaster.showError("User not found");
+      return;
+    }
+    controller.detailedEmployeeModel = result;
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
     if (isPhone.value) {
@@ -112,7 +114,7 @@ class LoginController extends GetxController {
 
   Future<dynamic> loginApi(String username, String password) async {
     try {
-      return await ApiProvider().loginEmployee(username, password);
+      return await _apiProvider.loginEmployee(username, password);
     } on Exception catch (e) {
       return Future.error(e);
     }
@@ -146,14 +148,14 @@ class LoginController extends GetxController {
     isAction(true);
     if (await _connectivityService.checkConnectivity()) {
       try {
-        final result = await loginApi(username, passwordController.text);
+        final result = await loginApi(username, password!);
       } on Exception catch (e) {
         isAction(false);
         Toaster.showError(e.toString());
         return;
       }
     } else {
-      final result = await loginWithDB(username, passwordController.text, device);
+      final result = await loginWithDB(username, password!, device);
       if (result == null) {
         isAction(false);
         Toaster.showError("User not found");

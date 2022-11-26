@@ -12,7 +12,7 @@ import '../../../languages/language_constants.dart';
 import '../connectivity_controller.dart';
 
 class ProfileBodyController extends GetxController {
-
+  final _apiProvider = Get.find<ApiProvider>();
   final DbManager db = DbManager();
   final controller = Get.find<GeneralController>();
   final ConnectivityService _connectivityService = ConnectivityService();
@@ -56,7 +56,11 @@ class ProfileBodyController extends GetxController {
     if (departmentResult.isEmpty) return;
     Get.log(departmentResult.length.toString());
     _departmentList.assignAll(departmentResult);
-    department.value = _departmentList.firstWhere((element) => element.shortName == detailedEmployeeModel!.departmentName);
+    if (detailedEmployeeModel!.departmentName != null) {
+      department.value =
+          _departmentList.firstWhere((element) => element.shortName ==
+              detailedEmployeeModel!.departmentName);
+    }
   }
 
   Future<void> getOccupation() async {
@@ -80,16 +84,24 @@ class ProfileBodyController extends GetxController {
     detailedEmployeeModel!.paciNumber = paciController.text;
     detailedEmployeeModel!.otherID = otherIDController.text;
     detailedEmployeeModel!.departmentName = department.value!.shortName;
+    if (controller.status == 0) return;
+    if (!await _connectivityService.checkConnectivity()) {
+      ConnectivityService.internetErrorDialog();
+      return;
+    }
+
+    String? response = await _apiProvider.updateEmployeeProfile(detailedEmployeeModel!.toJson());
+    if (response == null) return;
     await db.updateEmployeeDetails(detailedEmployeeModel!);
     controller.detailedEmployeeModel = detailedEmployeeModel!;
   }
 
   Future<void> init() async {
     if (controller.status == 0) return;
-    String device = await controller.deviceID();
+    // String device = await controller.deviceID();
     if (await _connectivityService.checkConnectivity()) {
       try {
-        detailedEmployeeModel = await ApiProvider().getEmployeeProfileById("16700123");
+        detailedEmployeeModel = await _apiProvider.getEmployeeProfileById("16700123");
       } on Exception catch (e) {
         Toaster.showError(e.toString());
         return;

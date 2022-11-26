@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:kupf/app/server/api/api_provider.dart';
 
 import '../app/server/database/database.dart';
 import '../app/server/database/kupf_database.dart';
@@ -18,6 +19,7 @@ class AppServices {
     await Get.putAsync(() => DatabaseManager().initialize());
     await Get.putAsync(() => DbManager().database);
     await Get.putAsync(() => ConnectivityService().initialize());
+    Get.lazyPut<ApiProvider>(() => ApiProvider());
     /// Here is where you put get_storage, hive, shared_pref initialization.
     /// or moor connection, or whatever that's async.
     try {

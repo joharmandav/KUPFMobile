@@ -1,14 +1,17 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:kupf/helper/toaster.dart';
 import 'package:kupf/presentation/models/service_setup_model.dart';
 
 import '../../../presentation/models/detailed_employee_model.dart';
 
 class ApiProvider extends GetConnect {
+
   @override
   void onInit() {
     super.onInit();
+    Get.log("Testing");
     httpClient.baseUrl = 'https://kupfapi.erp53.com/api';
   }
 
@@ -22,34 +25,47 @@ class ApiProvider extends GetConnect {
       "token": "string"
     };
     try {
-      Response response = await httpClient.post("/Login/EmployeeLogin", body: data);
+      Response response = await post("/Login/EmployeeLogin", data);
       if (response.statusCode == 200) {
         return response.body;
       }
       return null;
     } on Exception catch (e) {
-      Future.error(e);
+      Toaster.showError(e.toString());
     }
   }
 
   Future<List<ServiceSetupModel>> getServiceSetup() async {
     try {
-      final response = await httpClient.get("/ServiceSetup/GetServiceSetup");
+      final response = await get("/ServiceSetup/GetServiceSetup");
       if (response.statusCode == 200) {
         return List<ServiceSetupModel>.from(json.decode(response.body).map((x) => ServiceSetupModel.fromJson(x)));
       }
       return <ServiceSetupModel>[];
     } on Exception catch (e) {
-      Future.value(e);
+      Toaster.showError(e.toString());
     }
     return <ServiceSetupModel>[];
   }
 
   Future<ServiceSetupModel?> getServiceSetupById(int id) async {
     try {
-      final response = await httpClient.get("/ServiceSetup/GetServiceSetupById/$id");
+      final response = await get("/ServiceSetup/GetServiceSetupById/$id");
       if (response.statusCode == 200) {
         return ServiceSetupModel.fromJson(json.decode(response.body));
+      }
+      return null;
+    } on Exception catch (e) {
+      Toaster.showError(e.toString());
+    }
+    return null;
+  }
+
+  Future<DetailedEmployeeModel?> getEmployeeProfileById(String id) async {
+    try {
+      final response = await get("/Employee/GetEmployeeById?employeeId=$id");
+      if (response.statusCode == 200) {
+        return DetailedEmployeeModel.fromJson(json.decode(response.body));
       }
       return null;
     } on Exception catch (e) {
@@ -58,15 +74,15 @@ class ApiProvider extends GetConnect {
     return null;
   }
 
-  Future<DetailedEmployeeModel?> getEmployeeProfileById(String id) async {
+  Future<String?> updateEmployeeProfile(Map<String, dynamic> data) async {
     try {
-      final response = await httpClient.get("/Employee/GetEmployeeById?employeeId=$id");
+      final response = await put("/api/Employee/UpdateEmployee", data);
       if (response.statusCode == 200) {
-        return DetailedEmployeeModel.fromJson(json.decode(response.body));
+        return json.decode(response.body);
       }
       return null;
     } on Exception catch (e) {
-      Future.value(e);
+      Toaster.showError(e.toString());
     }
     return null;
   }

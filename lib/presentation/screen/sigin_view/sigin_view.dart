@@ -123,8 +123,6 @@ class SignInView extends StatelessWidget {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return LanguageConstants.required.tr;
-                            } else if (value.length <= 7) {
-                              return LanguageConstants.maxLength.tr;
                             }
                             return null;
                           },
