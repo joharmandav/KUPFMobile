@@ -22,14 +22,16 @@ class ApiProvider extends GetConnect {
       "tenantId": 21,
       "locationId": 1,
       "userId": 0,
-      "token": "string"
+      "token": ""
     };
     try {
       Response response = await post("/Login/EmployeeLogin", data);
       if (response.statusCode == 200) {
+        Get.log("Hello");
+        Get.log(response.body);
         return response.body;
       }
-      return null;
+      // return null;
     } on Exception catch (e) {
       Toaster.showError(e.toString());
     }

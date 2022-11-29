@@ -60,8 +60,8 @@ class DetailedEmployeeModel {
   final int? mainHRRoleID;
   final String? employeeLoginID;
   final String? employeePassword;
-  final String? active;
-  final String? deleted;
+  final bool? active;
+  final bool? deleted;
   final String? dateTime;
   String? deviceID;
   String? refName1;
@@ -295,7 +295,7 @@ class DetailedEmployeeModel {
     contractType: json["contractType"],
     pfID: json["pfid"],
     subscribedDate: json["subscribedDate"],
-    agreedSubAmount: json["agreedSubAmount"],
+    agreedSubAmount: json["agreedSubAmount"].toString(),
     reSubscribed: json["reSubscribed"],
     employeeType: json["employeeType"],
     arabicName: json["arabicName"],
@@ -368,7 +368,7 @@ class DetailedEmployeeModel {
     "contractType": contractType,
     "pfid": pfID,
     "subscribedDate": subscribedDate,
-    "agreedSubAmount": agreedSubAmount,
+    "agreedSubAmount": int.tryParse(agreedSubAmount?? "0"),
     "reSubscribed": reSubscribed,
     "employeeType": employeeType,
     "arabicName": arabicName,

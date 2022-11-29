@@ -87,10 +87,10 @@ class LoginController extends GetxController {
     if (await _connectivityService.checkConnectivity()) {
       try {
         result = await loginApi(userName, passwordController.text);
+        Get.log(result.toString());
       } on Exception catch (e) {
         Toaster.showError(e.toString());
       }
-
     } else {
       result = await loginWithDB(userName, passwordController.text, device);
     }
