@@ -29,8 +29,8 @@ class LanguageConstants {
   static const married = 'married';
   static const single = 'single';
   static const version = 'version';
-  static const versionNo = 'V.1.0.7';
-  static const date = '2022-11-12';
+  static const versionNo = 'V.1.1.1';
+  static const date = '2022-12-10';
   static const updated = 'updated';
   static const update = 'update';
   static const emailRequired = 'email_required';

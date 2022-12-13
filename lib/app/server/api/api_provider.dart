@@ -28,7 +28,7 @@ class ApiProvider extends GetConnect {
       Response response = await post("/Login/EmployeeLogin", data);
       if (response.statusCode == 200) {
         Get.log("Hello");
-        Get.log(response.body);
+        // Get.log(response.body);
         return response.body;
       }
       // return null;
@@ -41,7 +41,7 @@ class ApiProvider extends GetConnect {
     try {
       final response = await get("/ServiceSetup/GetServiceSetup");
       if (response.statusCode == 200) {
-        return List<ServiceSetupModel>.from(json.decode(response.body).map((x) => ServiceSetupModel.fromJson(x)));
+        return List<ServiceSetupModel>.from(response.body.map((x) => ServiceSetupModel.fromJson(x)));
       }
       return <ServiceSetupModel>[];
     } on Exception catch (e) {
@@ -67,7 +67,9 @@ class ApiProvider extends GetConnect {
     try {
       final response = await get("/Employee/GetEmployeeById?employeeId=$id");
       if (response.statusCode == 200) {
-        return DetailedEmployeeModel.fromJson(json.decode(response.body));
+        print(response.body);
+        Map<String, dynamic> data = response.body;
+        return DetailedEmployeeModel.fromJson(data);
       }
       return null;
     } on Exception catch (e) {
@@ -76,11 +78,13 @@ class ApiProvider extends GetConnect {
     return null;
   }
 
-  Future<String?> updateEmployeeProfile(Map<String, dynamic> data) async {
+  Future updateEmployeeProfile(Map<String, dynamic> data) async {
     try {
-      final response = await put("/api/Employee/UpdateEmployee", data);
+      final response = await put("/Employee/UpdateEmployee", data);
       if (response.statusCode == 200) {
-        return json.decode(response.body);
+        return response.body;
+      } else {
+        Toaster.showError(response.body.toString());
       }
       return null;
     } on Exception catch (e) {

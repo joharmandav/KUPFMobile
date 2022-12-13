@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/presentation/screen/sigin_view/sigin_view.dart';
 import 'package:kupf/widgets/k_text.dart';
 
 import '../../../../app_utility/common_function.dart';

@@ -14,8 +14,6 @@ class ServiceSetupController extends GetxController {
   Future<void> getServiceSetup() async {
     _isLoading(true);
     final serviceSetup = await getServicesFormLocal();
-    if (serviceSetup.isEmpty) return;
-    Get.log(serviceSetup.length.toString());
     _serviceSetupList.assignAll(serviceSetup);
     _isLoading(false);
   }

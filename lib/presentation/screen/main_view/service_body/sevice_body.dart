@@ -14,22 +14,16 @@ import '../../../controller/main/general_controller.dart';
 import '../../../controller/services/service_setup_controller.dart';
 import '../../../models/service_setup_model.dart';
 
-class ServiceBody extends StatefulWidget {
-  const ServiceBody({Key? key}) : super(key: key);
 
-  @override
-  State<ServiceBody> createState() => _ServiceBodyState();
-}
+class ServiceBody extends StatelessWidget {
+  const ServiceBody({super.key});
 
-class _ServiceBodyState extends State<ServiceBody> {
   void detailPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (_) => const _DetailScreen()));
+    Get.to(() => const _DetailScreen());
   }
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context).textTheme;
     final controller = Get.put(ServiceSetupController());
     return Obx(() {
       if (controller.serviceSetUPList.isEmpty && controller.isLoading) {
@@ -63,19 +57,23 @@ class _ServiceBodyState extends State<ServiceBody> {
                       Expanded(
                         child: Row(
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                KText(Get.find<GeneralController>().isArabic() ? serviceSetupModel.serviceName2.split(" - ").first : serviceSetupModel.serviceName1.split(" - ").first,
-                                    style: AppTextTheme.bodyText1Black.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18)),
-                                KText("ID: ${serviceSetupModel.serviceID}",
-                                    style: AppTextTheme.bodyText1Black),
-                              ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: KText(Get.find<GeneralController>().isArabic() ? serviceSetupModel.serviceName2.split(" - ").first : serviceSetupModel.serviceName1.split(" - ").first,
+                                        style: AppTextTheme.bodyText1Black.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18)),
+                                  ),
+                                  KText("ID: ${serviceSetupModel.serviceID}",
+                                      style: AppTextTheme.bodyText1Black),
+                                ],
+                              ),
                             ),
-                            const Spacer(),
+                            const SizedBox(width: 12),
                             Text(serviceSetupModel.entryDate ?? "24 Dec 21"),
                           ],
                         ),

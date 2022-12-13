@@ -38,9 +38,7 @@ class DrawerView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Flexible(child: SizedBox(width: 145, child: Text(Get.find<GeneralController>().detailedEmployeeModel.englishName ?? "Guest User", overflow: TextOverflow.ellipsis, style: const TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700, overflow: TextOverflow.ellipsis,), maxLines: 1, ))),
-                            const SizedBox(height: 12,),
-                            Flexible(child: SizedBox(width: 145, child: Text(Get.find<GeneralController>().detailedEmployeeModel.employeeLoginID ?? "a@example.com", overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: AppColor.white),))),
+                            Flexible(child: SizedBox(width: 145, child: Text(Get.find<GeneralController>().detailedEmployeeModel?.englishName ?? "Guest User", overflow: TextOverflow.ellipsis, style: const TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700, overflow: TextOverflow.ellipsis,), maxLines: 1, ))),
                           ],
                         ) else const Text("Guest", style: TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700,),),
                     ],
@@ -56,6 +54,7 @@ class DrawerView extends StatelessWidget {
                         bool? result =
                         await Get.to<bool>(() => const SignInView());
                         if (result ?? false) {
+                          await Get.find<GeneralController>().storageBox.remove("route");
                           drawerNotifier.value = DrawerState.profile;
                           Get.back();
                         }
@@ -75,6 +74,7 @@ class DrawerView extends StatelessWidget {
                         bool? result =
                         await Get.to<bool>(() => const SignInView());
                         if (result ?? false) {
+                          await Get.find<GeneralController>().storageBox.remove("route");
                           drawerNotifier.value = DrawerState.service;
                           Get.back();
                         }

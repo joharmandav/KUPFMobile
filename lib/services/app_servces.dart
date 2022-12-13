@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:kupf/app/server/api/api_provider.dart';
 
 import '../app/server/database/database.dart';
 import '../app/server/database/kupf_database.dart';
+import '../firebase_options.dart';
 import '../presentation/controller/connectivity_controller.dart';
 import '../presentation/controller/main/general_controller.dart';
 
@@ -15,11 +17,14 @@ class AppServices {
 
   Future<void> initServices() async {
     Get.log('starting services ...');
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     Get.put(GeneralController());
     await Get.putAsync(() => DatabaseManager().initialize());
     await Get.putAsync(() => DbManager().database);
     await Get.putAsync(() => ConnectivityService().initialize());
-    Get.lazyPut<ApiProvider>(() => ApiProvider());
+    Get.put<ApiProvider>(ApiProvider());
     /// Here is where you put get_storage, hive, shared_pref initialization.
     /// or moor connection, or whatever that's async.
     try {

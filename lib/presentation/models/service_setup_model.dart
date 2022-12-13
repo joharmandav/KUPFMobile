@@ -17,7 +17,7 @@ class ServiceSetupModel {
   final int? serviceSubType;
   final int? allowSponser;
   final int allowedNonEmployes;
-  final int minMonthsService;
+  final int? minMonthsService;
   final int minInstallment;
   final int maxInstallment;
   final int frozen;
@@ -87,7 +87,7 @@ class ServiceSetupModel {
     required this.serviceSubType,
     required this.allowSponser,
     required this.allowedNonEmployes,
-    required this.minMonthsService,
+    this.minMonthsService,
     required this.minInstallment,
     required this.maxInstallment,
     required this.frozen,
@@ -144,7 +144,7 @@ class ServiceSetupModel {
   factory ServiceSetupModel.fromJson(Map<String, dynamic> json) => ServiceSetupModel(
     tenentID: json["tenentId"],
     serviceID: json["serviceId"],
-    masterServiceID: json["masterServiceId"],
+    masterServiceID: json["masterServiceId"] ?? "",
     serIDByUser: json["serIdbyUser"],
     serviceName1: json["serviceName1"],
     serviceName2: json["serviceName2"],
@@ -156,8 +156,8 @@ class ServiceSetupModel {
     minMonthsService: json["minMonthsService"],
     minInstallment: json["minInstallment"],
     maxInstallment: json["maxInstallment"],
-    frozen: (json["frozen"] as bool) ? 1 : 0,
-    previousEmployees: (json["previousEmployees"] as bool) ? 1 : 0,
+    frozen: (json["frozen"] as bool?) ?? false ? 1 : 0,
+    previousEmployees: (json["previousEmployees"] as bool?) ?? false ? 1 : 0,
     serApproval1: json["serApproval1"],
     approvalBy1: json["approvalBy1"],
     approvedDate1: json["approvedDate1"],
@@ -197,9 +197,9 @@ class ServiceSetupModel {
     syncDate: json["syncDate"],
     syncBy: json["syncby"],
     synID: json["synId"],
-    allowDiscountPer: (json["allowDiscountPer"] as bool) ? 1 : 0,
-    allowDiscountAmount: json["allowDiscountAmount"],
-    allowDiscountDefault: (json["allowDiscountDefault"] as bool) ? 1 : 0,
+    allowDiscountPer: (json["allowDiscountPer"] as bool?) ?? false ? 1 : 0,
+    allowDiscountAmount: int.tryParse(double.tryParse(json["allowDiscountAmount"].toString())?.toStringAsFixed(0) ?? "0"),
+    allowDiscountDefault: (json["allowDiscountDefault"] as bool?) ?? false ? 1 : 0,
     englishHTML: json["englishHTML"],
     englishWebPageName: json["englishWebPageName"],
     arabicHTML: json["arabicHTML"],

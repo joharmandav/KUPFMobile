@@ -71,6 +71,7 @@ class LocalAuthController extends GetxController {
         options: const AuthenticationOptions(
           stickyAuth: true,
           useErrorDialogs: true,
+          // biometricOnly: true,
         ),
       );
     } on PlatformException catch (e) {

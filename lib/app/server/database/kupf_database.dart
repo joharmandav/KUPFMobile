@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:kupf/helper/toaster.dart';
 import 'package:kupf/presentation/models/crup_audit_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
@@ -100,15 +101,20 @@ class DbManager extends GetxService {
 
   Future<int> updateEmployeeDetails(DetailedEmployeeModel model) async {
 
-    final db = await database;
-    return await _database.update(
-      Constants.detailedEmployeeTable,
-      model.toMap(),
-      // Ensure that the table has a matching id.
-      where: '${Constants.employeeID} = ?',
-      // Pass the table's id as a whereArg to prevent SQL injection.
-      whereArgs: [model.employeeID],
-    );
+    // final db = await database;
+    try {
+      return await _database.update(
+        Constants.detailedEmployeeTable,
+        model.toMap(),
+        // Ensure that the table has a matching id.
+        where: '${Constants.employeeID} = ?',
+        // Pass the table's id as a whereArg to prevent SQL injection.
+        whereArgs: [model.employeeID],
+      );
+    } on Exception catch (e) {
+      Toaster.showError(e.toString());
+      return 0;
+    }
     // if (table == Constants.ALERTS_TABLE){
     //   AlertsModel alertsModel = model;
     //   return await _database.update(table, alertsModel.toMap(),

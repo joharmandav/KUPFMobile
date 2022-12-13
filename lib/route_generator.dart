@@ -19,6 +19,8 @@ class RouteGenerator {
     }
   }
 
+  // static appRoute=
+
   static Route<dynamic> _errorRoute() {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(

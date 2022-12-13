@@ -14,13 +14,13 @@ class DetailedEmployeeModel {
   String? englishName;
   final int? jobTitleCode;
   final String? jobTitleName;
-  final int? department;
+  int? department;
   String? departmentName;
   int? employeeGender;
   dynamic employeeBirthday;
   int? maritalStatus;
   int? salary;
-  final String workTelephone;
+  String workTelephone;
   String workEmail;
   String? mobileNumber;
   String? next2KinName;
@@ -67,7 +67,7 @@ class DetailedEmployeeModel {
   String? refName1;
   String? refName2;
   final String? uploadDate;
-  final String? uploadBy;
+  String? uploadBy;
   final String? syncDate;
   final String? syncBy;
   final int? synID;
@@ -305,9 +305,9 @@ class DetailedEmployeeModel {
     department: json["department"],
     departmentName: json["departmentName"],
     employeeGender: json["empGender"],
-    employeeBirthday: DateTime.parse(json["empBirthday"]),
-    maritalStatus: json["empMaritalStatus"],
-    salary: json["salary"],
+    employeeBirthday: json["empBirthday"],
+    maritalStatus: json["empMaritalStatus"] == "Single" ? 1 : 0,
+    salary: int.tryParse(double.parse(json["salary"].toString()).toStringAsFixed(0)),
     workTelephone: json["empWorkTelephone"],
     workEmail: json["empWorkEmail"],
     mobileNumber: json["mobileNumber"],

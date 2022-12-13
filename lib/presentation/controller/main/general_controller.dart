@@ -60,6 +60,7 @@ class GeneralController extends GetxController {
 
   Future<void> logout() async {
     storageBox.write('status', 0);
+    storageBox.remove("route");
     _status(0);
     _detailedEmployeeModel.value = null;
     await AuthServices.logout();
@@ -106,9 +107,9 @@ class GeneralController extends GetxController {
     return primaryColor.value;
   }
 
-  DetailedEmployeeModel get detailedEmployeeModel => _detailedEmployeeModel.value!;
+  DetailedEmployeeModel? get detailedEmployeeModel => _detailedEmployeeModel.value;
 
-  set detailedEmployeeModel(DetailedEmployeeModel value) {
+  set detailedEmployeeModel(DetailedEmployeeModel? value) {
     _detailedEmployeeModel(value);
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:huawei_account/huawei_account.dart';
@@ -41,9 +40,9 @@ class LoginController extends GetxController {
   RxnBool canCheckBiometrics = RxnBool();
   RxList<BiometricType> availableBiometrics = RxList<BiometricType>();
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
 
   RxBool isAction = RxBool(false);
 
@@ -65,11 +64,19 @@ class LoginController extends GetxController {
   @override
   void onClose() {
     isAction(false);
+    emailController.clear();
+    passwordController.clear();
+    phoneController.clear();
+    localAuthController.cancelAuthentication();
+    super.onClose();
+  }
+
+  @override
+  void dispose() {
     emailController.dispose();
     passwordController.dispose();
     phoneController.dispose();
-    localAuthController.cancelAuthentication();
-    super.onClose();
+    super.dispose();
   }
 
 
@@ -84,10 +91,10 @@ class LoginController extends GetxController {
     final controller = Get.find<GeneralController>();
     String device = await controller.deviceID();
     late final result;
-    if (await _connectivityService.checkConnectivity()) {
+    bool isOnline = await _connectivityService.checkConnectivity();
+    if (isOnline) {
       try {
         result = await loginApi(userName, passwordController.text);
-        Get.log(result.toString());
       } on Exception catch (e) {
         Toaster.showError(e.toString());
       }
@@ -99,7 +106,15 @@ class LoginController extends GetxController {
       Toaster.showError("User not found");
       return;
     }
-    controller.detailedEmployeeModel = result;
+    if (!isOnline) {
+      controller.detailedEmployeeModel = result;
+    } else {
+      try {
+        controller.detailedEmployeeModel = await _apiProvider.getEmployeeProfileById("16700123");
+      } on Exception catch (e) {
+        Toaster.showError(e.toString());
+      }
+    }
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
     if (isPhone.value) {
@@ -109,6 +124,9 @@ class LoginController extends GetxController {
     }
     await controller.storageBox.write('password', passwordController.text);
     isAction(false);
+    emailController.clear();
+    phoneController.clear();
+    passwordController.clear();
     navigation();
   }
 
@@ -146,24 +164,37 @@ class LoginController extends GetxController {
     String? password = controller.storageBox.read('password');
     String username = email ?? phone ?? "";
     isAction(true);
+    late final result;
     if (await _connectivityService.checkConnectivity()) {
       try {
-        final result = await loginApi(username, password!);
+        result = await loginApi(username, password!);
       } on Exception catch (e) {
         isAction(false);
         Toaster.showError(e.toString());
         return;
       }
     } else {
-      final result = await loginWithDB(username, password!, device);
-      if (result == null) {
-        isAction(false);
-        Toaster.showError("User not found");
-        return;
-      }
-      isAction(false);
-      controller.detailedEmployeeModel = result;
+      result = await loginWithDB(username, password!, device);
     }
+
+    if (result == null) {
+      isAction(false);
+      Toaster.showError("User not found");
+      return;
+    } else {
+      try {
+        controller.detailedEmployeeModel = await _apiProvider.getEmployeeProfileById("16700123");
+      } on Exception catch (e) {
+        Toaster.showError(e.toString());
+      }
+    }
+    controller.storageBox.write("device", device);
+    await controller.storageBox.write('status', 1);
+    isAction(false);
+    emailController.clear();
+    phoneController.clear();
+    passwordController.clear();
+    navigation();
   }
 
   void signInWithHuawei() async {

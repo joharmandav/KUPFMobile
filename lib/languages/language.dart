@@ -49,7 +49,7 @@ class LanguagesChang extends Translations {
       "mobile" : "Mobile",
       "email" : "Email",
       "next_of_the_kin_name" : "Next Of The Kin Name",
-      "next_of_the_kin_mobile" : "Next Of The Kin Name",
+      "next_of_the_kin_mobile" : "Next Of The Kin Mobile",
       "service_procured" : "Service Procured",
       "hajj_loan" : "Hajj Loan",
       "social_finance_loan_internet" : "Social Finance Loan Internet",

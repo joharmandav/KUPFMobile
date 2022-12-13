@@ -10,9 +10,9 @@ import '../languages/language_constants.dart';
 abstract class AppUtility {
   static Future<DateTime?> pickDate(BuildContext context) => showDatePicker(
       context: context,
-      initialDate: DateTime(2000),
+      initialDate: DateTime.now(),
       firstDate: DateTime(1900),
-      lastDate: DateTime(2100));
+      lastDate: DateTime.now());
 
   static const emptyBox = SizedBox.shrink();
   static const heightBox = SizedBox(height: 16.0);

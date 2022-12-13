@@ -37,18 +37,20 @@ class BottomNavigationBarView extends StatelessWidget {
             Icon(Icons.settings, size: 30),
           ],
           onTap: (index) async {
-            if (index == 1 && Get.find<GeneralController>().status == 0) {
+            if (index == 1 && !Get.find<GeneralController>().checkStatus()) {
               await Get.find<GeneralController>().storageBox.write("route", "profile");
               bool? result = await Get.to<bool>(() => const SignInView());
               if (result ?? false) {
+                await Get.find<GeneralController>().storageBox.remove("route");
                 drawerNotifier.value = DrawerState.values.elementAt(index);
               }
               return;
             }
-            if (index == 2 && Get.find<GeneralController>().status == 0) {
+            if (index == 2 && !Get.find<GeneralController>().checkStatus()) {
               await Get.find<GeneralController>().storageBox.write("route", "service");
               bool? result = await Get.to<bool>(() => const SignInView());
               if (result ?? false) {
+                await Get.find<GeneralController>().storageBox.remove("route");
                 drawerNotifier.value = DrawerState.values.elementAt(index);
               }
               return;

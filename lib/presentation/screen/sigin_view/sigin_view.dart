@@ -208,7 +208,7 @@ class SignInView extends StatelessWidget {
                               SocialIconWidget(
                                 color: mainColor.value,
                                 icon: MdiIcons.fingerprint,
-                                onPressed: controller.localAuthController.isEnable ? controller.localAuth : null,
+                                onPressed: controller.localAuthController.isSupported && controller.localAuthController.isEnable ? controller.localAuth : null,
                               ),
                             AppUtility.widthBox,
                             SocialIconWidget(
