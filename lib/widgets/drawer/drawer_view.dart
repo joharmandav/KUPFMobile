@@ -7,13 +7,11 @@ import '../../app_utility/common_function.dart';
 import '../../languages/language_constants.dart';
 import '../../presentation/controller/main/general_controller.dart';
 import '../../presentation/providers/drawer_provider.dart';
-import '../../presentation/screen/sigin_view/sigin_view.dart';
+import '../../app/routes/routes.dart';
 import 'drawer_tile.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({Key? key}) : super(key: key);
-
-
   @override
   Widget build(BuildContext context) {
     var format = DateFormat('d MMM y');
@@ -51,8 +49,8 @@ class DrawerView extends StatelessWidget {
                       if (!Get.find<GeneralController>().checkStatus()) {
                         Get.find<GeneralController>()
                             .storeData('route', 'profile');
-                        bool? result =
-                        await Get.to<bool>(() => const SignInView());
+                        var result =
+                        await Get.toNamed(AppRoutes.login);
                         if (result ?? false) {
                           await Get.find<GeneralController>().storageBox.remove("route");
                           drawerNotifier.value = DrawerState.profile;
@@ -71,8 +69,8 @@ class DrawerView extends StatelessWidget {
                       if (!Get.find<GeneralController>().checkStatus()) {
                         Get.find<GeneralController>()
                             .storeData('route', 'service');
-                        bool? result =
-                        await Get.to<bool>(() => const SignInView());
+                        var result =
+                        await Get.toNamed(AppRoutes.login);
                         if (result ?? false) {
                           await Get.find<GeneralController>().storageBox.remove("route");
                           drawerNotifier.value = DrawerState.service;
@@ -120,12 +118,9 @@ class DrawerView extends StatelessWidget {
                       //drawerNotifier.value = DrawerState.logout;
                       if (Get.find<GeneralController>().checkStatus()) {
                         await Get.find<GeneralController>().logout();
-                        Get.offAll(() => const SignInView());
+                        Get.offAllNamed(AppRoutes.login);
                       } else {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const SignInView()));
+                        Get.offNamed(AppRoutes.login);
                       }
                     }),
                 // ExpansionTile(

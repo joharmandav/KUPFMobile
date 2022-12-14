@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kupf/app_utility/app_color.dart';
 import 'package:kupf/app_utility/app_text_theme.dart';
 import 'package:kupf/app_utility/common_function.dart';
@@ -11,11 +12,12 @@ import 'package:kupf/widgets/curve_box_decoration.dart';
 import 'package:kupf/widgets/k_text.dart';
 import '../../../widgets/bottom/bottom_navigation_bar.dart';
 import '../../../widgets/drawer/drawer_view.dart';
+import '../../controller/main/home_controller.dart';
 import 'home/dashboard_view.dart';
 import 'online_form_body/online_form_view.dart';
 
 
-class MainView extends StatelessWidget {
+class MainView extends GetView<HomeController> {
   const MainView({super.key});
 
   @override

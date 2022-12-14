@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:kupf/presentation/screen/sigin_view/forgot_password_view.dart';
+import '../../../app/routes/routes.dart';
 
 
 class ForgotPasswordDialogController extends GetxController {
@@ -14,12 +14,12 @@ class ForgotPasswordDialogController extends GetxController {
   void onTapEmail(){
     Get.back();
     isPhone(false);
-    Get.to(() => const ForgotPasswordView());
+    Get.toNamed(AppRoutes.forgot);
   }
 
   void onTapPhone(){
     Get.back();
     isPhone(true);
-    Get.to(() => const ForgotPasswordView());
+    Get.toNamed(AppRoutes.forgot);
   }
 }

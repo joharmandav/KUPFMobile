@@ -7,7 +7,6 @@ import 'package:kupf/app_utility/app_text_theme.dart';
 import 'package:kupf/app_utility/common_function.dart';
 import 'package:kupf/app_utility/image_string.dart';
 import 'package:kupf/presentation/controller/login/login_controller.dart';
-import 'package:kupf/presentation/screen/main_view/main_view.dart';
 import 'package:kupf/widgets/button_widget.dart';
 import 'package:kupf/widgets/curve_box_decoration.dart';
 import 'package:kupf/widgets/k_text.dart';
@@ -15,16 +14,16 @@ import 'package:kupf/widgets/k_textfield.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../../widgets/loading.dart';
+import '../../../app/routes/routes.dart';
 import '../../../languages/language_constants.dart';
 import '../../../widgets/social_icon_widget.dart';
 import '../../../widgets/dialogs/fogot_password_dialog.dart';
 
-class SignInView extends StatelessWidget {
+class SignInView extends GetView<LoginController> {
   const SignInView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LoginController());
     controller.checkDevice();
     return SafeArea(
       child: Scaffold(
@@ -272,7 +271,7 @@ class SignInView extends StatelessWidget {
                                 style: AppTextTheme.bodyText1Primary
                                     .copyWith(fontWeight: FontWeight.bold),
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () => Get.offAll(const MainView()),
+                                  ..onTap = () => Get.offAllNamed(AppRoutes.home),
                               ),
                             ],
                           ),

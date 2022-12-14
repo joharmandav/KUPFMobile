@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app/routes/routes.dart';
 import '../../app_utility/app_color.dart';
 import '../../app_utility/image_string.dart';
 import '../../presentation/controller/main/general_controller.dart';
@@ -39,7 +40,7 @@ class BottomNavigationBarView extends StatelessWidget {
           onTap: (index) async {
             if (index == 1 && !Get.find<GeneralController>().checkStatus()) {
               await Get.find<GeneralController>().storageBox.write("route", "profile");
-              bool? result = await Get.to<bool>(() => const SignInView());
+              var result = await Get.toNamed(AppRoutes.login);
               if (result ?? false) {
                 await Get.find<GeneralController>().storageBox.remove("route");
                 drawerNotifier.value = DrawerState.values.elementAt(index);
@@ -48,7 +49,7 @@ class BottomNavigationBarView extends StatelessWidget {
             }
             if (index == 2 && !Get.find<GeneralController>().checkStatus()) {
               await Get.find<GeneralController>().storageBox.write("route", "service");
-              bool? result = await Get.to<bool>(() => const SignInView());
+              var result = await Get.toNamed(AppRoutes.login);
               if (result ?? false) {
                 await Get.find<GeneralController>().storageBox.remove("route");
                 drawerNotifier.value = DrawerState.values.elementAt(index);

@@ -11,12 +11,11 @@ import '../../../widgets/k_textfield.dart';
 import '../../../widgets/loading.dart';
 import '../../controller/login/reset_password_controller.dart';
 
-class ResetPasswordView extends StatelessWidget {
+class ResetPasswordView extends GetView<ResetPasswordController> {
   const ResetPasswordView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ResetPasswordController());
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

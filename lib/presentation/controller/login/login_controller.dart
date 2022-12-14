@@ -7,6 +7,7 @@ import 'package:kupf/app/server/database/kupf_database.dart';
 import 'package:kupf/presentation/controller/login/local_auth/local_auth_controller.dart';
 import 'package:local_auth/local_auth.dart';
 
+import '../../../app/routes/routes.dart';
 import '../../../app/server/api/api_provider.dart';
 import '../../../app/server/database/database.dart';
 import '../../../app/server/database/db_constant.dart';
@@ -61,23 +62,14 @@ class LoginController extends GetxController {
     _authService = AccountAuthManager.getService(authParams);
   }
 
-  @override
-  void onClose() {
-    isAction(false);
-    emailController.clear();
-    passwordController.clear();
-    phoneController.clear();
-    localAuthController.cancelAuthentication();
-    super.onClose();
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    phoneController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void onClose() {
+  //   isAction(false);
+  //   emailController.clear();
+  //   passwordController.clear();
+  //   phoneController.clear();
+  //   super.onClose();
+  // }
 
 
 
@@ -124,9 +116,6 @@ class LoginController extends GetxController {
     }
     await controller.storageBox.write('password', passwordController.text);
     isAction(false);
-    emailController.clear();
-    phoneController.clear();
-    passwordController.clear();
     navigation();
   }
 
@@ -256,7 +245,7 @@ class LoginController extends GetxController {
       Get.back(result: true);
       return;
     }
-    Get.offAll(() => const MainView());
+    Get.offAllNamed(AppRoutes.home);
   }
 
 

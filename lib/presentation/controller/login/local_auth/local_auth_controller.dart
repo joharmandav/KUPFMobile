@@ -19,6 +19,13 @@ class LocalAuthController extends GetxController {
     _isEnabled(Get.find<GeneralController>().storageBox.read("link") ?? false);
   }
 
+
+  @override
+  void onClose() {
+    auth.stopAuthentication();
+    super.onClose();
+  }
+
   Future<void> getAvailableBiometrics() async {
     late List<BiometricType> availableBiometrics;
     try {
@@ -54,10 +61,6 @@ class LocalAuthController extends GetxController {
       Toaster.showError(e.message!);
       return false;
     }
-  }
-
-  Future<void> cancelAuthentication() async {
-    await auth.stopAuthentication();
   }
 
 

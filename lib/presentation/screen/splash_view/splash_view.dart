@@ -7,6 +7,7 @@ import 'package:kupf/app_utility/image_string.dart';
 import 'package:kupf/presentation/controller/main/general_controller.dart';
 import 'package:kupf/presentation/screen/main_view/main_view.dart';
 
+import '../../../app/routes/routes.dart';
 import '../../../app_utility/common_function.dart';
 import '../../../languages/language_constants.dart';
 
@@ -37,8 +38,8 @@ class _SplashViewState extends State<SplashView> {
             ),
           ),
           child: TweenAnimationBuilder<double>(
-            onEnd: () => Get.find<GeneralController>().checkStatus() ? Get.offAll(() => const MainView()) :
-                Navigator.pushReplacementNamed(context, RouteString.login),
+            onEnd: () => Get.find<GeneralController>().checkStatus() ? Get.offAllNamed(AppRoutes.home) :
+                Get.offNamed(AppRoutes.login),
             tween: Tween(begin: 0.0, end: 1.0),
             duration: _duration,
             builder: (_, value, child) => Padding(

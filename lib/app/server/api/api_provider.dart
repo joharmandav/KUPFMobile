@@ -5,6 +5,7 @@ import 'package:kupf/helper/toaster.dart';
 import 'package:kupf/presentation/models/service_setup_model.dart';
 
 import '../../../presentation/models/detailed_employee_model.dart';
+import '../../../presentation/models/offers_model.dart';
 
 class ApiProvider extends GetConnect {
 
@@ -87,6 +88,35 @@ class ApiProvider extends GetConnect {
         Toaster.showError(response.body.toString());
       }
       return null;
+    } on Exception catch (e) {
+      Toaster.showError(e.toString());
+    }
+    return null;
+  }
+
+  Future<List<OffersModel>> getOffers() async {
+    try {
+      final response = await get("/Offers/GetOffers");
+      if (response.statusCode == 200) {
+        return List<OffersModel>.from(response.body.map((data) => OffersModel.fromJson(data)));
+      } else {
+        Toaster.showError(response.body.toString());
+      }
+      return <OffersModel>[];
+    } on Exception catch (e) {
+      Toaster.showError(e.toString());
+    }
+    return <OffersModel>[];
+  }
+
+  Future<OffersModel?> getOfferById(int id) async {
+    try {
+      final response = await get("/Offers/GetOfferById/$id");
+      if (response.statusCode == 200) {
+        return OffersModel.fromJson(response.body);
+      } else {
+        Toaster.showError(response.body.toString());
+      }
     } on Exception catch (e) {
       Toaster.showError(e.toString());
     }

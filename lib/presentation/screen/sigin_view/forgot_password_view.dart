@@ -13,12 +13,11 @@ import '../../../widgets/curve_box_decoration.dart';
 import '../../../widgets/k_textfield.dart';
 import '../../../widgets/loading.dart';
 
-class ForgotPasswordView extends StatelessWidget {
+class ForgotPasswordView extends GetView<ForgotPasswordDialogController> {
   const ForgotPasswordView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ForgotPasswordDialogController());
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

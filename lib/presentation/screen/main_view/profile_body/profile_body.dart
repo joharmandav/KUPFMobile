@@ -14,25 +14,8 @@ import '../../../../languages/language_constants.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/loading.dart';
 
-class ProfileBody extends StatefulWidget {
-  const ProfileBody({Key? key}) : super(key: key);
-
-  @override
-  State<ProfileBody> createState() => _ProfileBodyState();
-}
-
-class _ProfileBodyState extends State<ProfileBody>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabController;
-
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-
+class ProfileBody extends StatelessWidget {
+  const ProfileBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +25,7 @@ class _ProfileBodyState extends State<ProfileBody>
         Column(
           children: [
             TabBar(
-              controller: _tabController,
+              controller: controller.tabController,
               indicator: BoxDecoration(
                   color: mainColor.value.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(8.0)),
@@ -66,7 +49,7 @@ class _ProfileBodyState extends State<ProfileBody>
             ),
             Expanded(
               child: TabBarView(
-                controller: _tabController,
+                controller: controller.tabController,
                 children: [
                   ///add user
                   ListView(

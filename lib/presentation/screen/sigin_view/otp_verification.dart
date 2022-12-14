@@ -11,12 +11,11 @@ import '../../../widgets/curve_box_decoration.dart';
 import '../../controller/login/otp_verification_controller.dart';
 import 'reset_password_view.dart';
 
-class OTPVerification extends StatelessWidget {
+class OTPVerification extends GetView<OTPVerificationController> {
   const OTPVerification({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(OTPVerificationController());
     return Scaffold(
       body: SizedBox(
         height: Get.height,

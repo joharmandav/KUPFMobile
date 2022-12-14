@@ -1,15 +1,14 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kupf/app_utility/app_theme.dart';
 import 'package:kupf/presentation/controller/main/general_controller.dart';
-import 'package:kupf/route_generator.dart';
 import 'package:kupf/services/app_servces.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'app/routes/pages.dart';
+import 'app/routes/routes.dart';
 import 'app_utility/app_color.dart';
 import 'app_utility/app_text_theme.dart';
 import 'languages/language.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +44,7 @@ class MyApp extends StatelessWidget {
               MaterialColor(0xFF567DF4, color);
               return GetMaterialApp(
                 debugShowCheckedModeBanner: false,
+                initialRoute: AppRoutes.initial,
                 builder: (context, child) => ResponsiveWrapper.builder(
                   child,
                   // maxWidth: 1200,
@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
                     '${Get.find<GeneralController>().storageBox.read('countryCode') ?? 'US'}'),
                 fallbackLocale: Locale('${Get.find<GeneralController>().storageBox.read('languageCode')}',
                     '${Get.find<GeneralController>().storageBox.read('countryCode')}'),
-                onGenerateRoute: RouteGenerator.generateRoute,
+                getPages: AppPages.pages,
               );
             },
           );

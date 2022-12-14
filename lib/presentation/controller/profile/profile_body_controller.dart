@@ -12,12 +12,15 @@ import '../../../helper/toaster.dart';
 import '../../../languages/language_constants.dart';
 import '../connectivity_controller.dart';
 
-class ProfileBodyController extends GetxController {
+class ProfileBodyController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final _apiProvider = Get.find<ApiProvider>();
   final DbManager db = DbManager();
   final controller = Get.find<GeneralController>();
   final ConnectivityService _connectivityService = ConnectivityService();
   final RxBool _isLoading = RxBool(false);
+  late final TabController _tabController;
+
   final TextEditingController employeeNameController = TextEditingController();
   final TextEditingController arabicNameController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
@@ -48,8 +51,15 @@ class ProfileBodyController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _tabController = TabController(length: 2, vsync: this);
     _connectivityService.initConnectivity();
     init();
+  }
+
+  @override
+  void onClose() {
+    _tabController.dispose();
+    super.onClose();
   }
 
   Future<void> getDepartment() async {
@@ -177,6 +187,9 @@ class ProfileBodyController extends GetxController {
     await getDepartment();
     await getOccupation();
   }
+
+
+  TabController get tabController => _tabController;
 
   bool get isLoading => _isLoading.value;
 
