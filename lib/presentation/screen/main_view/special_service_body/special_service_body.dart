@@ -1,57 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kupf/app_utility/app_color.dart';
 import 'package:kupf/app_utility/app_text_theme.dart';
-import 'package:kupf/app_utility/common_function.dart';
 import 'package:kupf/app_utility/image_string.dart';
 import 'package:kupf/widgets/k_text.dart';
+import '../../../../widgets/loading.dart';
+import '../../../controller/offers/offer_controller.dart';
+import '../../../models/offers_model.dart';
 
-class SpecialServices extends StatefulWidget {
-  const SpecialServices({Key? key}) : super(key: key);
+class SpecialServices extends StatelessWidget {
+  const SpecialServices({super.key});
 
-  @override
-  State<SpecialServices> createState() => _SpecialServicesState();
-}
-
-class _SpecialServicesState extends State<SpecialServices> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: List.generate(ToothService.listOfServices.length, (index) {
-        final tooth = ToothService.listOfServices[index];
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: Material(
-            child: ListTile(
-              //tileColor: AppColor.primary.withOpacity(0.1),
-              leading: const Padding(
-                padding:  EdgeInsets.all(8.0),
-                child: Image(image: ImageString.tooth),
+    final controller = Get.put(OfferController());
+    return Obx(() {
+      if (controller.offersList.isEmpty && controller.isLoading) {
+        return const LoadingWidget();
+      } else if (controller.offersList.isEmpty && !controller.isLoading) {
+        return const Center(child: Text("No Offer Found"));
+      }
+      return ListView.builder(
+        itemCount: controller.offersList.length,
+        itemBuilder: (context, index) {
+          OffersModel offer = controller.offersList[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Material(
+              child: ListTile(
+                //tileColor: AppColor.primary.withOpacity(0.1),
+                leading: const Padding(
+                  padding:  EdgeInsets.all(8.0),
+                  child: Image(image: ImageString.tooth),
+                ),
+                title: KText(offer.offer,
+                    style: AppTextTheme.bodyText1grey
+                        .copyWith(fontWeight: FontWeight.bold)),
+                // subtitle: Text('${tooth.kuwaitDinar} KWD',
+                //     style: AppTextTheme.bodyText1grey
+                //         .copyWith(fontWeight: FontWeight.bold)),
+                //subtitle:Text(),
+                onTap: () {
+                  // Navigator.of(context)
+                  //     .restorablePush(AppUtility.dialogBuilder, arguments: {
+                  //   'title': tooth.serviceName,
+                  //   'price':tooth.kuwaitDinar,
+                  //   'startTime':tooth.startTime.toString().split(' ').first,
+                  //   'endTime':tooth.endTime!.toString().split(' ').first,
+                  //   'discountPrice':tooth.discountPrice
+                  // });
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    side: BorderSide(color: mainColor.value)),
               ),
-              title: KText(tooth.serviceName,
-                  style: AppTextTheme.bodyText1grey
-                      .copyWith(fontWeight: FontWeight.bold)),
-              subtitle: Text('${tooth.kuwaitDinar} KWD',
-                  style: AppTextTheme.bodyText1grey
-                      .copyWith(fontWeight: FontWeight.bold)),
-              //subtitle:Text(),
-              onTap: () {
-                Navigator.of(context)
-                    .restorablePush(AppUtility.dialogBuilder, arguments: {
-                  'title': tooth.serviceName,
-                  'price':tooth.kuwaitDinar,
-                  'startTime':tooth.startTime.toString().split(' ').first,
-                  'endTime':tooth.endTime!.toString().split(' ').first,
-                  'discountPrice':tooth.discountPrice
-                });
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  side: BorderSide(color: mainColor.value)),
             ),
-          ),
-        );
-      }).toList(),
-    );
+          );
+        },
+      );
+    });
   }
 }
 

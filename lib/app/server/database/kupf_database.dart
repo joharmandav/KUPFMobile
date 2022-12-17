@@ -10,6 +10,7 @@ import '../../../presentation/models/detailed_employee_model.dart';
 import '../../../presentation/models/function_mst_model.dart';
 import '../../../presentation/models/function_user_model.dart';
 import '../../../presentation/models/kupf_image_model.dart';
+import '../../../presentation/models/offers_model.dart';
 import '../../../presentation/models/ref_table_model.dart';
 import '../../../presentation/models/service_setup_model.dart';
 import '../../../presentation/models/transaction_dt_model.dart';
@@ -433,6 +434,22 @@ class DbManager extends GetxService {
       }
     }
     return adultList;
+  }
+
+  Future<List<OffersModel>> getOffers() async {
+    final db = await database;
+    List<OffersModel> offers = [];
+    var adult = await db.query(
+      Constants.serviceSetupTable,
+    );
+
+    if (adult.isNotEmpty) {
+      for (var item in adult) {
+        offers.add(OffersModel.fromMap(item));
+        Get.log(item.toString());
+      }
+    }
+    return offers;
   }
 
   /*Future<List<IncludedDrug>> filterDrug(String value) async {
