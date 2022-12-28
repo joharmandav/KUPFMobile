@@ -29,7 +29,10 @@ class ApiProvider extends GetConnect {
       Response response = await post("/Login/EmployeeLogin", data);
       if (response.statusCode == 200) {
         Get.log("Hello");
-        // Get.log(response.body);
+        List result = response.body;
+        if (result.isEmpty) {
+          return null;
+        }
         return response.body;
       }
       // return null;

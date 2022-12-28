@@ -147,8 +147,8 @@ class OffersModel {
   String offerImage;
   String offerType;
   String offer;
-  String offerStartDate;
-  String offerEndDate;
+  String? offerStartDate;
+  String? offerEndDate;
   dynamic offerAmount;
 
   factory OffersModel.fromJson(Map<String, dynamic> json) => OffersModel(
