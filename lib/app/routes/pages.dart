@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:kupf/presentation/bindings/user/login_binding.dart';
-import 'package:kupf/presentation/screen/sigin_view/forgot_password_view.dart';
-import 'package:kupf/presentation/screen/sigin_view/otp_verification.dart';
-import 'package:kupf/presentation/screen/sigin_view/reset_password_view.dart';
+import 'package:kupf_mobile/presentation/bindings/user/login_binding.dart';
+import 'package:kupf_mobile/presentation/screen/sigin_view/forgot_password_view.dart';
+import 'package:kupf_mobile/presentation/screen/sigin_view/otp_verification.dart';
+import 'package:kupf_mobile/presentation/screen/sigin_view/reset_password_view.dart';
 import '../../presentation/bindings/home_binding.dart';
 import '../../presentation/bindings/user/forgot_binding.dart';
 import '../../presentation/bindings/user/otp_verification_binding.dart';

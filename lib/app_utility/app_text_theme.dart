@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kupf/app_utility/app_color.dart';
+import 'package:kupf_mobile/app_utility/app_color.dart';
 
 abstract class AppTextTheme {
   static TextTheme get _poppinsTextTheme => GoogleFonts.poppinsTextTheme();

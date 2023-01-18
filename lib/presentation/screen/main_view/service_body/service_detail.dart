@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kupf/app_utility/app_color.dart';
-import 'package:kupf/presentation/screen/sigin_view/sigin_view.dart';
-import 'package:kupf/widgets/k_text.dart';
+import 'package:kupf_mobile/app_utility/app_color.dart';
+import 'package:kupf_mobile/presentation/screen/sigin_view/sigin_view.dart';
+import 'package:kupf_mobile/widgets/k_text.dart';
 
 class ServiceDetail extends StatelessWidget {
   const ServiceDetail({Key? key}) : super(key: key);

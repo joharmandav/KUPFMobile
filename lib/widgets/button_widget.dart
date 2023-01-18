@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kupf/app_utility/app_text_theme.dart';
+import 'package:kupf_mobile/app_utility/app_text_theme.dart';
 
 class AppButtonElevated extends StatelessWidget {
   final String text;

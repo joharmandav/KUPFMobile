@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/app_utility/app_color.dart';
-import 'package:kupf/app_utility/app_text_theme.dart';
-import 'package:kupf/app_utility/image_string.dart';
-import 'package:kupf/widgets/k_text.dart';
+import 'package:kupf_mobile/app_utility/app_color.dart';
+import 'package:kupf_mobile/app_utility/app_text_theme.dart';
+import 'package:kupf_mobile/app_utility/image_string.dart';
+import 'package:kupf_mobile/widgets/k_text.dart';
 import '../../../../widgets/loading.dart';
 import '../../../controller/offers/offer_controller.dart';
 import '../../../models/offers_model.dart';

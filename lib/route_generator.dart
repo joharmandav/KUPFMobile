@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kupf/app_utility/constants.dart';
-import 'package:kupf/presentation/screen/sigin_view/sigin_view.dart';
-import 'package:kupf/presentation/screen/splash_view/splash_view.dart';
+import 'package:kupf_mobile/app_utility/constants.dart';
+import 'package:kupf_mobile/presentation/screen/sigin_view/sigin_view.dart';
+import 'package:kupf_mobile/presentation/screen/splash_view/splash_view.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

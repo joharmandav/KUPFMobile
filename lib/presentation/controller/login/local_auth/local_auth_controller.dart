@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:kupf/presentation/controller/main/general_controller.dart';
+import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../../../helper/toaster.dart';

@@ -66,17 +66,19 @@ class DefaultFirebaseOptions {
     messagingSenderId: '712410683340',
     projectId: 'kupf-5fe2b',
     storageBucket: 'kupf-5fe2b.appspot.com',
+    androidClientId: '712410683340-fftgr20dq05lfj3203o5fbo55u9g3srd.apps.googleusercontent.com',
     iosClientId: '712410683340-2kkhuh9eah8dk8fi3dao2913j1dpfspc.apps.googleusercontent.com',
     iosBundleId: 'com.example.kupf',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyCHOCEzL3bTSqq2RSQmIk8KhDbQCHQoNic',
-    appId: '1:712410683340:ios:48a4ead6d359705656af69',
+    appId: '1:712410683340:ios:9cf0857113c7c53b56af69',
     messagingSenderId: '712410683340',
     projectId: 'kupf-5fe2b',
     storageBucket: 'kupf-5fe2b.appspot.com',
-    iosClientId: '712410683340-2kkhuh9eah8dk8fi3dao2913j1dpfspc.apps.googleusercontent.com',
-    iosBundleId: 'com.example.kupf',
+    androidClientId: '712410683340-fftgr20dq05lfj3203o5fbo55u9g3srd.apps.googleusercontent.com',
+    iosClientId: '712410683340-rv8vg3apkhn9dla5ne592kupfqjk34iu.apps.googleusercontent.com',
+    iosBundleId: 'com.example.kupfMobile',
   );
 }

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:kupf/app/server/api/api_provider.dart';
-import 'package:kupf/app/server/database/kupf_database.dart';
-import 'package:kupf/presentation/controller/main/general_controller.dart';
-import 'package:kupf/presentation/models/detailed_employee_model.dart';
-import 'package:kupf/presentation/models/ref_table_model.dart';
+import 'package:kupf_mobile/app/server/api/api_provider.dart';
+import 'package:kupf_mobile/app/server/database/kupf_database.dart';
+import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
+import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
+import 'package:kupf_mobile/presentation/models/ref_table_model.dart';
 
 import '../../../helper/toaster.dart';
 import '../../../languages/language_constants.dart';
@@ -137,7 +137,7 @@ class ProfileBodyController extends GetxController
     if (await _connectivityService.checkConnectivity()) {
       try {
         detailedEmployeeModel =
-            await _apiProvider.getEmployeeProfileById("16700123");
+            await _apiProvider.getEmployeeProfileById(controller.detailedEmployeeModel!.employeeID);
       } on Exception catch (e) {
         _isLoading(false);
         Toaster.showError(e.toString());

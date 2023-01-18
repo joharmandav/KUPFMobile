@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/app_utility/common_function.dart';
+import 'package:kupf_mobile/app_utility/common_function.dart';
 
 import '../../app_utility/app_color.dart';
 

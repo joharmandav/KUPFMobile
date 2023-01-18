@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/presentation/controller/dashboard_view_controller.dart';
-import 'package:kupf/presentation/controller/profile/profile_body_controller.dart';
+import 'package:kupf_mobile/presentation/controller/dashboard_view_controller.dart';
+import 'package:kupf_mobile/presentation/controller/profile/profile_body_controller.dart';
 
 import '../../screen/main_view/home/dashboard_view.dart';
 import '../../screen/main_view/online_form_body/online_form_view.dart';

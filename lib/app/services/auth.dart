@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -12,7 +12,7 @@ import '../server/database/database.dart';
 import '../server/database/db_constant.dart';
 
 class AuthServices {
-  final fbLogin = FacebookAuth.instance;
+  // final fbLogin = FacebookAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   static final firebaseAuth = FirebaseAuth.instance;
 
@@ -148,35 +148,35 @@ class AuthServices {
     return null;
   }
 
-  Future<SocialUserInfo?> facebookSignIn() async {
-    // Trigger the sign-in flow
-    final LoginResult result = await fbLogin.login();
-    if (result.accessToken != null && result.status == LoginStatus.success) {
-      // Create a credential from the access token
-      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken!.token);
-
-      // Once signed in, return the UserCredential
-      UserCredential loginResult = await firebaseAuth.signInWithCredential(facebookAuthCredential);
-
-      // final userData = await fbLogin.getUserData();
-
-      try {
-        SocialUserInfo info = SocialUserInfo();
-        info.name = loginResult.user!.displayName;
-        info.email = loginResult.user!.email;
-        info.id = loginResult.user!.uid;
-        info.picture = loginResult.user!.photoURL;
-
-        await DatabaseManager().insert(Constants.socialUserInfoTable, info);
-
-        return info;
-      } catch (e) {
-        print("Facebook Sign Error: $e");
-        Toaster.showError("Facebook Sign Error: ${e.toString()}");
-      }
-    }
-    return null;
-  }
+  // Future<SocialUserInfo?> facebookSignIn() async {
+  //   // Trigger the sign-in flow
+  //   final LoginResult result = await fbLogin.login();
+  //   if (result.accessToken != null && result.status == LoginStatus.success) {
+  //     // Create a credential from the access token
+  //     final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken!.token);
+  //
+  //     // Once signed in, return the UserCredential
+  //     UserCredential loginResult = await firebaseAuth.signInWithCredential(facebookAuthCredential);
+  //
+  //     // final userData = await fbLogin.getUserData();
+  //
+  //     try {
+  //       SocialUserInfo info = SocialUserInfo();
+  //       info.name = loginResult.user!.displayName;
+  //       info.email = loginResult.user!.email;
+  //       info.id = loginResult.user!.uid;
+  //       info.picture = loginResult.user!.photoURL;
+  //
+  //       await DatabaseManager().insert(Constants.socialUserInfoTable, info);
+  //
+  //       return info;
+  //     } catch (e) {
+  //       print("Facebook Sign Error: $e");
+  //       Toaster.showError("Facebook Sign Error: ${e.toString()}");
+  //     }
+  //   }
+  //   return null;
+  // }
 
   static Future<void> logout() async {
     firebaseAuth.signOut();

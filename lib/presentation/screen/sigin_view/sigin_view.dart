@@ -2,15 +2,15 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:kupf/app_utility/app_color.dart';
-import 'package:kupf/app_utility/app_text_theme.dart';
-import 'package:kupf/app_utility/common_function.dart';
-import 'package:kupf/app_utility/image_string.dart';
-import 'package:kupf/presentation/controller/login/login_controller.dart';
-import 'package:kupf/widgets/button_widget.dart';
-import 'package:kupf/widgets/curve_box_decoration.dart';
-import 'package:kupf/widgets/k_text.dart';
-import 'package:kupf/widgets/k_textfield.dart';
+import 'package:kupf_mobile/app_utility/app_color.dart';
+import 'package:kupf_mobile/app_utility/app_text_theme.dart';
+import 'package:kupf_mobile/app_utility/common_function.dart';
+import 'package:kupf_mobile/app_utility/image_string.dart';
+import 'package:kupf_mobile/presentation/controller/login/login_controller.dart';
+import 'package:kupf_mobile/widgets/button_widget.dart';
+import 'package:kupf_mobile/widgets/curve_box_decoration.dart';
+import 'package:kupf_mobile/widgets/k_text.dart';
+import 'package:kupf_mobile/widgets/k_textfield.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../../widgets/loading.dart';
@@ -222,12 +222,12 @@ class SignInView extends GetView<LoginController> {
                               icon: MdiIcons.google,
                               onPressed: controller.signInWithGoogle,
                             ),
-                            AppUtility.widthBox,
-                            SocialIconWidget(
-                              color: const Color(0XFF4267B2),
-                              icon: MdiIcons.facebook,
-                              onPressed: controller.signInWithFaceBook,
-                            ),
+                            // AppUtility.widthBox,
+                            // SocialIconWidget(
+                            //   color: const Color(0XFF4267B2),
+                            //   icon: MdiIcons.facebook,
+                            //   onPressed: controller.signInWithFaceBook,
+                            // ),
                             if (GetPlatform.isIOS) AppUtility.widthBox,
                             if (GetPlatform.isIOS)
                               SocialIconWidget(

@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:kupf/app/services/auth.dart';
-import 'package:kupf/app_utility/app_color.dart';
-import 'package:kupf/presentation/models/detailed_employee_model.dart';
+import 'package:kupf_mobile/app/services/auth.dart';
+import 'package:kupf_mobile/app_utility/app_color.dart';
+import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
 
 class GeneralController extends GetxController {
   GetStorage storageBox = GetStorage();

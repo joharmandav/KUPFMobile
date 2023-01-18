@@ -1,4 +1,4 @@
-# kupf
+# kupf_mobile
 
 A new Flutter project.
 

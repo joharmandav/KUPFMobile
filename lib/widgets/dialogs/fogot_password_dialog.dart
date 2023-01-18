@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/app_utility/common_function.dart';
-import 'package:kupf/languages/language_constants.dart';
+import 'package:kupf_mobile/app_utility/common_function.dart';
+import 'package:kupf_mobile/languages/language_constants.dart';
 
 import '../../presentation/controller/login/forgot_password_dialog_controller.dart';
 import 'card/custom_phone_email_card.dart';

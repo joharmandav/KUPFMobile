@@ -1,6 +1,6 @@
 {
-    "name": "kupf",
-    "short_name": "kupf",
+    "name": "kupf_mobile",
+    "short_name": "kupf_mobile",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

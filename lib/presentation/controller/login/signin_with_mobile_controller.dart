@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/helper/toaster.dart';
+import 'package:kupf_mobile/helper/toaster.dart';
 
 import '../connectivity_controller.dart';
 

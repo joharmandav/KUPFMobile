@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/app_utility/app_color.dart';
-import 'package:kupf/app_utility/app_text_theme.dart';
-import 'package:kupf/app_utility/common_function.dart';
-import 'package:kupf/widgets/button_widget.dart';
-import 'package:kupf/widgets/k_text.dart';
+import 'package:kupf_mobile/app_utility/app_color.dart';
+import 'package:kupf_mobile/app_utility/app_text_theme.dart';
+import 'package:kupf_mobile/app_utility/common_function.dart';
+import 'package:kupf_mobile/widgets/button_widget.dart';
+import 'package:kupf_mobile/widgets/k_text.dart';
 
 import '../../../../languages/language_constants.dart';
 import '../../../../widgets/curve_box_decoration.dart';

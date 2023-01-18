@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:get/get.dart';
-import 'package:kupf/widgets/buttons/custom_back_pressed.dart';
+import 'package:kupf_mobile/widgets/buttons/custom_back_pressed.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import '../../../app_utility/common_function.dart';
 import '../../../languages/language_constants.dart';

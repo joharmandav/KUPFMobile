@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:kupf/app_utility/app_color.dart';
-import 'package:kupf/app_utility/constants.dart';
-import 'package:kupf/app_utility/image_string.dart';
-import 'package:kupf/presentation/controller/main/general_controller.dart';
-import 'package:kupf/presentation/screen/main_view/main_view.dart';
+import 'package:kupf_mobile/app_utility/app_color.dart';
+import 'package:kupf_mobile/app_utility/constants.dart';
+import 'package:kupf_mobile/app_utility/image_string.dart';
+import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
+import 'package:kupf_mobile/presentation/screen/main_view/main_view.dart';
 
 import '../../../app/routes/routes.dart';
 import '../../../app_utility/common_function.dart';

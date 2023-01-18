@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:kupf/app/server/api/api_provider.dart';
+import 'package:kupf_mobile/app/server/api/api_provider.dart';
 
 import '../app/server/database/database.dart';
 import '../app/server/database/kupf_database.dart';

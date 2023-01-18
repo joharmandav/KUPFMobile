@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>712410683340-2kkhuh9eah8dk8fi3dao2913j1dpfspc.apps.googleusercontent.com</string>
+	<string>712410683340-rv8vg3apkhn9dla5ne592kupfqjk34iu.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.712410683340-2kkhuh9eah8dk8fi3dao2913j1dpfspc</string>
+	<string>com.googleusercontent.apps.712410683340-rv8vg3apkhn9dla5ne592kupfqjk34iu</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>712410683340-fftgr20dq05lfj3203o5fbo55u9g3srd.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCHOCEzL3bTSqq2RSQmIk8KhDbQCHQoNic</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.kupf</string>
+	<string>com.example.kupfMobile</string>
 	<key>PROJECT_ID</key>
 	<string>kupf-5fe2b</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:712410683340:ios:48a4ead6d359705656af69</string>
+	<string>1:712410683340:ios:9cf0857113c7c53b56af69</string>
 </dict>
 </plist>

@@ -1,8 +1,8 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/presentation/controller/login/forgot_password_dialog_controller.dart';
-import 'package:kupf/presentation/screen/sigin_view/otp_verification.dart';
+import 'package:kupf_mobile/presentation/controller/login/forgot_password_dialog_controller.dart';
+import 'package:kupf_mobile/presentation/screen/sigin_view/otp_verification.dart';
 
 import '../../../app_utility/app_text_theme.dart';
 import '../../../app_utility/common_function.dart';

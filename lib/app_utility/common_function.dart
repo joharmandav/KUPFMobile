@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:kupf/app_utility/app_color.dart';
-import 'package:kupf/app_utility/app_text_theme.dart';
-import 'package:kupf/app_utility/image_string.dart';
+import 'package:kupf_mobile/app_utility/app_color.dart';
+import 'package:kupf_mobile/app_utility/app_text_theme.dart';
+import 'package:kupf_mobile/app_utility/image_string.dart';
 import '../languages/language_constants.dart';
 
 abstract class AppUtility {

@@ -14,6 +14,50 @@
       },
       "oauth_client": [
         {
+          "client_id": "712410683340-fftgr20dq05lfj3203o5fbo55u9g3srd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kupf",
+            "certificate_hash": "99ec8eae38eaf332d175bb4c66d6d6d75d7173d3"
+          }
+        },
+        {
+          "client_id": "712410683340-s0tges0a8evqi229f88i9bf0nm2gnguj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_ILkBnUcz_wEfiQiuYJGKHAs1g-VUQmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712410683340-s0tges0a8evqi229f88i9bf0nm2gnguj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "712410683340-2kkhuh9eah8dk8fi3dao2913j1dpfspc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kupf"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712410683340:android:f5b42381b448471456af69",
+        "android_client_info": {
+          "package_name": "com.example.kupf_mobile"
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "712410683340-s0tges0a8evqi229f88i9bf0nm2gnguj.apps.googleusercontent.com",
           "client_type": 3
         }

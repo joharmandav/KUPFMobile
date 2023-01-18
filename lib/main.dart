@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/app_utility/app_theme.dart';
-import 'package:kupf/presentation/controller/main/general_controller.dart';
-import 'package:kupf/services/app_servces.dart';
+import 'package:kupf_mobile/app_utility/app_theme.dart';
+import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
+import 'package:kupf_mobile/services/app_servces.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'app/routes/pages.dart';
 import 'app/routes/routes.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/helper/toaster.dart';
-import 'package:kupf/presentation/controller/main/general_controller.dart';
+import 'package:kupf_mobile/helper/toaster.dart';
+import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 
 import '../../../../app_utility/app_color.dart';
 import '../../../../languages/language_constants.dart';

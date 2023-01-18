@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:huawei_account/huawei_account.dart';
-import 'package:kupf/app/server/database/kupf_database.dart';
-import 'package:kupf/presentation/controller/login/local_auth/local_auth_controller.dart';
+import 'package:kupf_mobile/app/server/database/kupf_database.dart';
+import 'package:kupf_mobile/presentation/controller/login/local_auth/local_auth_controller.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../../app/routes/routes.dart';
@@ -82,7 +82,7 @@ class LoginController extends GetxController {
     Get.log(userName);
     final controller = Get.find<GeneralController>();
     String device = await controller.deviceID();
-    late final result;
+    DetailedEmployeeModel? result;
     bool isOnline = await _connectivityService.checkConnectivity();
     if (isOnline) {
       try {
@@ -98,15 +98,7 @@ class LoginController extends GetxController {
       Toaster.showError("User not found");
       return;
     }
-    if (!isOnline) {
       controller.detailedEmployeeModel = result;
-    } else {
-      try {
-        controller.detailedEmployeeModel = await _apiProvider.getEmployeeProfileById("16700123");
-      } on Exception catch (e) {
-        Toaster.showError(e.toString());
-      }
-    }
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
     if (isPhone.value) {
@@ -119,9 +111,12 @@ class LoginController extends GetxController {
     navigation();
   }
 
-  Future<dynamic> loginApi(String username, String password) async {
+  Future<DetailedEmployeeModel?> loginApi(String username, String password) async {
     try {
-      return await _apiProvider.loginEmployee(username, password);
+      var response = await _apiProvider.loginEmployee(username, password);
+      if (response == null) return null;
+      DetailedEmployeeModel detailedEmployeeModel = DetailedEmployeeModel.fromJson(response);
+      return detailedEmployeeModel;
     } on Exception catch (e) {
       return Future.error(e);
     }
@@ -153,7 +148,7 @@ class LoginController extends GetxController {
     String? password = controller.storageBox.read('password');
     String username = email ?? phone ?? "";
     isAction(true);
-    late final result;
+    DetailedEmployeeModel? result;
     if (await _connectivityService.checkConnectivity()) {
       try {
         result = await loginApi(username, password!);
@@ -170,13 +165,9 @@ class LoginController extends GetxController {
       isAction(false);
       Toaster.showError("User not found");
       return;
-    } else {
-      try {
-        controller.detailedEmployeeModel = await _apiProvider.getEmployeeProfileById("16700123");
-      } on Exception catch (e) {
-        Toaster.showError(e.toString());
-      }
     }
+
+    controller.detailedEmployeeModel = result;
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
     isAction(false);
@@ -220,20 +211,20 @@ class LoginController extends GetxController {
     navigation();
   }
 
-  Future<void> signInWithFaceBook() async {
-    isAction(true);
-    SocialUserInfo? info =
-    await authServices.facebookSignIn();
-    if (info == null) {
-      isAction(false);
-      return;
-    }
-    Get.find<GeneralController>()
-        .storageBox
-        .write('status', 1);
-    isAction(false);
-    navigation();
-  }
+  // Future<void> signInWithFaceBook() async {
+  //   isAction(true);
+  //   SocialUserInfo? info =
+  //   await authServices.facebookSignIn();
+  //   if (info == null) {
+  //     isAction(false);
+  //     return;
+  //   }
+  //   Get.find<GeneralController>()
+  //       .storageBox
+  //       .write('status', 1);
+  //   isAction(false);
+  //   navigation();
+  // }
 
   Future<void> signInWithApple() async {
     SocialUserInfo? info = await authServices.appleSignIn();

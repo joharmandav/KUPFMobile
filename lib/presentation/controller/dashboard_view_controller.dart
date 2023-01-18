@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:kupf/presentation/controller/main/general_controller.dart';
+import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 
 class DashboardViewController extends GetxController {
   final controller = Get.find<GeneralController>();

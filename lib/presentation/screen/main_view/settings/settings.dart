@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/presentation/controller/main/general_controller.dart';
-import 'package:kupf/presentation/screen/main_view/settings/change_color_page.dart';
+import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
+import 'package:kupf_mobile/presentation/screen/main_view/settings/change_color_page.dart';
 
 import '../../../../app_utility/common_function.dart';
 import '../../../../languages/language_constants.dart';

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:kupf/helper/toaster.dart';
-import 'package:kupf/presentation/models/service_setup_model.dart';
+import 'package:kupf_mobile/helper/toaster.dart';
+import 'package:kupf_mobile/presentation/models/service_setup_model.dart';
 
 import '../../../presentation/models/detailed_employee_model.dart';
 import '../../../presentation/models/offers_model.dart';
@@ -26,13 +26,9 @@ class ApiProvider extends GetConnect {
       "token": ""
     };
     try {
-      Response response = await post("/Login/EmployeeLogin", data);
+      Response response = await post("/Login/MobileLogin", data);
       if (response.statusCode == 200) {
         Get.log("Hello");
-        List result = response.body;
-        if (result.isEmpty) {
-          return null;
-        }
         return response.body;
       }
       // return null;

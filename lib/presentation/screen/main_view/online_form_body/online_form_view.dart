@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kupf/presentation/screen/main_view/online_form_body/online_form_body.dart';
+import 'package:kupf_mobile/presentation/screen/main_view/online_form_body/online_form_body.dart';
 
 import '../../../../app_utility/app_text_theme.dart';
 import '../../../../app_utility/common_function.dart';
