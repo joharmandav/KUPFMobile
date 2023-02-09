@@ -70,6 +70,7 @@ class OffersModel {
     this.file2,
     required this.offerImage,
     required this.offerType,
+    required this.offerTypeName,
     required this.offer,
     required this.offerStartDate,
     required this.offerEndDate,
@@ -146,6 +147,7 @@ class OffersModel {
   String? file2;
   String offerImage;
   String offerType;
+  String offerTypeName;
   String offer;
   String? offerStartDate;
   String? offerEndDate;
@@ -222,6 +224,7 @@ class OffersModel {
     file2: json["file2"],
     offerImage: json["offerImage"],
     offerType: json["offerType"],
+    offerTypeName: json["offerTypeName"],
     offer: json["offer"],
     offerStartDate: json["offerStartDate"],
     offerEndDate: json["offerEndDate"],
@@ -376,6 +379,7 @@ class OffersModel {
     file2: json["file2"],
     offerImage: json["offerImage"],
     offerType: json["offerType"],
+    offerTypeName: json["offerTypeName"],
     offer: json["offer"],
     offerStartDate: json["offerStartDate"],
     offerEndDate: json["offerEndDate"],
@@ -453,6 +457,7 @@ class OffersModel {
     "file2": file2,
     "offerImage": offerImage,
     "offerType": offerType,
+    "offerTypeName": offerTypeName,
     "offer": offer,
     "offerStartDate": offerStartDate,
     "offerEndDate": offerEndDate,

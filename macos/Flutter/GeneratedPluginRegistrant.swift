@@ -9,7 +9,7 @@ import connectivity_plus
 import device_info_plus
 import firebase_auth
 import firebase_core
-import path_provider_macos
+import path_provider_foundation
 import sign_in_with_apple
 import sqflite
 

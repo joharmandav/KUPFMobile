@@ -101,6 +101,7 @@ class LoginController extends GetxController {
       controller.detailedEmployeeModel = result;
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
+    await controller.storageBox.write('employeeID', result.employeeID);
     if (isPhone.value) {
       await controller.storageBox.write('phone', userName);
     } else {

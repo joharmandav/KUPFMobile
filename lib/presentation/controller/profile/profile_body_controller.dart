@@ -137,7 +137,7 @@ class ProfileBodyController extends GetxController
     if (await _connectivityService.checkConnectivity()) {
       try {
         detailedEmployeeModel =
-            await _apiProvider.getEmployeeProfileById(controller.detailedEmployeeModel!.employeeID);
+            await _apiProvider.getEmployeeProfileById(controller.storageBox.read("employeeID"));
       } on Exception catch (e) {
         _isLoading(false);
         Toaster.showError(e.toString());
@@ -159,8 +159,8 @@ class ProfileBodyController extends GetxController
     controller.detailedEmployeeModel = detailedEmployeeModel!;
     employeeNameController.text = detailedEmployeeModel!.englishName!;
     arabicNameController.text = detailedEmployeeModel!.arabicName!;
-    dobController.text = DateFormat('yyyy-MM-dd')
-        .format(DateTime.parse(detailedEmployeeModel?.employeeBirthday ?? ""));
+    dobController.text = detailedEmployeeModel?.employeeBirthday != null ? DateFormat('yyyy-MM-dd')
+        .format(DateTime.parse(detailedEmployeeModel?.employeeBirthday ?? "")) : "";
     gender.value = detailedEmployeeModel!.employeeGender != null &&
             detailedEmployeeModel!.employeeGender == 1
         ? LanguageConstants.male.tr
@@ -178,11 +178,11 @@ class ProfileBodyController extends GetxController
     salaryController.text = detailedEmployeeModel!.salary?.toString() ?? "";
     paciController.text = detailedEmployeeModel!.paciNumber.toString();
     otherIDController.text = detailedEmployeeModel!.otherID;
-    if (detailedEmployeeModel!.uploadBy != null &&
-        detailedEmployeeModel!.uploadBy!.isNotEmpty &&
-        detailedEmployeeModel!.uploadBy != "string") {
-      pickedFile(XFile(detailedEmployeeModel!.uploadBy!));
-    }
+    // if (detailedEmployeeModel!.uploadBy != null &&
+    //     detailedEmployeeModel!.uploadBy!.isNotEmpty &&
+    //     detailedEmployeeModel!.uploadBy != "string") {
+    //   pickedFile(XFile(detailedEmployeeModel!.uploadBy!));
+    // }
 
     await getDepartment();
     await getOccupation();

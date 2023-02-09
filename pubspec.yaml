@@ -42,7 +42,7 @@ dependencies:
   image_picker:
   intl: ^0.18.0
   flutter_circle_color_picker: ^0.3.0
-  flutter_svg: ^1.1.6
+  flutter_svg: ^2.0.0+1
   material_design_icons_flutter: ^6.0.7096
   fluttertoast: ^8.1.2
   pin_code_fields: ^7.4.0
@@ -52,7 +52,7 @@ dependencies:
   #statemanagement
   get: ^4.6.5
   #  provider: ^6.0.3
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.3
   firebase_auth: ^4.1.5
 
   google_sign_in: ^5.4.2

@@ -33,7 +33,7 @@ class SpecialServices extends StatelessWidget {
                   padding:  EdgeInsets.all(8.0),
                   child: Image(image: ImageString.tooth),
                 ),
-                title: KText(offer.offer,
+                title: KText(offer.offerTypeName,
                     style: AppTextTheme.bodyText1grey
                         .copyWith(fontWeight: FontWeight.bold)),
                 // subtitle: Text('${tooth.kuwaitDinar} KWD',
