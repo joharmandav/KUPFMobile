@@ -1,3 +1,25 @@
+
+class ServiceSetupDto {
+  List<OffersModel> serviceSetupDto;
+  int totalRecords;
+
+  ServiceSetupDto({
+    required this.serviceSetupDto,
+    required this.totalRecords,
+  });
+
+  factory ServiceSetupDto.fromJson(Map<String, dynamic> json) => ServiceSetupDto(
+    serviceSetupDto: List<OffersModel>.from(json["serviceSetupDto"].map((x) => OffersModel.fromJson(x))),
+    totalRecords: json["totalRecords"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "serviceSetupDto": List<dynamic>.from(serviceSetupDto.map((x) => x.toJson())),
+    "totalRecords": totalRecords,
+  };
+}
+
+
 class OffersModel {
   OffersModel({
     required this.tenentId,
@@ -68,6 +90,7 @@ class OffersModel {
     this.electronicForm2Url,
     this.file1,
     this.file2,
+    this.offerName,
     required this.offerImage,
     required this.offerType,
     required this.offerTypeName,
@@ -133,7 +156,7 @@ class OffersModel {
   String? syncby;
   int? synId;
   bool? allowDiscountPer;
-  int? allowDiscountAmount;
+  double? allowDiscountAmount;
   bool? allowDiscountDefault;
   String? englishHtml;
   String? englishWebPageName;
@@ -145,12 +168,13 @@ class OffersModel {
   String? electronicForm2Url;
   String? file1;
   String? file2;
-  String offerImage;
+  String? offerImage;
   String offerType;
-  String offerTypeName;
-  String offer;
+  String? offerTypeName;
+  String? offer;
   String? offerStartDate;
   String? offerEndDate;
+  String? offerName;
   dynamic offerAmount;
 
   factory OffersModel.fromJson(Map<String, dynamic> json) => OffersModel(
@@ -229,6 +253,7 @@ class OffersModel {
     offerStartDate: json["offerStartDate"],
     offerEndDate: json["offerEndDate"],
     offerAmount: json["offerAmount"],
+    offerName: json['offerName'],
   );
 
   Map<String, dynamic> toJson() => {
@@ -306,6 +331,7 @@ class OffersModel {
     "offerStartDate": offerStartDate,
     "offerEndDate": offerEndDate,
     "offerAmount": offerAmount,
+    "offerName" : offerName
   };
 
   factory OffersModel.fromMap(Map<String, dynamic> json) => OffersModel(
@@ -384,6 +410,7 @@ class OffersModel {
     offerStartDate: json["offerStartDate"],
     offerEndDate: json["offerEndDate"],
     offerAmount: json["offerAmount"],
+    offerName: json['offerName'],
   );
 
   Map<String, dynamic> toMap() => {
@@ -462,5 +489,11 @@ class OffersModel {
     "offerStartDate": offerStartDate,
     "offerEndDate": offerEndDate,
     "offerAmount": offerAmount,
+    "offerName": offerName
   };
+
+
+  double getDiscountedAmount() {
+    return ((allowDiscountAmount ?? 0.0 / 100) * offerAmount);
+  }
 }

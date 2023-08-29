@@ -1,6 +1,7 @@
-import 'package:country_code_picker/country_code_picker.dart';
+// import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:kupf_mobile/presentation/controller/login/forgot_password_dialog_controller.dart';
 import 'package:kupf_mobile/presentation/screen/sigin_view/otp_verification.dart';
 
@@ -52,34 +53,26 @@ class ForgotPasswordView extends GetView<ForgotPasswordDialogController> {
                       ),
                       AppUtility.heightBox,
                       if(controller.isPhone.value)
-                      LabelTextField(
+                        IntlPhoneField(
                         // labelText: AppString.phoneNumber,
+                          controller: controller.emailController,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
+                          // invalidNumberMessage: ,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.completeNumber.isEmpty) {
                               return LanguageConstants.required.tr;
                             }
                             return null;
                           },
-                          hintText: '3180235478',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: CountryCodePicker(
-                            padding: EdgeInsets.zero,
-                            onInit: (value) {
-                              if (value!.code != null && value.code!.isNotEmpty) {
-                                controller.countryCode(value.dialCode);
-                              }
+                            onCountryChanged: (code) {
+                              controller.countryCode(code.dialCode);
                             },
+                            initialCountryCode: 'KW',
                             onChanged: (value) {
-                              if (value.code != null && value.code!.isNotEmpty) {
-                                controller.countryCode(value.dialCode);
-                              }
+                              controller.countryCode(value.countryCode);
                             },
-                            initialSelection: 'KW',
-                            showFlag: true,
-                            showDropDownButton: true,
-                            alignLeft: false,
-                          )),
+                          // keyboardType: TextInputType.number,
+                        ),
                       if (!controller.isPhone.value)
                         Column(
                           children: [

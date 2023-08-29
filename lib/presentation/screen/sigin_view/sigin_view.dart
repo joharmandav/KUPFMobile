@@ -1,7 +1,8 @@
-import 'package:country_code_picker/country_code_picker.dart';
+// import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:kupf_mobile/app_utility/app_color.dart';
 import 'package:kupf_mobile/app_utility/app_text_theme.dart';
 import 'package:kupf_mobile/app_utility/common_function.dart';
@@ -60,60 +61,48 @@ class SignInView extends GetView<LoginController> {
                         ),
                         AppUtility.heightBox,
                         if (controller.isPhone.value)
-                        LabelTextField(
-                          // labelText: AppString.phoneNumber,
-                          controller: controller.phoneController,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                          IntlPhoneField(
+                            // labelText: AppString.phoneNumber,
+                            controller: controller.phoneController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
+                              if (value == null ||
+                                  value.completeNumber.isEmpty) {
                                 return LanguageConstants.required.tr;
                               }
                               return null;
                             },
-                            hintText: '3180235478',
-                            keyboardType: TextInputType.number,
-                            prefixIcon: CountryCodePicker(
-                              padding: EdgeInsets.zero,
-                              onInit: (value) {
-                                if (value!.code != null && value.code!.isNotEmpty) {
-                                  controller.countryCode(value.dialCode);
-                                }
-                                Get.log("DialCode::: ${value.dialCode}");
-                              },
-                              onChanged: (value) {
-                                if (value.code != null && value.code!.isNotEmpty) {
-                                  controller.countryCode(value.dialCode);
-                                }
-                              },
-                              initialSelection: 'KW',
-                              showFlag: true,
-                              showDropDownButton: true,
-                              alignLeft: false,
-                            )),
-                        if (controller.isPhone.value)
-                        AppUtility.heightBox,
+                            onChanged: (value) {
+                              controller.countryCode(value.countryCode);
+                            },
+                            initialCountryCode: 'KW',
+                            // keyboardType: TextInputType.number,
+                          ),
+                        if (controller.isPhone.value) AppUtility.heightBox,
                         if (!controller.isPhone.value)
-                        LabelTextField(
-                          // labelText: AppString.phoneNumber,
-                          controller: controller.emailController,
-                          hintText: LanguageConstants.email.tr,
-                          keyboardType: TextInputType.emailAddress,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return LanguageConstants.emailRequired.tr;
-                            } /*else if (!GetUtils.isEmail(value)) {
+                          LabelTextField(
+                            // labelText: AppString.phoneNumber,
+                            controller: controller.emailController,
+                            hintText: LanguageConstants.email.tr,
+                            keyboardType: TextInputType.emailAddress,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return LanguageConstants.emailRequired.tr;
+                              }
+                              /*else if (!GetUtils.isEmail(value)) {
                               return LanguageConstants.invalidEmail.tr;
                             }*/
-                            return null;
-                          },
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.email_outlined),
-                            onPressed: () {},
+                              return null;
+                            },
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.email_outlined),
+                              onPressed: () {},
+                            ),
                           ),
-                        ),
-                        if (!controller.isPhone.value)
-                        AppUtility.heightBox,
+                        if (!controller.isPhone.value) AppUtility.heightBox,
                         LabelTextField(
                           controller: controller.passwordController,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -161,12 +150,15 @@ class SignInView extends GetView<LoginController> {
                                 onTap: () {
                                   Get.defaultDialog(
                                     backgroundColor: scaffoldColor.value,
-                                    title: LanguageConstants.forgotPassword.tr.replaceAll("?", ""),
+                                    title: LanguageConstants.forgotPassword.tr
+                                        .replaceAll("?", ""),
                                     titlePadding: const EdgeInsets.symmetric(
                                       horizontal: 8,
                                       vertical: 16,
                                     ),
-                                    titleStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+                                    titleStyle: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20),
                                     content: const ForgotPasswordDialog(),
                                   );
                                 },
@@ -207,12 +199,18 @@ class SignInView extends GetView<LoginController> {
                               SocialIconWidget(
                                 color: mainColor.value,
                                 icon: MdiIcons.fingerprint,
-                                onPressed: controller.localAuthController.isSupported && controller.localAuthController.isEnable ? controller.localAuth : null,
+                                onPressed: controller
+                                            .localAuthController.isSupported &&
+                                        controller.localAuthController.isEnable
+                                    ? controller.localAuth
+                                    : null,
                               ),
                             AppUtility.widthBox,
                             SocialIconWidget(
                               color: mainColor.value,
-                              icon: controller.isPhone.value ? MdiIcons.email : MdiIcons.phone,
+                              icon: controller.isPhone.value
+                                  ? MdiIcons.email
+                                  : MdiIcons.phone,
                               onPressed: () =>
                                   controller.isPhone(!controller.isPhone.value),
                             ),
@@ -271,7 +269,8 @@ class SignInView extends GetView<LoginController> {
                                 style: AppTextTheme.bodyText1Primary
                                     .copyWith(fontWeight: FontWeight.bold),
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () => Get.offAllNamed(AppRoutes.home),
+                                  ..onTap =
+                                      () => Get.offAllNamed(AppRoutes.home),
                               ),
                             ],
                           ),

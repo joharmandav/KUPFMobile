@@ -47,7 +47,7 @@ class DrawerView extends StatelessWidget {
                     leading: const Icon(Icons.account_circle, color: AppColor.white),
                     onTap: () async {
                       if (!Get.find<GeneralController>().checkStatus()) {
-                        Get.find<GeneralController>()
+                        await Get.find<GeneralController>()
                             .storeData('route', 'profile');
                         var result =
                         await Get.toNamed(AppRoutes.login);
@@ -67,7 +67,7 @@ class DrawerView extends StatelessWidget {
                         color: AppColor.white),
                     onTap: () async {
                       if (!Get.find<GeneralController>().checkStatus()) {
-                        Get.find<GeneralController>()
+                        await Get.find<GeneralController>()
                             .storeData('route', 'service');
                         var result =
                         await Get.toNamed(AppRoutes.login);

@@ -1,4 +1,5 @@
-import 'package:country_code_picker/country_code_picker.dart';
+// import 'package:country_picker/country_picker.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,35 +52,54 @@ class SignInWithMobileView extends StatelessWidget {
                         child: Image(image: ImageString.logo),
                       ),
                       AppUtility.heightBox,
-                      LabelTextField(
-                        // labelText: AppString.phoneNumber,
+                      IntlPhoneField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                        readOnly: controller.otpSent.value,
+                        onChanged: (value) {
+
+                        },
+                        onCountryChanged: (value) {
+                          controller.countryCode(value.dialCode);
+                        },
+                        controller: controller.phoneController,
+                        initialCountryCode: 'KW',
+                        // keyboardType: TextInputType.number,
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null || value.completeNumber.isEmpty) {
                             return LanguageConstants.required.tr;
                           }
                           return null;
                         },
-                        readOnly: controller.otpSent.value,
-                          hintText: '3180235478',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: CountryCodePicker(
-                            padding: EdgeInsets.zero,
-                            onInit: (value) {
-                              if (value!.code != null && value.code!.isNotEmpty) {
-                                controller.countryCode(value.dialCode);
-                              }
-                            },
-                            onChanged: (value) {
-                              if (value.code != null && value.code!.isNotEmpty) {
-                                controller.countryCode(value.dialCode);
-                              }
-                            },
-                            initialSelection: 'KW',
-                            showFlag: true,
-                            showDropDownButton: true,
-                            alignLeft: false,
-                          )),
+                      ),
+                      // LabelTextField(
+                      //   // labelText: AppString.phoneNumber,
+                      //   autovalidateMode: AutovalidateMode.onUserInteraction,
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return LanguageConstants.required.tr;
+                      //     }
+                      //     return null;
+                      //   },
+                      //   readOnly: controller.otpSent.value,
+                      //     hintText: '3180235478',
+                      //     keyboardType: TextInputType.number,
+                      //     prefixIcon: CountryCodePicker(
+                      //       padding: EdgeInsets.zero,
+                      //       onInit: (value) {
+                      //         if (value!.code != null && value.code!.isNotEmpty) {
+                      //           controller.countryCode(value.dialCode);
+                      //         }
+                      //       },
+                      //       onChanged: (value) {
+                      //         if (value.code != null && value.code!.isNotEmpty) {
+                      //           controller.countryCode(value.dialCode);
+                      //         }
+                      //       },
+                      //       initialSelection: 'KW',
+                      //       showFlag: true,
+                      //       showDropDownButton: true,
+                      //       alignLeft: false,
+                      //     )),
                       if (controller.otpSent.value)
                         Column(
                           children: [
@@ -110,7 +130,7 @@ class SignInWithMobileView extends StatelessWidget {
                               textAlign: TextAlign.center,
                               text: TextSpan(
                                 text: LanguageConstants.dontReceive.tr,
-                                style: Get.theme.textTheme.subtitle2!.copyWith(color: Colors.black54, fontWeight: FontWeight.w400),
+                                style: Get.theme.textTheme.titleSmall!.copyWith(color: Colors.black54, fontWeight: FontWeight.w400),
                                 children: [
                                   TextSpan(
                                     text: controller.isActive
@@ -118,7 +138,7 @@ class SignInWithMobileView extends StatelessWidget {
                                         : " ${LanguageConstants.resend.tr}",
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () => controller.reSend(),
-                                    style: Get.theme.textTheme.subtitle2!.copyWith(
+                                    style: Get.theme.textTheme.titleSmall!.copyWith(
                                       color: controller.isActive
                                           ? Colors.black54
                                           : Colors.blue,

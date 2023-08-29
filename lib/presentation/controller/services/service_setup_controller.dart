@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:kupf_mobile/presentation/controller/connectivity_controller.dart';
+import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 import 'package:kupf_mobile/presentation/models/service_setup_model.dart';
 
 import '../../../app/server/api/api_provider.dart';
@@ -20,6 +21,10 @@ class ServiceSetupController extends GetxController {
 
   Future<List<ServiceSetupModel>> getServicesFormLocal() async {
     if (await _connectivityService.checkConnectivity()) {
+      final _controller = Get.find<GeneralController>();
+      // Map<String, String> header = {
+      //   "Authorization" : "Bearer ${_controller.readData("token")}",
+      // };
       return await _apiProvider.getServiceSetup();
     }
     return await DbManager().getServiceSetup();

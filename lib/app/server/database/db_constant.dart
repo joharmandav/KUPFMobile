@@ -27,6 +27,7 @@ class Constants {
   static const deLocationID = "LocationID";
   static const contractType = "ContractType";
   static const pfID = "PFID";
+  static const token = "token";
   static const subscribedDate = "SubscribedDate";
   static const agreedSubAmount = "AgreedSubAmount";
   static const reSubscribed = "ReSubscribed";

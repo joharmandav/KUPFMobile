@@ -5,7 +5,7 @@ import '../../app/server/database/db_constant.dart';
 class DetailedEmployeeModel {
   final int tenentID;
   final int locationID;
-  final String employeeID;
+  final int employeeID;
   final String? contractType;
   final String? pfID;
   final String? subscribedDate;
@@ -16,6 +16,7 @@ class DetailedEmployeeModel {
   String? englishName;
   final int? jobTitleCode;
   final String? jobTitleName;
+  final String token;
   int? department;
   String? departmentName;
   int? employeeGender;
@@ -83,6 +84,7 @@ class DetailedEmployeeModel {
     this.subscribedDate,
     this.agreedSubAmount,
     this.reSubscribed,
+    required this.token,
     required this.employeeType,
     this.arabicName,
     this.englishName,
@@ -154,6 +156,7 @@ class DetailedEmployeeModel {
         employeeID: map[Constants.employeeID],
         contractType: map[Constants.contractType],
         pfID: map[Constants.pfID],
+        token: map[Constants.token] ?? "",
         subscribedDate: DateFormat().format(map[Constants.subscribedDate]),
         agreedSubAmount: map[Constants.agreedSubAmount],
         reSubscribed: DateFormat().format(map[Constants.reSubscribed]),
@@ -225,6 +228,7 @@ class DetailedEmployeeModel {
     Constants.employeeID: employeeID,
     Constants.contractType: contractType,
     Constants.pfID: pfID,
+    Constants.token : token,
     Constants.subscribedDate: DateTime.parse(subscribedDate!),
     Constants.agreedSubAmount: agreedSubAmount,
     Constants.reSubscribed: DateTime.parse(reSubscribed!),
@@ -296,6 +300,7 @@ class DetailedEmployeeModel {
     employeeID: json["employeeId"],
     contractType: json["contractType"],
     pfID: json["pfid"],
+    token: json['token'] ?? "",
     subscribedDate: json["subscribedDate"],
     agreedSubAmount: json["agreedSubAmount"].toString(),
     reSubscribed: json["reSubscribed"],
@@ -369,6 +374,7 @@ class DetailedEmployeeModel {
     "employeeId": employeeID,
     "contractType": contractType,
     "pfid": pfID,
+    "token" : token,
     "subscribedDate": subscribedDate,
     "agreedSubAmount": int.tryParse(agreedSubAmount?? "0"),
     "reSubscribed": reSubscribed,
@@ -435,4 +441,3 @@ class DetailedEmployeeModel {
     "terminationDate": terminationDate,
   };
 }
-

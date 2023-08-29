@@ -81,8 +81,12 @@ class ProfileBodyController extends GetxController
     _occupationList.assignAll(occupationResults);
     if (detailedEmployeeModel!.departmentName != null &&
         detailedEmployeeModel!.departmentName!.isNotEmpty) {
-      occupation.value = _occupationList.firstWhere((element) =>
-          element.shortName == detailedEmployeeModel!.departmentName);
+      try {
+        occupation.value = _occupationList.firstWhere((element) =>
+            element.shortName == detailedEmployeeModel!.departmentName);
+      } on Exception catch (e) {
+        Toaster.showError(e.toString());
+      }
     }
   }
 
@@ -136,6 +140,7 @@ class ProfileBodyController extends GetxController
     _isLoading(true);
     if (await _connectivityService.checkConnectivity()) {
       try {
+        print(controller.storageBox.read("employeeID").runtimeType);
         detailedEmployeeModel =
             await _apiProvider.getEmployeeProfileById(controller.storageBox.read("employeeID"));
       } on Exception catch (e) {

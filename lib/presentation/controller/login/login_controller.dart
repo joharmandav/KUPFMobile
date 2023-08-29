@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:get/get.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:huawei_account/huawei_account.dart';
@@ -102,6 +102,7 @@ class LoginController extends GetxController {
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
     await controller.storageBox.write('employeeID', result.employeeID);
+    await controller.storageBox.write('token', result.token);
     if (isPhone.value) {
       await controller.storageBox.write('phone', userName);
     } else {

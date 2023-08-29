@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:kupf_mobile/helper/toaster.dart';
+import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 import 'package:kupf_mobile/presentation/models/service_setup_model.dart';
 
 import '../../../presentation/models/detailed_employee_model.dart';
@@ -13,7 +15,12 @@ class ApiProvider extends GetConnect {
   void onInit() {
     super.onInit();
     Get.log("Testing");
+
     httpClient.baseUrl = 'https://kupfapi.erp53.com/api';
+    httpClient.addAuthenticator((Request request) async {
+      request.headers["Authorization"] = "Bearer ${Get.find<GeneralController>().readData("token")}";
+      return request;
+    });
   }
 
   Future loginEmployee(String userName, String password) async {
@@ -39,7 +46,7 @@ class ApiProvider extends GetConnect {
 
   Future<List<ServiceSetupModel>> getServiceSetup() async {
     try {
-      final response = await get("/ServiceSetup/GetServiceSetup");
+      final response = await get("/ServiceSetup/GetServiceSetup",);
       if (response.statusCode == 200) {
         return List<ServiceSetupModel>.from(response.body.map((x) => ServiceSetupModel.fromJson(x)));
       }
@@ -52,7 +59,7 @@ class ApiProvider extends GetConnect {
 
   Future<ServiceSetupModel?> getServiceSetupById(int id) async {
     try {
-      final response = await get("/ServiceSetup/GetServiceSetupById/$id");
+      final response = await get("/ServiceSetup/GetServiceSetupById/$id",);
       if (response.statusCode == 200) {
         return ServiceSetupModel.fromJson(json.decode(response.body));
       }
@@ -63,7 +70,7 @@ class ApiProvider extends GetConnect {
     return null;
   }
 
-  Future<DetailedEmployeeModel?> getEmployeeProfileById(String id) async {
+  Future<DetailedEmployeeModel?> getEmployeeProfileById(int id) async {
     try {
       final response = await get("/Employee/GetEmployeeById?employeeId=$id");
       if (response.statusCode == 200) {
@@ -96,8 +103,9 @@ class ApiProvider extends GetConnect {
   Future<List<OffersModel>> getOffers() async {
     try {
       final response = await get("/Offers/GetOffers");
+      Get.log(response.body.toString());
       if (response.statusCode == 200) {
-        return List<OffersModel>.from(response.body.map((data) => OffersModel.fromJson(data)));
+        return ServiceSetupDto.fromJson(response.body).serviceSetupDto;
       } else {
         Toaster.showError(response.body.toString());
       }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:kupf_mobile/app_utility/constants.dart';
 import 'package:kupf_mobile/presentation/screen/sigin_view/sigin_view.dart';
 import 'package:kupf_mobile/presentation/screen/splash_view/splash_view.dart';
@@ -6,7 +6,7 @@ import 'package:kupf_mobile/presentation/screen/splash_view/splash_view.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
-    final args = settings.arguments;
+    // final args = settings.arguments;
 
     switch (settings.name) {
       case RouteString.initial:

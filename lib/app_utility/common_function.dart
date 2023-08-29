@@ -43,7 +43,7 @@ abstract class AppUtility {
                   radius: 64,
                   backgroundImage: ImageString.tooth),
               AppUtility.heightBoxMin,
-              Text(arg['title'], style: Theme.of(context).textTheme.headline6),
+              Text(arg['title'], style: Theme.of(context).textTheme.titleLarge),
               AppUtility.heightBoxMin,
               Row(
                 children: [
@@ -77,7 +77,7 @@ abstract class AppUtility {
               AppUtility.heightBoxMin,
               AppUtility.heightBoxMin,
               Text(
-                  '${(arg['price'] -(arg['price'] * arg['discountPrice']) as double).toStringAsFixed(2)} KWD',
+                  '${(arg['price'] - (arg['price'] * arg['discountPrice']) as double).toStringAsFixed(2)} KWD',
                   style: AppTextTheme.bodyText1Black),
               AppUtility.heightBoxMin,
               Text('${LanguageConstants.original.tr} ${arg['price']}'),
@@ -87,11 +87,12 @@ abstract class AppUtility {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    '${(arg['discountPrice'] * 100 as double).toInt()}% OFF',
+                    '${((arg['discountPrice'] / 100) * arg['price']).toInt()}% OFF',
                     style: AppTextTheme.bodyText1white.copyWith(fontSize: 18),
                   ),
                 ),
-              )
+              ),
+              ElevatedButton(onPressed: () {}, child: const Text("Apply"))
               //GlobalSizing.heightBox,
             ],
           ),

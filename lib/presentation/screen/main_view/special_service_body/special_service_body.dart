@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:get/get.dart';
 import 'package:kupf_mobile/app_utility/app_color.dart';
 import 'package:kupf_mobile/app_utility/app_text_theme.dart';
 import 'package:kupf_mobile/app_utility/image_string.dart';
 import 'package:kupf_mobile/widgets/k_text.dart';
+import '../../../../app_utility/common_function.dart';
 import '../../../../widgets/loading.dart';
 import '../../../controller/offers/offer_controller.dart';
 import '../../../models/offers_model.dart';
@@ -33,7 +34,7 @@ class SpecialServices extends StatelessWidget {
                   padding:  EdgeInsets.all(8.0),
                   child: Image(image: ImageString.tooth),
                 ),
-                title: KText(offer.offerTypeName,
+                title: KText(offer.offerName ?? "NULL",
                     style: AppTextTheme.bodyText1grey
                         .copyWith(fontWeight: FontWeight.bold)),
                 // subtitle: Text('${tooth.kuwaitDinar} KWD',
@@ -41,14 +42,14 @@ class SpecialServices extends StatelessWidget {
                 //         .copyWith(fontWeight: FontWeight.bold)),
                 //subtitle:Text(),
                 onTap: () {
-                  // Navigator.of(context)
-                  //     .restorablePush(AppUtility.dialogBuilder, arguments: {
-                  //   'title': tooth.serviceName,
-                  //   'price':tooth.kuwaitDinar,
-                  //   'startTime':tooth.startTime.toString().split(' ').first,
-                  //   'endTime':tooth.endTime!.toString().split(' ').first,
-                  //   'discountPrice':tooth.discountPrice
-                  // });
+                  Navigator.of(context)
+                      .restorablePush(AppUtility.dialogBuilder, arguments: {
+                    'title': offer.offerName ?? "Null",
+                    'price': offer.offerAmount ?? 0.0,
+                    'startTime': offer.offerStartDate ?? "Null",
+                    'endTime': offer.offerEndDate ?? "Null",
+                    'discountPrice': offer.allowDiscountAmount ?? 0.0,
+                  });
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),

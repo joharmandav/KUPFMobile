@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:get/get.dart';
 import 'package:kupf_mobile/app_utility/app_color.dart';
 import 'package:kupf_mobile/app_utility/app_text_theme.dart';
