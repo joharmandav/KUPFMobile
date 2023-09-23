@@ -27,10 +27,10 @@ class ApiProvider extends GetConnect {
     Map<String, dynamic> data = {
       "username": userName,
       "password": password,
-      "tenantId": 21,
-      "locationId": 1,
-      "userId": 0,
-      "token": ""
+      // "tenantId": 21,
+      // "locationId": 1,
+      // "userId": 0,
+      // "token": ""
     };
     try {
       Response response = await post("/Login/MobileLogin", data);

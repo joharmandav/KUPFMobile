@@ -47,15 +47,15 @@ class BottomNavigationBarView extends StatelessWidget {
               }
               return;
             }
-            if (index == 2 && !Get.find<GeneralController>().checkStatus()) {
-              await Get.find<GeneralController>().storageBox.write("route", "service");
-              var result = await Get.toNamed(AppRoutes.login);
-              if (result ?? false) {
-                await Get.find<GeneralController>().storageBox.remove("route");
-                drawerNotifier.value = DrawerState.values.elementAt(index);
-              }
-              return;
-            }
+            // if (index == 2 ) {
+            //   await Get.find<GeneralController>().storageBox.write("route", "service");
+            //   var result = await Get.toNamed(AppRoutes.login);
+            //   if (result ?? false) {
+            //     await Get.find<GeneralController>().storageBox.remove("route");
+            //     drawerNotifier.value = DrawerState.values.elementAt(index);
+            //   }
+            //   return;
+            // }
             drawerNotifier.value = DrawerState.values.elementAt(index);
           },
         );

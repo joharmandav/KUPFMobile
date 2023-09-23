@@ -118,6 +118,12 @@ class LoginController extends GetxController {
       var response = await _apiProvider.loginEmployee(username, password);
       if (response == null) return null;
       DetailedEmployeeModel detailedEmployeeModel = DetailedEmployeeModel.fromJson(response);
+
+      String device = await Get.find<GeneralController>().deviceID();
+      var res = await db.getLogin(username, password, device);
+      if(res == null){
+        db.insert(Constants.detailedEmployeeTable, detailedEmployeeModel);
+      }
       return detailedEmployeeModel;
     } on Exception catch (e) {
       return Future.error(e);
