@@ -22,22 +22,22 @@ class ServiceSetupDto {
 
 class OffersModel {
   OffersModel({
-    required this.tenentId,
-    required this.serviceId,
-    required this.masterServiceId,
-    required this.serIdbyUser,
+     this.tenentId,
+     this.serviceId,
+     this.masterServiceId,
+     this.serIdbyUser,
     this.serviceName1,
     this.serviceName2,
     this.serviceType,
     this.serviceTypeName,
     this.serviceSubType,
     this.allowSponser,
-    required this.allowedNonEmployes,
-    required this.minMonthsService,
-    required this.minInstallment,
-    required this.maxInstallment,
-    required this.frozen,
-    required this.previousEmployees,
+     this.allowedNonEmployes,
+     this.minMonthsService,
+     this.minInstallment,
+     this.maxInstallment,
+     this.frozen,
+     this.previousEmployees,
     this.serApproval1,
     this.approvalBy1,
     this.approvedDate1,
@@ -91,31 +91,31 @@ class OffersModel {
     this.file1,
     this.file2,
     this.offerName,
-    required this.offerImage,
-    required this.offerType,
-    required this.offerTypeName,
-    required this.offer,
-    required this.offerStartDate,
-    required this.offerEndDate,
-    required this.offerAmount,
+     this.offerImage,
+     this.offerType,
+     this.offerTypeName,
+     this.offer,
+     this.offerStartDate,
+     this.offerEndDate,
+     this.offerAmount,
   });
 
-  int tenentId;
-  int serviceId;
-  String masterServiceId;
-  int serIdbyUser;
+  int? tenentId;
+  int? serviceId;
+  String? masterServiceId;
+  int? serIdbyUser;
   String? serviceName1;
   String? serviceName2;
   int? serviceType;
   String? serviceTypeName;
   int? serviceSubType;
   int? allowSponser;
-  bool allowedNonEmployes;
-  int minMonthsService;
-  int minInstallment;
-  int maxInstallment;
-  bool frozen;
-  bool previousEmployees;
+  bool? allowedNonEmployes;
+  int? minMonthsService;
+  int? minInstallment;
+  int? maxInstallment;
+  bool? frozen;
+  bool? previousEmployees;
   String? serApproval1;
   String? approvalBy1;
   String? approvedDate1;
@@ -169,7 +169,7 @@ class OffersModel {
   String? file1;
   String? file2;
   String? offerImage;
-  String offerType;
+  String? offerType;
   String? offerTypeName;
   String? offer;
   String? offerStartDate;
@@ -177,7 +177,7 @@ class OffersModel {
   String? offerName;
   dynamic offerAmount;
 
-  factory OffersModel.fromJson(Map<String, dynamic> json) => OffersModel(
+  factory OffersModel.fromJson(Map<String, dynamic> json) => 5 == 6 ? OffersModel(
     tenentId: json["tenentId"],
     serviceId: json["serviceId"],
     masterServiceId: json["masterServiceId"],
@@ -254,7 +254,80 @@ class OffersModel {
     offerEndDate: json["offerEndDate"],
     offerAmount: json["offerAmount"],
     offerName: json['offerName'],
+  ) :
+  OffersModel(
+    tenentId: json["TenentID"],
+    serviceId: json["ServiceID"],
+    // serviceIconMob: json["ServiceIconMob"],
+    // serviceIconWeb: json["ServiceIconWeb"],
+    allowDiscountPer: json["AllowDiscountPer"],
+    allowDiscountAmount: json["AllowDiscountAmount"],
+    allowDiscountDefault: json["AllowDiscountDefault"],
+    // serviceSerialNo: json["ServiceSerialNo"],
+    masterServiceId: json["MasterServiceID"],
+    // serIdByUser: json["SerIDByUser"],
+    serviceName1: json["ServiceName1"],
+    serviceName2: json["ServiceName2"],
+    serviceType: json["ServiceType"],
+    serviceSubType: json["ServiceSubType"],
+    allowSponser: json["AllowSponser"],
+    allowedNonEmployes: json["AllowedNonEmployes"],
+    minMonthsService: json["MinMonthsService"],
+    minInstallment: json["MinInstallment"],
+    maxInstallment: json["MaxInstallment"],
+    frozen: json["Frozen"],
+    previousEmployees: json["PreviousEmployees"],
+    serApproval1: json["SerApproval1"],
+    approvalBy1: json["ApprovalBy1"],
+    approvedDate1: json["ApprovedDate1"],
+    serApproval2: json["SerApproval2"],
+    approvalBy2: json["ApprovalBy2"],
+    approvedDate2: json["ApprovedDate2"],
+    serApproval3: json["SerApproval3"],
+    approvalBy3: json["ApprovalBy3"],
+    approvedDate3: json["ApprovedDate3"],
+    serApproval4: json["SerApproval4"],
+    approvalBy4: json["ApprovalBy4"],
+    approvedDate4: json["ApprovedDate4"],
+    serApproval5: json["SerApproval5"],
+    approvalBy5: json["ApprovalBy5"],
+    approvedDate5: json["ApprovedDate5"],
+    finalApproval: json["FinalApproval"],
+    remarks: json["REMARKS"],
+    keyword: json["Keyword"],
+    // mainServiceType: json["Main Service Type"],
+    loanAct: json["LoanAct"],
+    hajjAct: json["HajjAct"],
+    persLoanAct: json["PersLoanAct"],
+    consumerLoanAct: json["ConsumerLoanAct"],
+    otherAct1: json["OtherAct1"],
+    otherAct2: json["OtherAct2"],
+    otherAct3: json["OtherAct3"],
+    otherAct4: json["OtherAct4"],
+    otherAct5: json["OtherAct5"],
+    sortBy: json["SortBy"],
+    active: json["Active"],
+    crupId: json["CRUP_ID"],
+    userid: json["USERID"],
+    entrydate: json["ENTRYDATE"],
+    entrytime: json["ENTRYTIME"],
+    updttime: json["UPDTTIME"],
+    uploadDate: json["UploadDate"],
+    uploadby: json["Uploadby"],
+    syncDate: json["SyncDate"],
+    syncby: json["Syncby"],
+    synId: json["SynID"],
+    englishHtml: json["EnglishHTML"],
+    arabicHtml: json["ArabicHTML"],
+    electronicForm1: json["ElectronicForm1"],
+    electronicForm1Url: json["ElectronicForm1URL"],
+    electronicForm2: json["ElectronicForm2"],
+    electronicForm2Url: json["ElectronicForm2URL"],
+    englishWebPageName: json["EnglishWebPageName"],
+    arabicWebPageName: json["ArabicWebPageName"],
+    offerName: json["offerName"],
   );
+
 
   Map<String, dynamic> toJson() => {
     "tenentId": tenentId,
@@ -424,12 +497,12 @@ class OffersModel {
     "serviceTypeName": serviceTypeName,
     "serviceSubType": serviceSubType,
     "allowSponser": allowSponser,
-    "allowedNonEmployes": allowedNonEmployes ? 1 : 0,
+    "allowedNonEmployes": allowedNonEmployes == null ? 0 : allowedNonEmployes! ? 1 : 0,
     "minMonthsService": minMonthsService,
     "minInstallment": minInstallment,
     "maxInstallment": maxInstallment,
-    "frozen": frozen ? 1 : 0,
-    "previousEmployees": previousEmployees ? 1 : 0,
+    "frozen": frozen == null ? 0 : frozen! ? 1 : 0,
+    "previousEmployees": previousEmployees == null ? 0 :previousEmployees! ? 1 : 0,
     "serApproval1": serApproval1,
     "approvalBy1": approvalBy1,
     "approvedDate1": approvedDate1,

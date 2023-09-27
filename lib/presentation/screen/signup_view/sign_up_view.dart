@@ -78,7 +78,9 @@ class SignUpView extends StatelessWidget {
               AppUtility.heightBox,
               AppUtility.heightBox,
               AppUtility.heightBox,
-              AppButtonElevated(text: LanguageConstants.register.tr, onPressed: (){}),
+              AppButtonElevated(text: LanguageConstants.register.tr, onPressed: (){
+
+              }),
             ],
           ),
         ),

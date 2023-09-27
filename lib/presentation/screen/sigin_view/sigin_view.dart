@@ -19,6 +19,7 @@ import '../../../app/routes/routes.dart';
 import '../../../languages/language_constants.dart';
 import '../../../widgets/social_icon_widget.dart';
 import '../../../widgets/dialogs/fogot_password_dialog.dart';
+import '../signup_view/sign_up_view.dart';
 
 class SignInView extends GetView<LoginController> {
   const SignInView({Key? key}) : super(key: key);
@@ -171,25 +172,25 @@ class SignInView extends GetView<LoginController> {
                           text: LanguageConstants.signIn.tr,
                           onPressed: controller.login,
                         ),
-                        // AppUtility.height32Box,
-                        // RichText(
-                        //   text: TextSpan(
-                        //     text: LanguageConstants.dontHaveAccount.tr,
-                        //     style: AppTextTheme.bodyText1grey,
-                        //     children: [
-                        //       TextSpan(
-                        //         text: LanguageConstants.signUp.tr,
-                        //         style: AppTextTheme.bodyText1Primary
-                        //             .copyWith(fontWeight: FontWeight.bold),
-                        //         recognizer: TapGestureRecognizer()
-                        //           ..onTap = () => Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                   builder: (_) => const SignUpView())),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
+                        AppUtility.height32Box,
+                        RichText(
+                          text: TextSpan(
+                            text: LanguageConstants.dontHaveAccount.tr,
+                            style: AppTextTheme.bodyText1grey,
+                            children: [
+                              TextSpan(
+                                text: LanguageConstants.signUp.tr,
+                                style: AppTextTheme.bodyText1Primary
+                                    .copyWith(fontWeight: FontWeight.bold),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => const SignUpView())),
+                              ),
+                            ],
+                          ),
+                        ),
                         AppUtility.height32Box,
                         // social signin
                         Row(
