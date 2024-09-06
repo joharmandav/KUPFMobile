@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kupf_mobile/app_utility/app_color.dart';
-import 'package:kupf_mobile/app_utility/constants.dart';
 import 'package:kupf_mobile/app_utility/image_string.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
-import 'package:kupf_mobile/presentation/screen/main_view/main_view.dart';
 
 import '../../../app/routes/routes.dart';
 import '../../../app_utility/common_function.dart';
@@ -59,11 +57,11 @@ class _SplashViewState extends State<SplashView> {
                     flex: 0,
                     child: Column(
                       children: [
-                        Text("${format.format(DateTime.parse(LanguageConstants.date))} ${LanguageConstants.updated.tr}", style: Get.theme.textTheme.caption!.copyWith(color: AppColor.blackLight),),
+                        Text("${format.format(DateTime.parse(LanguageConstants.date))} ${LanguageConstants.updated.tr}", style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColor.blackLight),),
                         AppUtility.heightBoxMin,
                         Text(
                           "${LanguageConstants.version.tr} ${LanguageConstants.versionNo}",
-                          style: Get.theme.textTheme.caption!
+                          style: Get.theme.textTheme.bodySmall!
                               .copyWith(color: AppColor.blackLight),
                         ),
                       ],

@@ -116,7 +116,7 @@ abstract class AppUtility {
                   radius: 64,
                   backgroundImage: ImageString.hajjLoan),
               AppUtility.heightBoxMin,
-              Text(arg['title'], style: Theme.of(context).textTheme.headline6),
+              Text(arg['title'], style: Theme.of(context).textTheme.titleLarge),
               AppUtility.heightBoxMin,
               Row(
                 children: [

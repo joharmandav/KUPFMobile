@@ -12,7 +12,7 @@ class LoadingSpinner extends StatelessWidget {
           const Center(child: CircularProgressIndicator(),),
           const SizedBox(width: 16,),
           Text("Please Wait...",
-            style: Get.theme.textTheme.subtitle2,
+            style: Get.theme.textTheme.titleSmall,
           ),
         ],
       ),

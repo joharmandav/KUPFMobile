@@ -40,7 +40,7 @@ class OTPVerification extends GetView<OTPVerificationController> {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Text(
                     LanguageConstants.accountVerification.tr,
-                    style: Get.theme.textTheme.headline5!.copyWith(
+                    style: Get.theme.textTheme.headlineSmall!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,
@@ -54,7 +54,7 @@ class OTPVerification extends GetView<OTPVerificationController> {
                   child: RichText(
                     text: TextSpan(
                       text: LanguageConstants.enterCode.tr,
-                      style: Get.theme.textTheme.subtitle2!.copyWith(
+                      style: Get.theme.textTheme.titleSmall!.copyWith(
                         color: Colors.black54,
                         fontWeight: FontWeight.w400,
                       ),
@@ -72,7 +72,7 @@ class OTPVerification extends GetView<OTPVerificationController> {
                           const EdgeInsets.symmetric(vertical: 8, horizontal: 50),
                       child: PinFieldAutoFill(
                         decoration: UnderlineDecoration(
-                          textStyle: Get.theme.textTheme.headline5!
+                          textStyle: Get.theme.textTheme.headlineSmall!
                               .copyWith(color: Colors.black),
                           colorBuilder:
                               FixedColorBuilder(Colors.black.withOpacity(0.3)),
@@ -96,7 +96,7 @@ class OTPVerification extends GetView<OTPVerificationController> {
                 Center(
                   child: Obx(() => Text(
                         controller.hasError ? LanguageConstants.validOTP.tr : "",
-                        style: Get.theme.textTheme.subtitle2!.copyWith(
+                        style: Get.theme.textTheme.titleSmall!.copyWith(
                             color: Colors.red, fontWeight: FontWeight.w400),
                       )),
                 ),
@@ -108,7 +108,7 @@ class OTPVerification extends GetView<OTPVerificationController> {
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       text: "${LanguageConstants.dontReceive.tr} ",
-                      style: Get.theme.textTheme.subtitle2!.copyWith(
+                      style: Get.theme.textTheme.titleSmall!.copyWith(
                           color: Colors.black54, fontWeight: FontWeight.w400),
                       children: [
                         TextSpan(
@@ -117,7 +117,7 @@ class OTPVerification extends GetView<OTPVerificationController> {
                               : " ${LanguageConstants.resend.tr}",
                           recognizer: TapGestureRecognizer()
                             ..onTap = () => controller.reSend(),
-                          style: Get.theme.textTheme.subtitle2!.copyWith(
+                          style: Get.theme.textTheme.titleSmall!.copyWith(
                             color:
                                 controller.isActive ? Colors.black54 : Colors.blue,
                             fontWeight: FontWeight.bold,

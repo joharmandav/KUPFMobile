@@ -29,7 +29,7 @@ class KTextField extends StatelessWidget {
             style: Theme
                 .of(context)
                 .textTheme
-                .bodyText1!
+                .bodyLarge!
                 .copyWith(letterSpacing: 2)),
         AppSpacing.vertical,
         TextField(

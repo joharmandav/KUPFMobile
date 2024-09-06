@@ -8,7 +8,7 @@ class ServiceDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).textTheme;
+    final theme = ThemeData().textTheme;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -19,7 +19,7 @@ class ServiceDetail extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           padding: AppSpacing.padding,
           child: DataTable(
-            headingTextStyle: theme.bodyText1!
+            headingTextStyle: theme.bodyLarge!
                 .copyWith(color: Colors.blue[900]!, fontWeight: FontWeight.bold),
             columns: const [
               DataColumn(label: KText('Services Procured')),

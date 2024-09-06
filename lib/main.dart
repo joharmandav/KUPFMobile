@@ -59,7 +59,6 @@ class MyApp extends StatelessWidget {
                 ),
                 title: 'KUPF',
                 theme: ThemeData(
-                  backgroundColor: scaffoldValue,
                   scaffoldBackgroundColor: scaffoldValue,
                   primaryColor: value,
                   bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -67,7 +66,7 @@ class MyApp extends StatelessWidget {
                   ),
                   elevatedButtonTheme: ElevatedButtonThemeData(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(value),
+                      backgroundColor: WidgetStateProperty.all(value),
                     ),
                   ),
                   indicatorColor: value,
@@ -78,18 +77,17 @@ class MyApp extends StatelessWidget {
                     backgroundColor: value,
                     scrimColor: value,
                   ),
-                  primarySwatch: materialColor,
                   // fontFamily: GoogleFonts.raleway().fontFamily,
                   textTheme: TextTheme(
-                    headline3: TextStyle(
+                    displaySmall: TextStyle(
                       color: mainColor.value,
                       fontWeight: FontWeight.w600,
                     ),
-                    headline5: const TextStyle(
+                    headlineSmall: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: 20),
-                    headline6: const TextStyle(
+                    titleLarge: const TextStyle(
                       color: Colors.black,
                     ),
                   ),
@@ -98,7 +96,7 @@ class MyApp extends StatelessWidget {
                       elevation: 0.0,
                       backgroundColor: value,
                       iconTheme: const IconThemeData(color: AppColor.white),
-                      titleTextStyle: AppTextTheme.bodyText1white.copyWith(fontSize: 26, fontWeight: FontWeight.bold)),
+                      titleTextStyle: AppTextTheme.bodyText1white.copyWith(fontSize: 26, fontWeight: FontWeight.bold)), colorScheme: ColorScheme.fromSwatch(primarySwatch: materialColor).copyWith(background: scaffoldValue),
                 ),
                 themeMode: ThemeMode.light,
                 darkTheme: AppTheme.darkTheme,

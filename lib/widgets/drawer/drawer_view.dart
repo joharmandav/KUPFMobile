@@ -170,11 +170,11 @@ class DrawerView extends StatelessWidget {
               flex: 0,
               child: Column(
                 children: [
-                  Text("${format.format(DateTime.parse(LanguageConstants.date))} ${LanguageConstants.updated.tr}", style: Get.theme.textTheme.caption!.copyWith(color: AppColor.white),),
+                  Text("${format.format(DateTime.parse(LanguageConstants.date))} ${LanguageConstants.updated.tr}", style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColor.white),),
                   AppUtility.heightBoxMin,
                   Text(
                     "${LanguageConstants.version.tr} ${LanguageConstants.versionNo}",
-                    style: Get.theme.textTheme.caption!
+                    style: Get.theme.textTheme.bodySmall!
                         .copyWith(color: AppColor.white),
                   ),
                 ],

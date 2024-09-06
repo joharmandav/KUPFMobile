@@ -7,16 +7,16 @@ abstract class AppTextTheme {
 
   //static TextTheme get _aLikeTextTheme => GoogleFonts.alikeTextTheme();
 
-  static TextStyle get bodyText1Black => _poppinsTextTheme.bodyText1!.copyWith(
+  static TextStyle get bodyText1Black => _poppinsTextTheme.bodyLarge!.copyWith(
         color: AppColor.black,
       );
 
-  static TextStyle get bodyText1white => _poppinsTextTheme.bodyText1!.copyWith(
+  static TextStyle get bodyText1white => _poppinsTextTheme.bodyLarge!.copyWith(
         color: AppColor.white,
       );
-  static TextStyle get bodyText1grey => _poppinsTextTheme.bodyText1!.copyWith(
+  static TextStyle get bodyText1grey => _poppinsTextTheme.bodyLarge!.copyWith(
         color: AppColor.grey,
-      );static TextStyle get bodyText1Primary => _poppinsTextTheme.bodyText1!.copyWith(
+      );static TextStyle get bodyText1Primary => _poppinsTextTheme.bodyLarge!.copyWith(
         color: mainColor.value,
       );
 
