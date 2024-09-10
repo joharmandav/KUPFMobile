@@ -80,25 +80,48 @@ class LoginController extends GetxController {
     isAction(true);
     final String userName = isPhone.value ? countryCode.value + phoneController.text : emailController.text;
     Get.log(userName);
+    String type;
+    // container only digits
+    if(userName.startsWith('+') && userName.length > 10 && userName.length < 15){
+      type = "Mobile";
+    }else if(userName.contains('@')){
+     type = "Email";
+    }else{
+      type = "EmployeeId";
+    }
+    
+    // delete later
+    String determineType(String userName) {
+  if (userName.contains('@')) {
+    return 'Email'; // If it contains '@', it's an email
+  } else if (userName.startsWith('+') && userName.length > 10 && userName.length < 15) {
+    // Assuming mobile numbers with country code are between 10 to 15 digits long
+    return 'Mobile';
+  } else {
+    return 'EmployeeID'; // Default to EmployeeID if it doesn't match mobile or email
+  }
+}
+
+
     final controller = Get.find<GeneralController>();
     String device = await controller.deviceID();
     DetailedEmployeeModel? result;
     bool isOnline = await _connectivityService.checkConnectivity();
     if (isOnline) {
       try {
-        result = await loginApi(userName, passwordController.text);
+        result = await loginApi(userName, passwordController.text,type);
       } on Exception catch (e) {
         Toaster.showError(e.toString());
       }
     } else {
-      result = await loginWithDB(userName, passwordController.text, device);
+      result = await loginWithDB(userName, passwordController.text, type);
     }
     if (result == null) {
       isAction(false);
       Toaster.showError("User not found");
       return;
     }
-      controller.detailedEmployeeModel = result;
+    controller.detailedEmployeeModel = result;
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
     await controller.storageBox.write('employeeID', result.employeeID);
@@ -112,10 +135,11 @@ class LoginController extends GetxController {
     isAction(false);
     navigation();
   }
+  
 
-  Future<DetailedEmployeeModel?> loginApi(String username, String password) async {
+  Future<DetailedEmployeeModel?> loginApi(String username, String password,String type) async {
     try {
-      var response = await _apiProvider.loginEmployee(username, password);
+      var response = await _apiProvider.loginEmployee(username, password,type);
       if (response == null) return null;
       DetailedEmployeeModel detailedEmployeeModel = DetailedEmployeeModel.fromJson(response);
       return detailedEmployeeModel;
@@ -132,52 +156,52 @@ class LoginController extends GetxController {
       return null;
     }
   }
+// comment out later for bio metrics
+  // Future<void> localAuth() async {
+  //   if (!localAuthController.isEnable) {
+  //     Toaster.showToast("Please  enable biometrics");
+  //     return;
+  //   }
 
-  Future<void> localAuth() async {
-    if (!localAuthController.isEnable) {
-      Toaster.showToast("Please  enable biometrics");
-      return;
-    }
+  //   bool auth = await localAuthController.authenticate();
 
-    bool auth = await localAuthController.authenticate();
+  //   if (!auth) return;
+  //   final controller = Get.find<GeneralController>();
+  //   String device = await controller.deviceID();
 
-    if (!auth) return;
-    final controller = Get.find<GeneralController>();
-    String device = await controller.deviceID();
+  //   String? phone = controller.storageBox.read('phone');
+  //   String? email = controller.storageBox.read('email');
+  //   String? password = controller.storageBox.read('password');
+  //   String username = email ?? phone ?? "";
+  //   isAction(true);
+  //   DetailedEmployeeModel? result;
+  //   if (await _connectivityService.checkConnectivity()) {
+  //     try {
+  //       result = await loginApi(username, password!);
+  //     } on Exception catch (e) {
+  //       isAction(false);
+  //       Toaster.showError(e.toString());
+  //       return;
+  //     }
+  //   } else {
+  //     result = await loginWithDB(username, password!, device);
+  //   }
 
-    String? phone = controller.storageBox.read('phone');
-    String? email = controller.storageBox.read('email');
-    String? password = controller.storageBox.read('password');
-    String username = email ?? phone ?? "";
-    isAction(true);
-    DetailedEmployeeModel? result;
-    if (await _connectivityService.checkConnectivity()) {
-      try {
-        result = await loginApi(username, password!);
-      } on Exception catch (e) {
-        isAction(false);
-        Toaster.showError(e.toString());
-        return;
-      }
-    } else {
-      result = await loginWithDB(username, password!, device);
-    }
+  //   if (result == null) {
+  //     isAction(false);
+  //     Toaster.showError("User not found");
+  //     return;
+  //   }
 
-    if (result == null) {
-      isAction(false);
-      Toaster.showError("User not found");
-      return;
-    }
-
-    controller.detailedEmployeeModel = result;
-    controller.storageBox.write("device", device);
-    await controller.storageBox.write('status', 1);
-    isAction(false);
-    emailController.clear();
-    phoneController.clear();
-    passwordController.clear();
-    navigation();
-  }
+  //   controller.detailedEmployeeModel = result;
+  //   controller.storageBox.write("device", device);
+  //   await controller.storageBox.write('status', 1);
+  //   isAction(false);
+  //   emailController.clear();
+  //   phoneController.clear();
+  //   passwordController.clear();
+  //   navigation();
+  // }
 
   void signInWithHuawei() async {
     isAction(true);

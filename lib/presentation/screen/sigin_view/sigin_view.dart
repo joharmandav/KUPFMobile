@@ -200,11 +200,12 @@ class SignInView extends GetView<LoginController> {
                               SocialIconWidget(
                                 color: mainColor.value,
                                 icon: MdiIcons.fingerprint,
-                                onPressed: controller
+                                // change null later
+                                             onPressed: controller
                                             .localAuthController.isSupported &&
                                         controller.localAuthController.isEnable
-                                    ? controller.localAuth
-                                    : null,
+                                    ? null
+                                    : null,                                
                               ),
                             AppUtility.widthBox,
                             SocialIconWidget(

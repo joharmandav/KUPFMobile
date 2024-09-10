@@ -304,7 +304,7 @@ class DetailedEmployeeModel {
     subscribedDate: json["subscribedDate"],
     agreedSubAmount: json["agreedSubAmount"].toString(),
     reSubscribed: json["reSubscribed"],
-    employeeType: json["employeeType"],
+    employeeType: json["employeeType"] ??"",
     arabicName: json["arabicName"],
     englishName: json["englishName"],
     jobTitleCode: json["jobTitleCode"],
@@ -365,7 +365,9 @@ class DetailedEmployeeModel {
     membershipJoiningDate: json["membershipJoiningDate"],
     termination: json["termination"],
     terminationDate: json["terminationDate"],
-    subscriptionStatus: json['subscriptionStatus'] ?? 0,
+    subscriptionStatus: int.tryParse(json['subscriptionStatus'].toString()) ?? 0,
+
+
   );
 
   Map<String, dynamic> toJson() => {

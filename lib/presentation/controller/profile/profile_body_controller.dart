@@ -83,7 +83,13 @@ class ProfileBodyController extends GetxController
         detailedEmployeeModel!.departmentName!.isNotEmpty) {
       try {
         occupation.value = _occupationList.firstWhere((element) =>
-            element.shortName == detailedEmployeeModel!.departmentName);
+            element.shortName == detailedEmployeeModel!.departmentName,
+            // returning first itel wwr no match is foun
+            orElse: (){
+              return _occupationList[0];
+            }
+            );
+            
       } on Exception catch (e) {
         Toaster.showError(e.toString());
       }

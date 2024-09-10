@@ -16,6 +16,9 @@ class OTPVerification extends GetView<OTPVerificationController> {
 
   @override
   Widget build(BuildContext context) {
+     final _controller = Get.put(
+      OTPVerificationController(),
+    );
     return Scaffold(
       body: SizedBox(
         height: Get.height,

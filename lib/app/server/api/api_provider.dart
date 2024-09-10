@@ -16,26 +16,24 @@ class ApiProvider extends GetConnect {
     super.onInit();
     Get.log("Testing");
 
-    httpClient.baseUrl = 'https://kupfapi.erp53.com/api';
+    httpClient.baseUrl = 'https://api.kupfkw.com/api';
     httpClient.addAuthenticator((Request request) async {
       request.headers["Authorization"] = "Bearer ${Get.find<GeneralController>().readData("token")}";
       return request;
     });
   }
 
-  Future loginEmployee(String userName, String password) async {
+  Future loginEmployee(String userName, String password,String type) async {
     Map<String, dynamic> data = {
       "username": userName,
       "password": password,
-      "tenantId": 21,
-      "locationId": 1,
-      "userId": 0,
-      "token": ""
+      "Type": type,
+     
     };
     try {
       Response response = await post("/Login/MobileLogin", data);
       if (response.statusCode == 200) {
-        Get.log("Hello");
+
         return response.body;
       }
       // return null;
