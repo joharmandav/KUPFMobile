@@ -5,7 +5,7 @@ import '../../app/server/database/db_constant.dart';
 class DetailedEmployeeModel {
   final int tenentID;
   final int locationID;
-  final int employeeID;
+  final int employeeId;
   final String? contractType;
   final String? pfID;
   final String? subscribedDate;
@@ -19,20 +19,20 @@ class DetailedEmployeeModel {
   final String token;
   int? department;
   String? departmentName;
-  int? employeeGender;
-  dynamic employeeBirthday;
-  int? maritalStatus;
+  int? empGender;
+  dynamic empBirthday;
+  int? empMaritalStatus;
   int? salary;
-  String workTelephone;
-  String workEmail;
+  String empWorkTelephone;
+  String empWorkEmail;
   String? mobileNumber;
   String? next2KinName;
   String? next2KinMobNumber;
   final int? nationCode;
   final String? nationName;
   final String cidNumber;
-  String paciNumber;
-  String otherID;
+  String empPaciNum;
+  String empOtherId;
   final int subscriptionStatus;
   final int? employeeStatus;
   final String? joinedDate;
@@ -78,7 +78,7 @@ class DetailedEmployeeModel {
   DetailedEmployeeModel({
     required this.tenentID,
     required this.locationID,
-    required this.employeeID,
+    required this.employeeId,
     this.contractType,
     this.pfID,
     this.subscribedDate,
@@ -92,20 +92,20 @@ class DetailedEmployeeModel {
     this.jobTitleName,
     this.department,
     this.departmentName,
-    this.employeeGender,
-    this.employeeBirthday,
-    this.maritalStatus,
+    this.empGender,
+    this.empBirthday,
+    this.empMaritalStatus,
     this.salary,
-    required this.workTelephone,
-    required this.workEmail,
+    required this.empWorkTelephone,
+    required this.empWorkEmail,
     this.mobileNumber,
     this.next2KinName,
     this.next2KinMobNumber,
     this.nationCode,
     this.nationName,
     required this.cidNumber,
-    required this.paciNumber,
-    required this.otherID,
+    required this.empPaciNum,
+    required this.empOtherId,
     required this.subscriptionStatus,
     this.employeeStatus,
     this.joinedDate,
@@ -153,7 +153,7 @@ class DetailedEmployeeModel {
       DetailedEmployeeModel(
         tenentID: map[Constants.tenentID],
         locationID: map[Constants.deLocationID],
-        employeeID: map[Constants.employeeID],
+        employeeId: map[Constants.employeeID],
         contractType: map[Constants.contractType],
         pfID: map[Constants.pfID],
         token: map[Constants.token] ?? "",
@@ -167,20 +167,20 @@ class DetailedEmployeeModel {
         jobTitleName: map[Constants.jobTitleName],
         department: map[Constants.department],
         departmentName: map[Constants.departmentName],
-        employeeGender: map[Constants.employeeGender],
-        employeeBirthday: map[Constants.employeeBirthday],
-        maritalStatus: map[Constants.empMaritalStatus],
+        empGender: map[Constants.employeeGender],
+        empBirthday: map[Constants.employeeBirthday],
+        empMaritalStatus: map[Constants.empMaritalStatus],
         salary: map[Constants.salary],
-        workTelephone: map[Constants.empWorkTelephone],
-        workEmail: map[Constants.empWorkEmail],
+        empWorkTelephone: map[Constants.empWorkTelephone],
+        empWorkEmail: map[Constants.empWorkEmail],
         mobileNumber: map[Constants.mobileNumber],
         next2KinName: map[Constants.next2KinName],
         next2KinMobNumber: map[Constants.next2KinMobNumber],
         nationCode: map[Constants.nationCode],
         nationName: map[Constants.nationName],
         cidNumber: map[Constants.empCIDNum],
-        paciNumber: map[Constants.empPaciNum],
-        otherID: map[Constants.empOtherID],
+        empPaciNum: map[Constants.empPaciNum],
+        empOtherId: map[Constants.empOtherID],
         subscriptionStatus: map[Constants.subscriptionStatus],
         employeeStatus: map[Constants.empStatus],
         joinedDate: DateFormat().format(map[Constants.joinedDate]),
@@ -225,7 +225,7 @@ class DetailedEmployeeModel {
   Map<String, dynamic> toMap() => {
     Constants.tenentID: tenentID,
     Constants.deLocationID: locationID,
-    Constants.employeeID: employeeID,
+    Constants.employeeID: employeeId,
     Constants.contractType: contractType,
     Constants.pfID: pfID,
     Constants.token : token,
@@ -239,20 +239,20 @@ class DetailedEmployeeModel {
     Constants.jobTitleName: jobTitleName,
     Constants.department: department,
     Constants.departmentName: departmentName,
-    Constants.employeeGender: employeeGender,
-    Constants.employeeBirthday: employeeBirthday,
-    Constants.empMaritalStatus: maritalStatus,
+    Constants.employeeGender: empGender,
+    Constants.employeeBirthday: empBirthday,
+    Constants.empMaritalStatus: empMaritalStatus,
     Constants.salary: salary,
-    Constants.empWorkTelephone: workTelephone,
-    Constants.empWorkEmail: workEmail,
+    Constants.empWorkTelephone: empWorkTelephone,
+    Constants.empWorkEmail: empWorkEmail,
     Constants.mobileNumber: mobileNumber,
     Constants.next2KinName: next2KinName,
     Constants.next2KinMobNumber: next2KinMobNumber,
     Constants.nationCode: nationCode,
     Constants.nationName: nationName,
     Constants.empCIDNum: cidNumber,
-    Constants.empPaciNum: paciNumber,
-    Constants.empOtherID: otherID,
+    Constants.empPaciNum: empPaciNum,
+    Constants.empOtherID: empOtherId,
     Constants.subscriptionStatus: subscriptionStatus,
     Constants.empStatus: employeeStatus,
     Constants.joinedDate: DateTime.parse(joinedDate!),
@@ -297,7 +297,7 @@ class DetailedEmployeeModel {
   factory DetailedEmployeeModel.fromJson(Map<String, dynamic> json) => DetailedEmployeeModel(
     tenentID: json["tenentId"],
     locationID: json["locationId"],
-    employeeID: json["employeeId"],
+    employeeId: json["employeeId"],
     contractType: json["contractType"],
     pfID: json["pfid"],
     token: json['token'] ?? "",
@@ -311,20 +311,20 @@ class DetailedEmployeeModel {
     jobTitleName: json["jobTitleName"],
     department: json["department"],
     departmentName: json["departmentName"],
-    employeeGender: json["empGender"],
-    employeeBirthday: json["empBirthday"],
-    maritalStatus: json["empMaritalStatus"] == "Single" || json["empMaritalStatus"] == "1" ? 1 : 0,
+    empGender: json["empGender"],
+    empBirthday: json["empBirthday"],
+    empMaritalStatus: json["empMaritalStatus"] == "Single" || json["empMaritalStatus"] == "1" ? 1 : 0,
     salary: json["salary"] == null ? 0 : int.tryParse(double.parse(json["salary"].toString()).toStringAsFixed(0)),
-    workTelephone: json["empWorkTelephone"],
-    workEmail: json["empWorkEmail"],
+    empWorkTelephone: json["empWorkTelephone"],
+    empWorkEmail: json["empWorkEmail"],
     mobileNumber: json["mobileNumber"],
     next2KinName: json["next2KinName"],
     next2KinMobNumber: json["next2KinMobNumber"],
     nationCode: json["nationCode"],
     nationName: json["nationName"],
     cidNumber: json["empCidNum"],
-    paciNumber: json["empPaciNum"],
-    otherID: json["empOtherId"],
+    empPaciNum: json["empPaciNum"],
+    empOtherId: json["empOtherId"],
     employeeStatus: json["empStatus"],
     joinedDate: json["joinedDate"],
     endDate: json["endDate"],
@@ -373,7 +373,7 @@ class DetailedEmployeeModel {
   Map<String, dynamic> toJson() => {
     "tenentId": tenentID ,
     "locationId": locationID,
-    "employeeId": employeeID,
+    "employeeId": employeeId,
     "contractType": contractType,
     "pfid": pfID ?? 0,
     "token" : token,
@@ -387,20 +387,20 @@ class DetailedEmployeeModel {
     "jobTitleName": jobTitleName ?? "",
     "department": department ?? 0,
     "departmentName": departmentName ?? "",
-    "empGender": employeeGender ?? 0,
-    "empBirthday": employeeBirthday ?? "",
-    "empMaritalStatus": maritalStatus ?? 0,
+    "empGender": empGender ?? 0,
+    "empBirthday": empBirthday ?? "",
+    "empMaritalStatus": empMaritalStatus ?? 0,
     "salary": salary ?? 0,
-    "empWorkTelephone": workTelephone ?? "",
-    "empWorkEmail": workEmail ?? "",
+    "empWorkTelephone": empWorkTelephone ?? "",
+    "empWorkEmail": empWorkEmail ?? "",
     "mobileNumber": mobileNumber ?? "",
     "next2KinName": next2KinName ?? "",
     "next2KinMobNumber": next2KinMobNumber ?? "",
     "nationCode": nationCode ?? 0,
     "nationName": nationName ?? "",
     "empCidNum": cidNumber ?? "",
-    "empPaciNum": paciNumber ?? "",
-    "empOtherId": otherID ?? "",
+    "empPaciNum": empPaciNum ?? "",
+    "empOtherId": empOtherId ?? "",
     "empStatus": employeeStatus,
     "joinedDate": joinedDate ?? "",
     "endDate": endDate ?? "",

@@ -90,17 +90,7 @@ class LoginController extends GetxController {
       type = "EmployeeId";
     }
     
-    // delete later
-    String determineType(String userName) {
-  if (userName.contains('@')) {
-    return 'Email'; // If it contains '@', it's an email
-  } else if (userName.startsWith('+') && userName.length > 10 && userName.length < 15) {
-    // Assuming mobile numbers with country code are between 10 to 15 digits long
-    return 'Mobile';
-  } else {
-    return 'EmployeeID'; // Default to EmployeeID if it doesn't match mobile or email
-  }
-}
+   
 
 
     final controller = Get.find<GeneralController>();
@@ -124,7 +114,7 @@ class LoginController extends GetxController {
     controller.detailedEmployeeModel = result;
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
-    await controller.storageBox.write('employeeID', result.employeeID);
+    await controller.storageBox.write('employeeID', result.employeeId);
     await controller.storageBox.write('token', result.token);
     if (isPhone.value) {
       await controller.storageBox.write('phone', userName);

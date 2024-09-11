@@ -99,23 +99,24 @@ class ProfileBodyController extends GetxController
   Future<void> updateProfile() async {
     detailedEmployeeModel!.englishName = employeeNameController.text;
     detailedEmployeeModel!.arabicName = arabicNameController.text;
-    detailedEmployeeModel!.employeeBirthday = dobController.text;
-    detailedEmployeeModel!.employeeGender =
+    detailedEmployeeModel!.empBirthday = dobController.text;
+    
+    detailedEmployeeModel!.empGender =  
         gender.value != null && gender.value == LanguageConstants.male.tr
             ? 1
             : 0;
-    detailedEmployeeModel!.maritalStatus =
+    detailedEmployeeModel!.empMaritalStatus =
         marital.value != null && marital.value == LanguageConstants.married.tr
             ? 1
             : 0;
     detailedEmployeeModel!.mobileNumber = mobileController.text;
-    detailedEmployeeModel!.workTelephone = landLineController.text;
-    detailedEmployeeModel!.workEmail = emailController.text;
+    detailedEmployeeModel!.empWorkTelephone = landLineController.text;
+    detailedEmployeeModel!.empWorkEmail = emailController.text;
     detailedEmployeeModel!.next2KinMobNumber = nextToKinMobileController.text;
     detailedEmployeeModel!.next2KinName = nextToKinNameController.text;
     detailedEmployeeModel!.salary = int.tryParse(salaryController.text) ?? 0;
-    detailedEmployeeModel!.paciNumber = paciController.text;
-    detailedEmployeeModel!.otherID = otherIDController.text;
+    detailedEmployeeModel!.empPaciNum = paciController.text;
+    detailedEmployeeModel!.empOtherId = otherIDController.text;
     detailedEmployeeModel!.departmentName = occupation.value?.shortName ?? "";
     detailedEmployeeModel!.department = department.value?.refID ?? 0;
     detailedEmployeeModel!.uploadBy = pickedFile.value?.path ?? "";
@@ -129,6 +130,7 @@ class ProfileBodyController extends GetxController
 
     dynamic response = await _apiProvider
         .updateEmployeeProfile(detailedEmployeeModel!.toJson());
+        print("  RED MODEL: ${detailedEmployeeModel!.toJson()}");
 
     if (response == null) {
       _isLoading(false);
@@ -170,25 +172,25 @@ class ProfileBodyController extends GetxController
     controller.detailedEmployeeModel = detailedEmployeeModel!;
     employeeNameController.text = detailedEmployeeModel!.englishName!;
     arabicNameController.text = detailedEmployeeModel!.arabicName!;
-    dobController.text = detailedEmployeeModel?.employeeBirthday != null ? DateFormat('yyyy-MM-dd')
-        .format(DateTime.parse(detailedEmployeeModel?.employeeBirthday ?? "")) : "";
-    gender.value = detailedEmployeeModel!.employeeGender != null &&
-            detailedEmployeeModel!.employeeGender == 1
+    dobController.text = detailedEmployeeModel?.empBirthday != null ? DateFormat('yyyy-MM-dd')
+        .format(DateTime.parse(detailedEmployeeModel?.empBirthday ?? "")) : "";
+    gender.value = detailedEmployeeModel!.empGender != null &&
+            detailedEmployeeModel!.empGender == 1
         ? LanguageConstants.male.tr
         : LanguageConstants.female.tr;
-    marital.value = detailedEmployeeModel!.maritalStatus != null &&
-            detailedEmployeeModel!.maritalStatus == 1
+    marital.value = detailedEmployeeModel!.empMaritalStatus != null &&
+            detailedEmployeeModel!.empMaritalStatus == 1
         ? LanguageConstants.married.tr
         : LanguageConstants.single.tr;
     mobileController.text = detailedEmployeeModel!.mobileNumber ?? "";
-    landLineController.text = detailedEmployeeModel!.workTelephone;
-    emailController.text = detailedEmployeeModel!.workEmail;
+    landLineController.text = detailedEmployeeModel!.empWorkTelephone??"";
+    emailController.text = detailedEmployeeModel!.empWorkEmail??"";
     nextToKinMobileController.text =
         detailedEmployeeModel!.next2KinMobNumber ?? "";
     nextToKinNameController.text = detailedEmployeeModel!.next2KinName ?? "";
     salaryController.text = detailedEmployeeModel!.salary?.toString() ?? "";
-    paciController.text = detailedEmployeeModel!.paciNumber.toString();
-    otherIDController.text = detailedEmployeeModel!.otherID;
+    paciController.text = detailedEmployeeModel!.empPaciNum.toString();
+    otherIDController.text = detailedEmployeeModel!.empOtherId??"";
     // if (detailedEmployeeModel!.uploadBy != null &&
     //     detailedEmployeeModel!.uploadBy!.isNotEmpty &&
     //     detailedEmployeeModel!.uploadBy != "string") {

@@ -110,7 +110,7 @@ class DbManager extends GetxService {
         // Ensure that the table has a matching id.
         where: '${Constants.employeeID} = ?',
         // Pass the table's id as a whereArg to prevent SQL injection.
-        whereArgs: [model.employeeID],
+        whereArgs: [model.employeeId],
       );
     } on Exception catch (e) {
       Toaster.showError(e.toString());
