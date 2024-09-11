@@ -32,7 +32,7 @@ class LoginController extends GetxController {
   final ConnectivityService _connectivityService = ConnectivityService();
   SocialUserInfo info = SocialUserInfo();
   RxBool rememberMe = RxBool(false);
-  RxBool isPhone = RxBool(false);
+  RxBool isPhone = RxBool(true);
   RxBool obscureText = RxBool(true);
   final formKey = GlobalKey<FormState>();
   final RxString countryCode = RxString('');
