@@ -9,6 +9,33 @@ import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
 
 class GeneralController extends GetxController {
   GetStorage storageBox = GetStorage();
+  var token = ''.obs;
+
+   @override
+  void onInit() {
+    super.onInit();
+    // Load token if it exists
+    token.value = storageBox.read('token') ?? '';
+  }
+
+
+   Future<void> saveBearerToken(String newToken) async {
+    token.value = newToken;
+    await storageBox.write('token', newToken);
+    print("NEW TOKEN SAVED: $newToken");
+  }
+
+ Future<String?> getBearerToken() async {
+  final storage = GetStorage();
+  String? token = storage.read('bearerToken');
+  if (token == null || token.isEmpty) {
+    print('Token is null or empty');
+  }else{
+    print("BEARER TOKEN PRESENT: $token");
+  }
+  return token;
+}
+
   Locale? selectedLocale;
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   final Rxn<DetailedEmployeeModel> _detailedEmployeeModel = Rxn<DetailedEmployeeModel>();
@@ -17,6 +44,9 @@ class GeneralController extends GetxController {
   // final Rxn<FunctionUserModel> _functionUserModel = Rxn<FunctionUserModel>();
 
   final RxInt _status = RxInt(0);
+
+  
+    
 
   bool checkStatus() {
     if (storageBox.hasData('status') && storageBox.read('status') == 1) {

@@ -115,7 +115,7 @@ class LoginController extends GetxController {
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
     await controller.storageBox.write('employeeID', result.employeeId);
-    await controller.storageBox.write('token', result.token);
+    // await controller.storageBox.write('token', result.t);
     if (isPhone.value) {
       await controller.storageBox.write('phone', userName);
     } else {
@@ -124,6 +124,19 @@ class LoginController extends GetxController {
     await controller.storageBox.write('password', passwordController.text);
     isAction(false);
     navigation();
+  }
+
+  Future<DetailedEmployeeModel?> syncEmployeeApi(String employeeId,int teantId,int locationId) async{
+   try{
+    var response = await _apiProvider.getEmployeeSync(employeeId, teantId, locationId);
+    if(response == null) return null;
+   DetailedEmployeeModel syncEmployeeModel = DetailedEmployeeModel.fromJson(response);
+    return syncEmployeeModel;
+
+   } on Exception catch(e){
+    Toaster.showError(e.toString());
+   }
+   return null;
   }
   
 

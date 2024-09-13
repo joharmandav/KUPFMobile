@@ -35,6 +35,11 @@ class ProfileBodyController extends GetxController
   final TextEditingController salaryController = TextEditingController();
   final TextEditingController paciController = TextEditingController();
   final TextEditingController otherIDController = TextEditingController();
+  final TextEditingController userIdController = TextEditingController();
+  int tenantID = 21;
+  String RejectedDate = "2024-09-12T12:34:56";
+
+  
   DetailedEmployeeModel? detailedEmployeeModel;
 
   RxnString gender = RxnString();
@@ -68,7 +73,7 @@ class ProfileBodyController extends GetxController
     Get.log(departmentResult.length.toString());
     _departmentList.assignAll(departmentResult);
     if (detailedEmployeeModel!.department != null &&
-        detailedEmployeeModel!.department != 0) {
+  detailedEmployeeModel!.department != 0) {
       department.value = _departmentList.firstWhere(
           (element) => element.refID == detailedEmployeeModel!.department);
     }
@@ -96,51 +101,123 @@ class ProfileBodyController extends GetxController
     }
   }
 
-  Future<void> updateProfile() async {
-    detailedEmployeeModel!.englishName = employeeNameController.text;
-    detailedEmployeeModel!.arabicName = arabicNameController.text;
-    detailedEmployeeModel!.empBirthday = dobController.text;
+  // Future<void> updateProfile() async {
+  //   detailedEmployeeModel!.englishName = employeeNameController.text;
+  //   detailedEmployeeModel!.arabicName = arabicNameController.text;
+  //   detailedEmployeeModel!.empBirthday = dobController.text;
     
-    detailedEmployeeModel!.empGender =  
-        gender.value != null && gender.value == LanguageConstants.male.tr
-            ? 1
-            : 0;
-    detailedEmployeeModel!.empMaritalStatus =
-        marital.value != null && marital.value == LanguageConstants.married.tr
-            ? 1
-            : 0;
-    detailedEmployeeModel!.mobileNumber = mobileController.text;
-    detailedEmployeeModel!.empWorkTelephone = landLineController.text;
-    detailedEmployeeModel!.empWorkEmail = emailController.text;
-    detailedEmployeeModel!.next2KinMobNumber = nextToKinMobileController.text;
-    detailedEmployeeModel!.next2KinName = nextToKinNameController.text;
-    detailedEmployeeModel!.salary = int.tryParse(salaryController.text) ?? 0;
-    detailedEmployeeModel!.empPaciNum = paciController.text;
-    detailedEmployeeModel!.empOtherId = otherIDController.text;
-    detailedEmployeeModel!.departmentName = occupation.value?.shortName ?? "";
-    detailedEmployeeModel!.department = department.value?.refID ?? 0;
-    detailedEmployeeModel!.uploadBy = pickedFile.value?.path ?? "";
-    if (controller.status == 0) return;
-    if (!await _connectivityService.checkConnectivity()) {
-      ConnectivityService.internetErrorDialog();
-      return;
-    }
+  //   detailedEmployeeModel!.empGender =  
+  //       gender.value != null && gender.value == LanguageConstants.male.tr
+  //           ? 1
+  //           : 0;
+  //   detailedEmployeeModel!.empMaritalStatus =
+  //       marital.value != null && marital.value == LanguageConstants.married.tr
+  //           ? 1
+  //           : 0;
+  //   detailedEmployeeModel!.mobileNumber = mobileController.text;
+  //   detailedEmployeeModel!.empWorkTelephone = landLineController.text;
+  //   detailedEmployeeModel!.empWorkEmail = emailController.text;
+  //   detailedEmployeeModel!.next2KinMobNumber = nextToKinMobileController.text;
+  //   detailedEmployeeModel!.next2KinName = nextToKinNameController.text;
+  //   detailedEmployeeModel!.salary = int.tryParse(salaryController.text) ?? 0;
+  //   detailedEmployeeModel!.empPaciNum = paciController.text;
+  //   detailedEmployeeModel!.empOtherId = otherIDController.text;
+  //   detailedEmployeeModel!.departmentName = occupation.value?.shortName ?? "";
+  //   detailedEmployeeModel!.department = department.value?.refID ?? 0;
+  //   detailedEmployeeModel!.uploadBy = pickedFile.value?.path ?? "";
+  //   if (controller.status == 0) return;
+  //   if (!await _connectivityService.checkConnectivity()) {
+  //     ConnectivityService.internetErrorDialog();
+  //     return;
+  //   }
 
-    _isLoading(true);
+  //   _isLoading(true);
 
-    dynamic response = await _apiProvider
-        .updateEmployeeProfile(detailedEmployeeModel!.toJson());
-        print("  RED MODEL: ${detailedEmployeeModel!.toJson()}");
+  //   dynamic response = await _apiProvider
+  //       .updateEmployeeProfile(detailedEmployeeModel!.toJson());
+  //       print("  RED MODEL: ${detailedEmployeeModel!.toJson()}");
 
-    if (response == null) {
-      _isLoading(false);
-      return;
-    }
-    Toaster.showConfirm("Successfully Updated");
-    await db.updateEmployeeDetails(detailedEmployeeModel!);
-    _isLoading(false);
-    controller.detailedEmployeeModel = detailedEmployeeModel!;
+  //   if (response == null) {
+  //     _isLoading(false);
+  //     return;
+  //   }
+  //   Toaster.showConfirm("Successfully Updated");
+  //   await db.updateEmployeeDetails(detailedEmployeeModel!);
+  //   _isLoading(false);
+  //   controller.detailedEmployeeModel = detailedEmployeeModel!;
+  // }
+   
+   Future<void> updateProfile() async {
+    final generalController = GeneralController();
+    
+    // String bearertoken = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5OTUwMTU2NiIsImV4cCI6MTcyNjY0ODE0NCwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.3fVvDqShH7jhPMtPuS4WZXi3K4qBz_bfhsRgl1k5x4DVTnENanPIUeJXnvLQTFY9CwfBDlFNaofOtI4kf9PPJw";
+   String? bearertoken = await generalController.getBearerToken();
+  // Updating model with controller values
+  detailedEmployeeModel!.englishName = employeeNameController.text;
+  detailedEmployeeModel!.arabicName = arabicNameController.text;
+  detailedEmployeeModel!.empBirthday = dobController.text;
+  detailedEmployeeModel!.empGender =  
+      gender.value != null && gender.value == LanguageConstants.male.tr
+          ? 1
+          : 0;
+  detailedEmployeeModel!.empMaritalStatus =
+      marital.value != null && marital.value == LanguageConstants.married.tr
+          ? 1
+          : 0;
+  detailedEmployeeModel!.mobileNumber = mobileController.text;
+  detailedEmployeeModel!.empWorkTelephone = landLineController.text;
+  detailedEmployeeModel!.empWorkEmail = emailController.text;
+  detailedEmployeeModel!.next2KinMobNumber = nextToKinMobileController.text;
+  detailedEmployeeModel!.next2KinName = nextToKinNameController.text;
+  detailedEmployeeModel!.salary = int.tryParse(salaryController.text) ?? 0;
+  detailedEmployeeModel!.empPaciNum = paciController.text;
+  detailedEmployeeModel!.empOtherId = otherIDController.text;
+  detailedEmployeeModel!.departmentName = occupation.value?.shortName ?? "";
+  detailedEmployeeModel!.department = department.value?.refID ?? 0;
+  detailedEmployeeModel!.tenentId = tenantID;
+  detailedEmployeeModel!.rejectedDate = RejectedDate;
+
+
+  if (controller.status == 0) return;
+  if (!await _connectivityService.checkConnectivity()) {
+    ConnectivityService.internetErrorDialog();
+    return;
   }
+
+  _isLoading(true);
+
+  // Prepare payload
+  Map<String, dynamic> payload = detailedEmployeeModel!.toJson();
+
+
+  
+
+  // Check for fields that were not updated (i.e., remain null or default)
+  Map<String, dynamic> unsentFields = {};
+  detailedEmployeeModel!.toJson().forEach((key, value) {
+    if (value == null || value == '') {
+      unsentFields[key] = value;
+    }
+  });
+
+  // Print unsent fields
+  print("Fields not being sent (null or empty): $unsentFields");
+
+  // Make the API request
+  dynamic response = await _apiProvider.updateEmployeeProfile(payload,bearertoken??"");
+  print("  RED MODEL: ${detailedEmployeeModel!.toJson()}");
+
+  if (response == null) {
+    _isLoading(false);
+    return;
+  }
+  
+  // Handle success
+  Toaster.showConfirm("Successfully Updated");
+  await db.updateEmployeeDetails(detailedEmployeeModel!);
+  _isLoading(false);
+  controller.detailedEmployeeModel = detailedEmployeeModel!;
+}
 
   Future<void> init() async {
     if (!controller.checkStatus()) return;

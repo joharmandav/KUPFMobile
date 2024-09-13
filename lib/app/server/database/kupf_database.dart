@@ -106,7 +106,7 @@ class DbManager extends GetxService {
     try {
       return await _database.update(
         Constants.detailedEmployeeTable,
-        model.toMap(),
+        model.toJson(),
         // Ensure that the table has a matching id.
         where: '${Constants.employeeID} = ?',
         // Pass the table's id as a whereArg to prevent SQL injection.
@@ -170,8 +170,8 @@ class DbManager extends GetxService {
     Get.log(adult.toString());
 
     if (adult.isNotEmpty) {
-      detailedEmployeeModel = DetailedEmployeeModel.fromMap(adult.first);
-      detailedEmployeeModel.deviceID = deviceID;
+      detailedEmployeeModel = DetailedEmployeeModel.fromJson(adult.first);
+      // detailedEmployeeModel.deviceID = deviceID;
       var result = await updateEmployeeDetails(detailedEmployeeModel);
       Get.log(result.toString());
       Get.log(adult.toString());
@@ -269,7 +269,7 @@ class DbManager extends GetxService {
 
     if (adult.isNotEmpty) {
       for (var item in adult) {
-        adultList.add(DetailedEmployeeModel.fromMap(item));
+        adultList.add(DetailedEmployeeModel.fromJson(item));
         Get.log(item.toString());
       }
     }

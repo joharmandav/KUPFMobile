@@ -23,6 +23,21 @@ class ApiProvider extends GetConnect {
     });
   }
 
+  Future getEmployeeSync(String employeeId,int teantId,int locationId)async{
+  
+   try{
+    Response response = await get("/Common/GetEmployeeSynchronization?EmployeeId=$employeeId&TeantId=$teantId&LocationId=$locationId");
+    if(response.statusCode == 200){
+    return response.body;
+    }else{
+      print("Employee Sync Failed");
+    }
+   
+   }on Exception catch(e){
+     Toaster.showError(e.toString());
+   }
+  }
+
   Future loginEmployee(String userName, String password,String type) async {
     Map<String, dynamic> data = {
       "username": userName,
@@ -34,7 +49,21 @@ class ApiProvider extends GetConnect {
       Response response = await post("/Login/MobileLogin", data);
       if (response.statusCode == 200) {
 
-        return response.body;
+        // sync data on login static for now  change later to dynamic
+
+        String employeeId ="17502281";
+        int teantId = 21;
+        int locationId = 1;
+        await getEmployeeSync(employeeId, teantId, locationId);
+
+
+        //  save bearer token
+        String token = response.body['token'];
+        print("TOKEN>>>>>: $token");
+       final generalController = Get.find<GeneralController>();
+       await generalController.saveBearerToken(token);
+
+      return response.body;
       }
       // return null;
     } on Exception catch (e) {
@@ -83,20 +112,32 @@ class ApiProvider extends GetConnect {
     return null;
   }
 
-  Future updateEmployeeProfile(Map<String, dynamic> data) async {
-    try {
-      final response = await put("/Employee/UpdateEmployee", data);
-      if (response.statusCode == 200) {
-        return response.body;
-      } else {
-        Toaster.showError(response.body.toString());
-      }
-      return null;
-    } on Exception catch (e) {
-      Toaster.showError(e.toString());
+  Future<dynamic> updateEmployeeProfile(Map<String, dynamic> data, String bearerToken) async {
+  try {
+    final headers = {
+      'Authorization': 'Bearer $bearerToken',
+      'Content-Type': 'application/json',
+    };
+    print("BEARER TOKEN SENDING>>>>: $bearerToken");
+
+    final response = await put(
+      "/Employee/UpdateEmployee",
+      data,
+      headers: headers, 
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      Toaster.showError(response.body.toString());
+      print("ERROR >>>>: ${response.body.toString()}");
     }
-    return null;
+  } on Exception catch (e) {
+    Toaster.showError(e.toString());
   }
+  return null;
+}
+
 
   Future<List<OffersModel>> getOffers() async {
     try {
