@@ -48,7 +48,7 @@ dependencies:
   material_design_icons_flutter: ^6.0.7096
   fluttertoast: ^8.2.1
   pin_code_fields: ^8.0.0
-  sms_autofill: ^2.3.0
+  sms_autofill: ^2.4.0
   flare_flutter: ^3.0.2
 
   #statemanagement
