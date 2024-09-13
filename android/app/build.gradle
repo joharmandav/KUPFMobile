@@ -74,6 +74,15 @@ android {
             minifyEnabled false
         }
     }
+    // Customizing the APK name based on versionCode and versionName
+    applicationVariants.all{ variant ->
+    variant.outputs.all {
+        // Create the APK file name with versionName and versionCode
+        def newApkName = "MyAppName_v${variant.versionName}_${variant.versionCode}.apk"
+        outputFileName = newApkName
+    }
+
+    }
 }
 
 flutter {
