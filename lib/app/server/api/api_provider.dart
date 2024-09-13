@@ -24,8 +24,7 @@ class ApiProvider extends GetConnect {
   }
 
   Future getEmployeeSync(String employeeId,int teantId,int locationId)async{
-  
-   try{
+  try{
     Response response = await get("/Common/GetEmployeeSynchronization?EmployeeId=$employeeId&TeantId=$teantId&LocationId=$locationId");
     if(response.statusCode == 200){
     return response.body;
@@ -48,14 +47,8 @@ class ApiProvider extends GetConnect {
     try {
       Response response = await post("/Login/MobileLogin", data);
       if (response.statusCode == 200) {
-
-        // sync data on login static for now  change later to dynamic
-
-        String employeeId ="17502281";
-        int teantId = 21;
-        int locationId = 1;
-        await getEmployeeSync(employeeId, teantId, locationId);
-
+  
+     
 
         //  save bearer token
         String token = response.body['token'];

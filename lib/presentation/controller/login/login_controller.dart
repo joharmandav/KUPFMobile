@@ -14,7 +14,6 @@ import '../../../app/server/database/db_constant.dart';
 import '../../../app/services/auth.dart';
 import '../../../helper/toaster.dart';
 import '../../models/detailed_employee_model.dart';
-import '../../screen/main_view/main_view.dart';
 import '../connectivity_controller.dart';
 import '../main/general_controller.dart';
 
@@ -114,7 +113,12 @@ class LoginController extends GetxController {
     controller.detailedEmployeeModel = result;
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
-    await controller.storageBox.write('employeeID', result.employeeId);
+    await controller.storageBox.write('employeeId', result.employeeId);
+    await controller.storageBox.write('tenentId', result.tenentId);
+    await controller.storageBox.write('locationId', result.locationId);
+ 
+
+  
     // await controller.storageBox.write('token', result.t);
     if (isPhone.value) {
       await controller.storageBox.write('phone', userName);
@@ -122,6 +126,12 @@ class LoginController extends GetxController {
       await controller.storageBox.write('email', userName);
     }
     await controller.storageBox.write('password', passwordController.text);
+
+    String emplyId = result.employeeId.toString();
+    int? tntId  = result.tenentId;
+    int? locId = result.locationId;
+
+      await syncEmployeeApi(emplyId,tntId??0,locId??0 );
     isAction(false);
     navigation();
   }

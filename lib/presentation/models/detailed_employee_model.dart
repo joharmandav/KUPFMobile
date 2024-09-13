@@ -263,8 +263,8 @@ class DetailedEmployeeModel {
         loanOpAmount = json["loanOPAmount"];
         subOpNotPaidAmount = json["subOPNotPaidAmount"];
         subOpAmount = json["subOPAmount"];
-        if(json["tenentID"] is int) {
-            tenentId = json["tenentID"];
+        if(json["tenentId"] is int) {
+            tenentId = json["tenentId"];
         }
         if(json["username"] is String) {
             username = json["username"];
@@ -348,7 +348,7 @@ class DetailedEmployeeModel {
         _data["loanOPAmount"] = loanOpAmount;
         _data["subOPNotPaidAmount"] = subOpNotPaidAmount;
         _data["subOPAmount"] = subOpAmount;
-        _data["tenentID"] = tenentId;
+        _data["tenentId"] = tenentId;
         _data["username"] = username;
         _data["userId"] = userId;
         return _data;
