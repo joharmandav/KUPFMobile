@@ -60,6 +60,7 @@ class LanguageConstants {
   static const landLine = 'land_line';
   static const mobile = 'mobile';
   static const email = 'email';
+  static const emplIdNum = 'Employee Id Number';
   static const home = 'home';
   static const link = 'link';
   static const nextOfThekinName = 'next_of_the_kin_name';

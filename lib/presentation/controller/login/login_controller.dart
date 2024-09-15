@@ -45,8 +45,19 @@ class LoginController extends GetxController {
   final phoneController = TextEditingController();
 
   RxBool isAction = RxBool(false);
+  final RxBool isFirstTimeLogin = false.obs;
 
   late AccountAuthService _authService;
+  // login selection seitch
+  var selectedLoginType = 'Mobile'.obs; 
+   final TextEditingController seletionController = TextEditingController();
+   
+
+
+  void changeLoginType(String type) {
+    selectedLoginType.value = type;
+  }
+
 
   @override
   void onInit() {

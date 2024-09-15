@@ -53,231 +53,288 @@ class SignInView extends GetView<LoginController> {
                 child: CurvedBoxDecoration(
                   child: Form(
                     key: controller.formKey,
-                    child: Column(
-                      //  crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const Padding(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 24),
                           child: Image(image: ImageString.logo),
                         ),
-                        AppUtility.heightBox,
-                        if (controller.isPhone.value)
-                          IntlPhoneField(
-                            // labelText: AppString.phoneNumber,
-                            controller: controller.phoneController,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (value) {
-                              if (value == null ||
-                                  value.completeNumber.isEmpty) {
-                                return LanguageConstants.required.tr;
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              controller.countryCode(value.countryCode);
-                            },
-                            initialCountryCode: 'KW',
-                            // keyboardType: TextInputType.number,
-                          ),
-                        if (controller.isPhone.value) AppUtility.heightBox,
-                        if (!controller.isPhone.value)
-                          LabelTextField(
-                            // labelText: AppString.phoneNumber,
-                            controller: controller.emailController,
-                            hintText: LanguageConstants.email.tr,
-                            keyboardType: TextInputType.emailAddress,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return LanguageConstants.emailRequired.tr;
-                              }
-                              /*else if (!GetUtils.isEmail(value)) {
-                              return LanguageConstants.invalidEmail.tr;
-                            }*/
-                              return null;
-                            },
-                            suffixIcon: IconButton(
-                              icon: const Icon(Icons.email_outlined),
-                              onPressed: () {},
+                          AppUtility.heightBox,
+                      // gove selection switch here
+                                        Obx(()=> Row(
+                        children: [
+                          Radio<String>(value: 'Mobile', 
+                          groupValue: controller.selectedLoginType.value,
+                           onChanged: (value){
+                          controller.isPhone(!controller.isPhone.value);  
+                          controller.changeLoginType(value!);
+                          controller.seletionController.clear();
+                          
+                          }),
+                           const Text('Mobile Number'),
+                                     const SizedBox(width: 20),
+                                       Radio<String>(
+                                        value: 'EmployeeID',
+                                        groupValue: controller.selectedLoginType.value,
+                                        onChanged: (value) {
+                        controller.isPhone(!controller.isPhone.value);
+                        controller.changeLoginType(value??'');
+                        controller.seletionController.clear();
+                        
+                                        },
+                                      ),
+                                      const Text('Employee ID'),
+                        ],
+                      )),
+                          if (controller.isPhone.value)
+                          // mobile number
+                            Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: IntlPhoneField(
+                                // labelText: AppString.phoneNumber,
+                                controller: controller.phoneController,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.completeNumber.isEmpty) {
+                                    return LanguageConstants.required.tr;
+                                  }
+                                  return null;
+                                },
+                                 decoration: InputDecoration(
+                                 labelText: LanguageConstants.phoneNumber.tr,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 12.0), 
+                                  border: const OutlineInputBorder(),
+                                 ),
+                                onChanged: (value) {
+                                  controller.countryCode(value.countryCode);
+                                },
+                                initialCountryCode: 'KW',
+                                // keyboardType: TextInputType.number,
+                              ),
+                            ),
+                            // emlpyee id 
+                          if (controller.isPhone.value) AppUtility.heightBox,
+                          if (!controller.isPhone.value)
+                            Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: LabelTextField(
+                                // labelText: AppString.phoneNumber,
+                                controller: controller.emailController,
+                                hintText: LanguageConstants.emplIdNum.tr,
+                                keyboardType: TextInputType.number,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return LanguageConstants.emplIdNum.tr;
+                                  }
+                                  /*else if (!GetUtils.isEmail(value)) {
+                                  return LanguageConstants.invalidEmail.tr;
+                                }*/
+                                  return null;
+                                },
+                                suffixIcon: IconButton(
+                                  icon: const Icon(Icons.numbers_sharp),
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ),
+                            // password
+                          if (!controller.isPhone.value) AppUtility.heightBox,
+                          Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: LabelTextField(
+                              controller: controller.passwordController,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              obscureText: controller.obscureText.value,
+                              labelText: LanguageConstants.password.tr,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return LanguageConstants.required.tr;
+                                }
+                                return null;
+                              },
+                              suffixIcon: IconButton(
+                                  icon: controller.obscureText.value
+                                      ? const Icon(Icons.remove_red_eye_outlined)
+                                      : const Icon(Icons.remove_red_eye),
+                                  onPressed: () {
+                                    controller.obscureText.value =
+                                        !controller.obscureText.value;
+                                  }),
                             ),
                           ),
-                        if (!controller.isPhone.value) AppUtility.heightBox,
-                        LabelTextField(
-                          controller: controller.passwordController,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          obscureText: controller.obscureText.value,
-                          labelText: LanguageConstants.password.tr,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return LanguageConstants.required.tr;
-                            }
-                            return null;
-                          },
-                          suffixIcon: IconButton(
-                              icon: controller.obscureText.value
-                                  ? const Icon(Icons.remove_red_eye_outlined)
-                                  : const Icon(Icons.remove_red_eye),
-                              onPressed: () {
-                                controller.obscureText.value =
-                                    !controller.obscureText.value;
+                          AppUtility.heightBox,
+                          AppUtility.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                            //  uncomment later not fetching the platform issue
+                              // if (GetPlatform.isIOS)
+                                // CupertinoSwitch(
+                                //   value: controller.rememberMe.value,
+                                //   activeColor: mainColor.value,
+                                //   onChanged: (value) {
+                                //     controller.rememberMe(value);
+                                //   },
+                                // ),
+                              // if (GetPlatform.isAndroid)
+                              //   Switch(
+                                  
+                              //     value: controller.rememberMe.value,
+                              //     activeColor: mainColor.value,
+                              //     focusColor: Colors.amber,
+                              //     onChanged: (value) {
+                              //       controller.rememberMe(value);
+                              //     },
+                              //   ),
+                              // const SizedBox(width: 8.0),
+                              Checkbox(value: controller.rememberMe.value, onChanged: (value){
+                                controller.rememberMe.value = value ?? false;
                               }),
-                        ),
-                        AppUtility.heightBox,
-                        AppUtility.heightBox,
-                        Row(
-                          children: [
-                            if (GetPlatform.isIOS)
-                              CupertinoSwitch(
-                                value: controller.rememberMe.value,
-                                activeColor: mainColor.value,
-                                onChanged: (value) {
-                                  controller.rememberMe(value);
-                                },
-                              ),
-                            if (GetPlatform.isAndroid)
-                              Switch(
-                                value: controller.rememberMe.value,
-                                activeColor: mainColor.value,
-                                onChanged: (value) {
-                                  controller.rememberMe(value);
-                                },
-                              ),
-                            const SizedBox(width: 8.0),
-                            Text(LanguageConstants.rememberMe.tr),
-                            const Spacer(),
-                            InkWell(
-                                onTap: () {
-                                  Get.defaultDialog(
-                                    backgroundColor: scaffoldColor.value,
-                                    title: LanguageConstants.forgotPassword.tr
-                                        .replaceAll("?", ""),
-                                    titlePadding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 16,
-                                    ),
-                                    titleStyle: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 20),
-                                    content: const ForgotPasswordDialog(),
-                                  );
-                                },
-                                child:
-                                    KText(LanguageConstants.forgotPassword.tr))
-                          ],
-                        ),
-                        AppUtility.heightBox,
-                        AppButtonElevated(
-                          text: LanguageConstants.signIn.tr,
-                          onPressed: controller.login,
-                        ),
-                        AppUtility.height32Box,
-                        RichText(
-                          text: TextSpan(
-                            text: LanguageConstants.dontHaveAccount.tr,
-                            style: AppTextTheme.bodyText1grey,
-                            children: [
-                              TextSpan(
-                                text: LanguageConstants.signUp.tr,
-                                style: AppTextTheme.bodyText1Primary
-                                    .copyWith(fontWeight: FontWeight.bold),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => const SignUpView())),
-                              ),
+                              Text(LanguageConstants.rememberMe.tr),
+                              const Spacer(),
+                              InkWell(
+                                  onTap: () {
+                                    Get.defaultDialog(
+                                      backgroundColor: scaffoldColor.value,
+                                      title: LanguageConstants.forgotPassword.tr
+                                          .replaceAll("?", ""),
+                                      // titlePadding: const EdgeInsets.symmetric(
+                                      //   horizontal: 8,
+                                      //   vertical: 16,
+                                      // ),
+                                      titleStyle: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 20),
+                                      content: const ForgotPasswordDialog(),
+                                    );
+                                  },
+                                  child:
+                                      KText(LanguageConstants.forgotPassword.tr),)
                             ],
                           ),
-                        ),
-                        AppUtility.height32Box,
-                        // social signin
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (controller.localAuthController.isSupported)
-                              SocialIconWidget(
-                                color: mainColor.value,
-                                icon: MdiIcons.fingerprint,
-                                // change null later
-                                             onPressed: controller
-                                            .localAuthController.isSupported &&
-                                        controller.localAuthController.isEnable
-                                    ? null
-                                    : null,                                
-                              ),
-                            AppUtility.widthBox,
-                            SocialIconWidget(
-                              color: mainColor.value,
-                              icon: controller.isPhone.value
-                                  ? MdiIcons.email
-                                  : MdiIcons.phone,
-                              onPressed: () =>
-                                  controller.isPhone(!controller.isPhone.value),
+                          AppUtility.heightBox,
+                          // sign in btn
+                          AppButtonElevated(
+                            text: LanguageConstants.signIn.tr,
+                            onPressed: controller.login,
+                          ),
+                          AppUtility.height32Box,
+                          // signup
+                          RichText(
+                            text: TextSpan(
+                              text: LanguageConstants.dontHaveAccount.tr,
+                              style: AppTextTheme.bodyText1grey,
+                              children: [
+                                TextSpan(
+                                  text: LanguageConstants.signUp.tr,
+                                  style: AppTextTheme.bodyText1Primary
+                                      .copyWith(fontWeight: FontWeight.bold),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => const SignUpView())),
+                                ),
+                              ],
                             ),
-                            AppUtility.widthBox,
-                            SocialIconWidget(
-                              color: Colors.redAccent,
-                              icon: MdiIcons.google,
-                              onPressed: controller.signInWithGoogle,
-                            ),
-                            // AppUtility.widthBox,
-                            // SocialIconWidget(
-                            //   color: const Color(0XFF4267B2),
-                            //   icon: MdiIcons.facebook,
-                            //   onPressed: controller.signInWithFaceBook,
-                            // ),
-                            if (GetPlatform.isIOS) AppUtility.widthBox,
-                            if (GetPlatform.isIOS)
-                              SocialIconWidget(
-                                color: Colors.black,
-                                icon: MdiIcons.apple,
-                                onPressed: controller.signInWithApple,
-                              ),
-                            // FutureBuilder(
-                            //     future: _controller.checkDevice(),
-                            //     builder: (context, snapshot) {
-                            //       if (snapshot.hasData && snapshot.data != null) {
-                            //         bool manufacturer = snapshot.data as bool;
-                            //         if (manufacturer) {
-                            //           return Row(
-                            //             children: [
-                            //               AppUtility.widthBox,
-                            //               SocialIconWidget(
-                            //                 color: Colors.white,
-                            //                 path: "assets/huawei-logo.svg",
-                            //                 onPressed: () async {
-                            //                   _controller.signInWithHuawei();
-                            //                   // loginController.verifySocialLogin(info, false, true, false);
-                            //                 },
-                            //               ),
-                            //             ],
-                            //           );
-                            //         }
-                            //       }
-                            //       return const SizedBox();
-                            //     }),
-                          ],
-                        ),
-                        AppUtility.height32Box,
-                        RichText(
-                          text: TextSpan(
-                            text: LanguageConstants.loginAs.tr,
-                            style: AppTextTheme.bodyText1grey,
+                          ),
+                          AppUtility.height32Box,
+                          // social signin
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextSpan(
-                                text: LanguageConstants.guest.tr,
-                                style: AppTextTheme.bodyText1Primary
-                                    .copyWith(fontWeight: FontWeight.bold),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap =
-                                      () => Get.offAllNamed(AppRoutes.home),
-                              ),
+                              // make it  visible only after user logged in for first time
+                              if (controller.localAuthController.isSupported)
+                                SocialIconWidget(
+                                  color: mainColor.value,
+                                  icon: MdiIcons.fingerprint,
+                                  // change null later
+                                               onPressed: controller
+                                              .localAuthController.isSupported &&
+                                          controller.localAuthController.isEnable
+                                      ? null
+                                      : null,                                
+                                ),
+                              AppUtility.widthBox,
+                              // for email
+                              // SocialIconWidget(
+                              //   color: mainColor.value,
+                              //   icon: controller.isPhone.value
+                              //       ? MdiIcons.idCard
+                              //       : MdiIcons.phone,
+                              //   onPressed: () =>
+                              //       controller.isPhone(!controller.isPhone.value),
+                              // ),
+                              // for goggle sign
+                              // AppUtility.widthBox,
+                              // SocialIconWidget(
+                              //   color: Colors.redAccent,
+                              //   icon: MdiIcons.google,
+                              //   onPressed: controller.signInWithGoogle,
+                              // ),
+                              // AppUtility.widthBox,
+                              // SocialIconWidget(
+                              //   color: const Color(0XFF4267B2),
+                              //   icon: MdiIcons.facebook,
+                              //   onPressed: controller.signInWithFaceBook,
+                              // ),
+                              if (GetPlatform.isIOS) AppUtility.widthBox,
+                              if (GetPlatform.isIOS)
+                                SocialIconWidget(
+                                  color: Colors.black,
+                                  icon: MdiIcons.apple,
+                                  onPressed: controller.signInWithApple,
+                                ),
+                              // FutureBuilder(
+                              //     future: _controller.checkDevice(),
+                              //     builder: (context, snapshot) {
+                              //       if (snapshot.hasData && snapshot.data != null) {
+                              //         bool manufacturer = snapshot.data as bool;
+                              //         if (manufacturer) {
+                              //           return Row(
+                              //             children: [
+                              //               AppUtility.widthBox,
+                              //               SocialIconWidget(
+                              //                 color: Colors.white,
+                              //                 path: "assets/huawei-logo.svg",
+                              //                 onPressed: () async {
+                              //                   _controller.signInWithHuawei();
+                              //                   // loginController.verifySocialLogin(info, false, true, false);
+                              //                 },
+                              //               ),
+                              //             ],
+                              //           );
+                              //         }
+                              //       }
+                              //       return const SizedBox();
+                              //     }),
                             ],
                           ),
-                        ),
-                      ],
+                          AppUtility.height32Box,
+                          RichText(
+                            text: TextSpan(
+                              text: LanguageConstants.loginAs.tr,
+                              style: AppTextTheme.bodyText1grey,
+                              children: [
+                                TextSpan(
+                                  text: LanguageConstants.guest.tr,
+                                  style: AppTextTheme.bodyText1Primary
+                                      .copyWith(fontWeight: FontWeight.bold),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap =
+                                        () => Get.offAllNamed(AppRoutes.home),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
