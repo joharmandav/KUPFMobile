@@ -179,7 +179,7 @@ class ProfileBodyController extends GetxController
 
 
   if (controller.status == 0) return;
-  if (!await _connectivityService.checkConnectivity()) {
+  if (await _connectivityService.checkConnectivity()) {
     ConnectivityService.internetErrorDialog();
     return;
   }
@@ -220,7 +220,7 @@ class ProfileBodyController extends GetxController
 }
 
   Future<void> init() async {
-    if (!controller.checkStatus()) return;
+    if (controller.checkStatus()) return;
     // String device = await controller.deviceID();
     _isLoading(true);
     if (await _connectivityService.checkConnectivity()) {

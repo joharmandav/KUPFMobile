@@ -47,6 +47,8 @@ class LanguageConstants {
   static const phoneNumber = 'phone_number';
   static const register = 'register';
   static const fullName = 'full_name';
+  static const mobileNumber = 'mobile_number';
+  static const employeeID = 'employee_id';
   static const departmentWorking = 'department_working';
   static const kuwaitUniversityId = 'kuwait_university_id';
   static const civilId = 'civil_id';
@@ -60,7 +62,7 @@ class LanguageConstants {
   static const landLine = 'land_line';
   static const mobile = 'mobile';
   static const email = 'email';
-  static const emplIdNum = 'Employee Id Number';
+  static const emplIdNum = 'empl_id_number';
   static const home = 'home';
   static const link = 'link';
   static const nextOfThekinName = 'next_of_the_kin_name';

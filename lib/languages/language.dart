@@ -108,7 +108,10 @@ class LanguagesChang extends Translations {
       "success_change" : "Successfully Changed",
       "language" : "Language",
       "home" : "Home",
-      "link" : "LINK"
+      "link" : "LINK",
+      "employee_id": "Employee Id",
+      "mobile_number": "Mobile Number",
+      "empl_id_number": "Employee Id Number"
     },
     "ar" : {
       "profile": "الملف الشخصي",
@@ -154,6 +157,9 @@ class LanguagesChang extends Translations {
       "land_line" : "هاتف ارضي",
       "mobile" : "التليفون المحمول",
       "email" : "البريد الإلكتروني",
+      "employee_id": "معرف الموظف رقم",
+      "empl_id_number": "رقم هوية الموظف",
+      "mobile_number": "رقم الجوال",
       "next_of_the_kin_name" : "التالي من اسم القربى",
       "next_of_the_kin_mobile" : "التالي للأقارب موبايل",
       "service_procured" : "تم الحصول على الخدمة",

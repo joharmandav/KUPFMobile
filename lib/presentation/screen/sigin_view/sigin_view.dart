@@ -58,40 +58,44 @@ class SignInView extends GetView<LoginController> {
                       child: Column(
                         children: [
                           const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
-                          child: Image(image: ImageString.logo),
-                        ),
+                            padding: EdgeInsets.symmetric(horizontal: 24),
+                            child: Image(image: ImageString.logo),
+                          ),
                           AppUtility.heightBox,
-                      // gove selection switch here
-                                        Obx(()=> Row(
-                        children: [
-                          Radio<String>(value: 'Mobile', 
-                          groupValue: controller.selectedLoginType.value,
-                           onChanged: (value){
-                          controller.isPhone(!controller.isPhone.value);  
-                          controller.changeLoginType(value!);
-                          controller.seletionController.clear();
-                          
-                          }),
-                           const Text('Mobile Number'),
-                                     const SizedBox(width: 20),
-                                       Radio<String>(
-                                        value: 'EmployeeID',
-                                        groupValue: controller.selectedLoginType.value,
-                                        onChanged: (value) {
-                        controller.isPhone(!controller.isPhone.value);
-                        controller.changeLoginType(value??'');
-                        controller.seletionController.clear();
-                        
-                                        },
-                                      ),
-                                      const Text('Employee ID'),
-                        ],
-                      )),
+                          // gove selection switch here
+                          Obx(() => Row(
+                                children: [
+                                  Radio<String>(
+                                      value: 'Mobile',
+                                      groupValue:
+                                          controller.selectedLoginType.value,
+                                      onChanged: (value) {
+                                        controller
+                                            .isPhone(!controller.isPhone.value);
+                                        controller.changeLoginType(value!);
+                                        controller.seletionController.clear();
+                                      }),
+                                  Text(LanguageConstants.mobileNumber.tr),
+                                  const SizedBox(width: 20),
+                                  Radio<String>(
+                                    value: 'EmployeeID',
+                                    groupValue:
+                                        controller.selectedLoginType.value,
+                                    onChanged: (value) {
+                                      controller
+                                          .isPhone(!controller.isPhone.value);
+                                      controller.changeLoginType(value ?? '');
+                                      controller.seletionController.clear();
+                                    },
+                                  ),
+                                  Text(LanguageConstants.employeeID.tr),
+                                ],
+                              )),
                           if (controller.isPhone.value)
-                          // mobile number
+                            // mobile number
                             Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
                               child: IntlPhoneField(
                                 // labelText: AppString.phoneNumber,
                                 controller: controller.phoneController,
@@ -104,11 +108,12 @@ class SignInView extends GetView<LoginController> {
                                   }
                                   return null;
                                 },
-                                 decoration: InputDecoration(
-                                 labelText: LanguageConstants.phoneNumber.tr,
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 12.0), 
+                                decoration: InputDecoration(
+                                  labelText: LanguageConstants.phoneNumber.tr,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 12.0),
                                   border: const OutlineInputBorder(),
-                                 ),
+                                ),
                                 onChanged: (value) {
                                   controller.countryCode(value.countryCode);
                                 },
@@ -116,11 +121,13 @@ class SignInView extends GetView<LoginController> {
                                 // keyboardType: TextInputType.number,
                               ),
                             ),
-                            // emlpyee id 
+                          // emlpyee id
                           if (controller.isPhone.value) AppUtility.heightBox,
+                          // emply id
                           if (!controller.isPhone.value)
                             Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
                               child: LabelTextField(
                                 // labelText: AppString.phoneNumber,
                                 controller: controller.emailController,
@@ -143,13 +150,15 @@ class SignInView extends GetView<LoginController> {
                                 ),
                               ),
                             ),
-                            // password
+                          // password
                           if (!controller.isPhone.value) AppUtility.heightBox,
                           Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             child: LabelTextField(
                               controller: controller.passwordController,
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               obscureText: controller.obscureText.value,
                               labelText: LanguageConstants.password.tr,
                               validator: (value) {
@@ -160,7 +169,8 @@ class SignInView extends GetView<LoginController> {
                               },
                               suffixIcon: IconButton(
                                   icon: controller.obscureText.value
-                                      ? const Icon(Icons.remove_red_eye_outlined)
+                                      ? const Icon(
+                                          Icons.remove_red_eye_outlined)
                                       : const Icon(Icons.remove_red_eye),
                                   onPressed: () {
                                     controller.obscureText.value =
@@ -173,18 +183,18 @@ class SignInView extends GetView<LoginController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                            //  uncomment later not fetching the platform issue
+                              //  uncomment later not fetching the platform issue
                               // if (GetPlatform.isIOS)
-                                // CupertinoSwitch(
-                                //   value: controller.rememberMe.value,
-                                //   activeColor: mainColor.value,
-                                //   onChanged: (value) {
-                                //     controller.rememberMe(value);
-                                //   },
-                                // ),
+                              // CupertinoSwitch(
+                              //   value: controller.rememberMe.value,
+                              //   activeColor: mainColor.value,
+                              //   onChanged: (value) {
+                              //     controller.rememberMe(value);
+                              //   },
+                              // ),
                               // if (GetPlatform.isAndroid)
                               //   Switch(
-                                  
+
                               //     value: controller.rememberMe.value,
                               //     activeColor: mainColor.value,
                               //     focusColor: Colors.amber,
@@ -193,29 +203,33 @@ class SignInView extends GetView<LoginController> {
                               //     },
                               //   ),
                               // const SizedBox(width: 8.0),
-                              Checkbox(value: controller.rememberMe.value, onChanged: (value){
-                                controller.rememberMe.value = value ?? false;
-                              }),
+                              Checkbox(
+                                  value: controller.rememberMe.value,
+                                  onChanged: (value) {
+                                    controller.rememberMe.value =
+                                        value ?? false;
+                                  }),
                               Text(LanguageConstants.rememberMe.tr),
                               const Spacer(),
                               InkWell(
-                                  onTap: () {
-                                    Get.defaultDialog(
-                                      backgroundColor: scaffoldColor.value,
-                                      title: LanguageConstants.forgotPassword.tr
-                                          .replaceAll("?", ""),
-                                      // titlePadding: const EdgeInsets.symmetric(
-                                      //   horizontal: 8,
-                                      //   vertical: 16,
-                                      // ),
-                                      titleStyle: const TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 20),
-                                      content: const ForgotPasswordDialog(),
-                                    );
-                                  },
-                                  child:
-                                      KText(LanguageConstants.forgotPassword.tr),)
+                                onTap: () {
+                                  Get.defaultDialog(
+                                    backgroundColor: scaffoldColor.value,
+                                    title: LanguageConstants.forgotPassword.tr
+                                        .replaceAll("?", ""),
+                                    // titlePadding: const EdgeInsets.symmetric(
+                                    //   horizontal: 8,
+                                    //   vertical: 16,
+                                    // ),
+                                    titleStyle: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20),
+                                    content: const ForgotPasswordDialog(),
+                                  );
+                                },
+                                child:
+                                    KText(LanguageConstants.forgotPassword.tr),
+                              )
                             ],
                           ),
                           AppUtility.heightBox,
@@ -239,7 +253,8 @@ class SignInView extends GetView<LoginController> {
                                     ..onTap = () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (_) => const SignUpView())),
+                                            builder: (_) =>
+                                                const SignUpView())),
                                 ),
                               ],
                             ),
@@ -255,11 +270,12 @@ class SignInView extends GetView<LoginController> {
                                   color: mainColor.value,
                                   icon: MdiIcons.fingerprint,
                                   // change null later
-                                               onPressed: controller
-                                              .localAuthController.isSupported &&
-                                          controller.localAuthController.isEnable
+                                  onPressed: controller.localAuthController
+                                              .isSupported &&
+                                          controller
+                                              .localAuthController.isEnable
                                       ? null
-                                      : null,                                
+                                      : null,
                                 ),
                               AppUtility.widthBox,
                               // for email
