@@ -40,7 +40,7 @@ class LoginController extends GetxController {
   RxnBool canCheckBiometrics = RxnBool();
   RxList<BiometricType> availableBiometrics = RxList<BiometricType>();
 
-  final emailController = TextEditingController();
+  final employeeIdController = TextEditingController();
   final passwordController = TextEditingController();
   final phoneController = TextEditingController();
 
@@ -57,6 +57,8 @@ class LoginController extends GetxController {
   void changeLoginType(String type) {
     selectedLoginType.value = type;
   }
+     final controller = Get.find<GeneralController>();
+
 
 
   @override
@@ -64,12 +66,20 @@ class LoginController extends GetxController {
     super.onInit();
     _connectivityService.initConnectivity();
 
-
+    loadUserCredeentials();
     final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
       ..setProfile()
       ..setAccessToken();
     final AccountAuthParams authParams = authParamsHelper.createParams();
     _authService = AccountAuthManager.getService(authParams);
+  }
+
+  void loadUserCredeentials(){
+   if (controller.storageBox.read('rememberMe') ?? false) {
+     phoneController.text = controller.storageBox.read('username') ?? '';
+      passwordController.text = controller.storageBox.read('password') ?? '';
+      rememberMe.value = true;
+    }
   }
 
   // @override
@@ -88,7 +98,7 @@ class LoginController extends GetxController {
     formKey.currentState!.save();
     Get.focusScope!.unfocus();
     isAction(true);
-    final String userName = isPhone.value ? countryCode.value + phoneController.text : emailController.text;
+    final String userName = isPhone.value ? countryCode.value + phoneController.text : employeeIdController.text;
     Get.log(userName);
     String type;
     // container only digits
@@ -100,10 +110,7 @@ class LoginController extends GetxController {
       type = "EmployeeId";
     }
     
-   
-
-
-    final controller = Get.find<GeneralController>();
+   final controller = Get.find<GeneralController>();
     String device = await controller.deviceID();
     DetailedEmployeeModel? result;
     bool isOnline = await _connectivityService.checkConnectivity();
@@ -122,6 +129,16 @@ class LoginController extends GetxController {
       return;
     }
     controller.detailedEmployeeModel = result;
+    // if(rememberMe.value){
+    //   controller.storageBox.write('username', phoneController.text);
+    //    controller.storageBox.write('password', passwordController.text);
+    //     controller.storageBox.write('rememberMe', true);
+    // }
+    // else{
+    //     controller.storageBox.remove('username');
+    //    controller.storageBox.remove('password');
+    //     controller.storageBox.write('rememberMe', false);
+    // }
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
     await controller.storageBox.write('employeeId', result.employeeId);

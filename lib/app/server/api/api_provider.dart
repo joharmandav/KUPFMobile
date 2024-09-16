@@ -6,6 +6,7 @@ import 'package:kupf_mobile/helper/toaster.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 import 'package:kupf_mobile/presentation/models/service_setup_model.dart';
 
+import '../../../presentation/controller/login/login_controller.dart';
 import '../../../presentation/models/detailed_employee_model.dart';
 import '../../../presentation/models/offers_model.dart';
 
@@ -38,6 +39,10 @@ class ApiProvider extends GetConnect {
   }
 
   Future loginEmployee(String userName, String password,String type) async {
+      final LoginController loginController = Get.find<LoginController>();
+
+      bool rememberUser = loginController.rememberMe.value;
+
     Map<String, dynamic> data = {
       "username": userName,
       "password": password,
@@ -45,9 +50,16 @@ class ApiProvider extends GetConnect {
      
     };
     try {
+        final controller = Get.find<GeneralController>();
+
       Response response = await post("/Login/MobileLogin", data);
+
       if (response.statusCode == 200) {
-  
+       if(rememberUser){
+        controller.storageBox.write('username', userName);
+        controller.storageBox.write('password', password);
+        controller.storageBox.write('rememberMe', true);
+       }
      
 
         //  save bearer token
@@ -57,6 +69,10 @@ class ApiProvider extends GetConnect {
        await generalController.saveBearerToken(token);
 
       return response.body;
+      }else{
+         controller.storageBox.remove('username');
+       controller.storageBox.remove('password');
+        controller.storageBox.write('rememberMe', false);
       }
       // return null;
     } on Exception catch (e) {

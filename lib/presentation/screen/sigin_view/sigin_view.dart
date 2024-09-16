@@ -130,7 +130,7 @@ class SignInView extends GetView<LoginController> {
                                   const EdgeInsets.symmetric(horizontal: 12.0),
                               child: LabelTextField(
                                 // labelText: AppString.phoneNumber,
-                                controller: controller.emailController,
+                                controller: controller.employeeIdController,
                                 hintText: LanguageConstants.emplIdNum.tr,
                                 keyboardType: TextInputType.number,
                                 autovalidateMode:
