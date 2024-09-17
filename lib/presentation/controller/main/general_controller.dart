@@ -38,12 +38,17 @@ class GeneralController extends GetxController {
 
   Locale? selectedLocale;
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  final Rxn<DetailedEmployeeModel> _detailedEmployeeModel = Rxn<DetailedEmployeeModel>();
+  // final Rxn<DetailedEmployeeModel> _detailedEmployeeModel = Rxn<DetailedEmployeeModel>();
+    final _detailedEmployeeModel = Rx<DetailedEmployeeModel?>(null);
+
   // final Rxn<CRUPAuditModel> _crupAuditModel = Rxn<CRUPAuditModel>();
   // final Rxn<FunctionMSTModel> _functionMSTModel = Rxn<FunctionMSTModel>();
   // final Rxn<FunctionUserModel> _functionUserModel = Rxn<FunctionUserModel>();
 
-  final RxInt _status = RxInt(0);
+  // final RxInt _status = RxInt(0);
+   final RxInt _status = 0.obs;   
+    int get status => _status.value;
+
 
   
     
@@ -81,7 +86,7 @@ class GeneralController extends GetxController {
     return null;
   }
 
-  int get status => _status.value;
+  // int get status => _status.value;
 
   List<Locale> localeList = [
     const Locale('en', 'US'),

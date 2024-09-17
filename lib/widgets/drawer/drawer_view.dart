@@ -14,6 +14,8 @@ class DrawerView extends StatelessWidget {
   const DrawerView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+        final generalController = Get.find<GeneralController>();
+
     var format = DateFormat('d MMM y');
     return Drawer(
       child: Column(
@@ -31,14 +33,20 @@ class DrawerView extends StatelessWidget {
                         radius: 60,
                         backgroundColor: mainColor.value,
                       ),
-                      if (Get.find<GeneralController>().status == 1)
-                        Column(
+                      // if (Get.find<GeneralController>().status == 1)
+                      Obx((){
+                      return generalController.status == 1
+                      ?  Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Flexible(child: SizedBox(width: 145, child: Text(Get.find<GeneralController>().detailedEmployeeModel?.englishName ?? "Guest User", overflow: TextOverflow.ellipsis, style: const TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700, overflow: TextOverflow.ellipsis,), maxLines: 1, ))),
+                            Flexible(child: SizedBox(width: 145, child: Text(generalController.detailedEmployeeModel?.englishName ?? "Guest User", overflow: TextOverflow.ellipsis, style: const TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700, overflow: TextOverflow.ellipsis,), maxLines: 1, ))),
                           ],
-                        ) else const Text("Guest", style: TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700,),),
+                        )
+                        :   Text("Guest", style: TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700,),);
+                      }),
+                        
+                        
                     ],
                   ),
                 ),

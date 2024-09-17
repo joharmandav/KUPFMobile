@@ -73,10 +73,13 @@ class SignInView extends GetView<LoginController> {
                                         controller
                                             .isPhone(!controller.isPhone.value);
                                         controller.changeLoginType(value!);
+                                        controller.employeeIdController.clear();
+                                        controller.passwordController.clear();
                                         controller.seletionController.clear();
                                       }),
                                   Text(LanguageConstants.mobileNumber.tr),
                                   const SizedBox(width: 20),
+                                  // emplyid switch
                                   Radio<String>(
                                     value: 'EmployeeID',
                                     groupValue:
@@ -85,6 +88,8 @@ class SignInView extends GetView<LoginController> {
                                       controller
                                           .isPhone(!controller.isPhone.value);
                                       controller.changeLoginType(value ?? '');
+                                      controller.passwordController.clear();
+                                      controller.phoneController.clear();
                                       controller.seletionController.clear();
                                     },
                                   ),
