@@ -235,7 +235,6 @@ class ProfileBodyController extends GetxController
       }
     } else {
       detailedEmployeeModel = await db.getLogin(
-          controller.storageBox.read("email") ??
               controller.storageBox.read("phone"),
           controller.storageBox.read("password"),
           controller.storageBox.read("device"));
@@ -246,19 +245,30 @@ class ProfileBodyController extends GetxController
       return;
     }
 
-    controller.detailedEmployeeModel = detailedEmployeeModel!;
-    employeeNameController.text = detailedEmployeeModel!.englishName!;
-    arabicNameController.text = detailedEmployeeModel!.arabicName!;
+    controller.detailedEmployeeModel = detailedEmployeeModel;
+    employeeNameController.text = detailedEmployeeModel!.englishName??"";
+    arabicNameController.text = detailedEmployeeModel!.arabicName??"";
     dobController.text = detailedEmployeeModel?.empBirthday != null ? DateFormat('yyyy-MM-dd')
         .format(DateTime.parse(detailedEmployeeModel?.empBirthday ?? "")) : "";
-    gender.value = detailedEmployeeModel!.empGender != null &&
-            detailedEmployeeModel!.empGender == 1
-        ? LanguageConstants.male.tr
-        : LanguageConstants.female.tr;
-    marital.value = detailedEmployeeModel!.empMaritalStatus != null &&
-            detailedEmployeeModel!.empMaritalStatus == 1
-        ? LanguageConstants.married.tr
-        : LanguageConstants.single.tr;
+
+    // gender.value = detailedEmployeeModel!.empGender != null &&
+    //         detailedEmployeeModel!.empGender == 1
+    //     ? LanguageConstants.male.tr
+    //     : LanguageConstants.female.tr;
+    gender.value = detailedEmployeeModel!.empGender != null && detailedEmployeeModel!.empGender == 1
+    ? LanguageConstants.male.tr
+    : LanguageConstants.female.tr;
+
+
+    // marital.value = detailedEmployeeModel!.empMaritalStatus != null &&
+    //         detailedEmployeeModel!.empMaritalStatus == 1
+    //     ? LanguageConstants.married.tr
+    //     : LanguageConstants.single.tr;
+    marital.value = detailedEmployeeModel!.empMaritalStatus != null && detailedEmployeeModel!.empMaritalStatus == 1
+    ? LanguageConstants.married.tr
+    : LanguageConstants.single.tr;
+
+
     mobileController.text = detailedEmployeeModel!.mobileNumber ?? "";
     landLineController.text = detailedEmployeeModel!.empWorkTelephone??"";
     emailController.text = detailedEmployeeModel!.empWorkEmail??"";
@@ -266,7 +276,8 @@ class ProfileBodyController extends GetxController
         detailedEmployeeModel!.next2KinMobNumber ?? "";
     nextToKinNameController.text = detailedEmployeeModel!.next2KinName ?? "";
     salaryController.text = detailedEmployeeModel!.salary?.toString() ?? "";
-    paciController.text = detailedEmployeeModel!.empPaciNum.toString();
+    paciController.text = detailedEmployeeModel?.empPaciNum != null ? detailedEmployeeModel!.empPaciNum.toString() : "";
+
     otherIDController.text = detailedEmployeeModel!.empOtherId??"";
     // if (detailedEmployeeModel!.uploadBy != null &&
     //     detailedEmployeeModel!.uploadBy!.isNotEmpty &&
