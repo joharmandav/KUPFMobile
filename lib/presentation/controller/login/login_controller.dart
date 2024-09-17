@@ -66,7 +66,7 @@ class LoginController extends GetxController {
     super.onInit();
     _connectivityService.initConnectivity();
 
-    loadUserCredeentials();
+    loadUserCredentials();
     final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
       ..setProfile()
       ..setAccessToken();
@@ -74,13 +74,48 @@ class LoginController extends GetxController {
     _authService = AccountAuthManager.getService(authParams);
   }
 
-  void loadUserCredeentials(){
-   if (controller.storageBox.read('rememberMe') ?? false) {
-     phoneController.text = controller.storageBox.read('username') ?? '';
-      passwordController.text = controller.storageBox.read('password') ?? '';
-      rememberMe.value = true;
+  // void loadUserCredeentials(){
+  //  if (controller.storageBox.read('rememberMe') ?? false) {
+  //    phoneController.text = controller.storageBox.read('username') ?? '';
+  //     passwordController.text = controller.storageBox.read('password') ?? '';
+  //     rememberMe.value = true;
+  //   }
+  // }
+  void loadUserCredentials() {
+  if (controller.storageBox.read('rememberMe') ?? false) {
+    // Load the last used login type (Mobile or EmployeeId)
+    String loginType = controller.storageBox.read('loginType') ?? 'Mobile';
+    
+    if (loginType == 'Mobile') {
+      isPhone.value = true;  // Set the toggle to phone login
+      selectedLoginType.value = 'Mobile'; 
+      phoneController.text = controller.storageBox.read('phone') ?? '';
+    } else if (loginType == 'EmployeeId') {
+      isPhone.value = false;  // Set the toggle to employee ID login
+      selectedLoginType.value = 'EmployeeId';
+      employeeIdController.text = controller.storageBox.read('employeeId') ?? '';
     }
+
+    passwordController.text = controller.storageBox.read('password') ?? '';
+    rememberMe.value = true;
+
+    // Simply update the toggle without hiding any fields
+    updateLoginFieldLabel();
   }
+}
+
+void updateLoginFieldLabel() {
+  // Just switch the focus or label, keep both fields visible
+  if (isPhone.value) {
+    // Optionally update the label to indicate phone input is expected
+    // For example: "Enter Mobile Number"
+  } else {
+    // Optionally update the label to indicate employee ID input is expected
+    // For example: "Enter Employee ID"
+  }
+}
+
+
 
   // @override
   // void onClose() {
@@ -98,7 +133,9 @@ class LoginController extends GetxController {
     formKey.currentState!.save();
     Get.focusScope!.unfocus();
     isAction(true);
+   
     final String userName = isPhone.value ? countryCode.value + phoneController.text : employeeIdController.text;
+    
     Get.log(userName);
     String type;
     // container only digits
@@ -144,14 +181,14 @@ class LoginController extends GetxController {
     await controller.storageBox.write('employeeId', result.employeeId);
     await controller.storageBox.write('tenentId', result.tenentId);
     await controller.storageBox.write('locationId', result.locationId);
- 
+   await controller.storageBox.write('loginType', type);
 
   
     // await controller.storageBox.write('token', result.t);
     if (isPhone.value) {
       await controller.storageBox.write('phone', userName);
     } else {
-      await controller.storageBox.write('email', userName);
+      await controller.storageBox.write('employeeId', userName);
     }
     await controller.storageBox.write('password', passwordController.text);
 

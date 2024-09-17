@@ -63,39 +63,41 @@ class SignInView extends GetView<LoginController> {
                           ),
                           AppUtility.heightBox,
                           // gove selection switch here
-                          Obx(() => Row(
+                          Row(
                                 children: [
-                                  Radio<String>(
+                                  // mobile switch
+
+                             Obx(() =>      Radio<String>(
                                       value: 'Mobile',
                                       groupValue:
                                           controller.selectedLoginType.value,
                                       onChanged: (value) {
                                         controller
-                                            .isPhone(!controller.isPhone.value);
+                                            .isPhone(true);
                                         controller.changeLoginType(value!);
                                         controller.employeeIdController.clear();
                                         controller.passwordController.clear();
                                         controller.seletionController.clear();
-                                      }),
+                                      })),
                                   Text(LanguageConstants.mobileNumber.tr),
                                   const SizedBox(width: 20),
                                   // emplyid switch
-                                  Radio<String>(
-                                    value: 'EmployeeID',
+                                Obx(() =>  Radio<String>(
+                                    value: 'EmployeeId',
                                     groupValue:
                                         controller.selectedLoginType.value,
                                     onChanged: (value) {
                                       controller
-                                          .isPhone(!controller.isPhone.value);
+                                          .isPhone(false);
                                       controller.changeLoginType(value ?? '');
                                       controller.passwordController.clear();
                                       controller.phoneController.clear();
                                       controller.seletionController.clear();
                                     },
-                                  ),
+                                  )),
                                   Text(LanguageConstants.employeeID.tr),
                                 ],
-                              )),
+                              ),
                           if (controller.isPhone.value)
                             // mobile number
                             Container(
