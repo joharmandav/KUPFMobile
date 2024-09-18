@@ -19,6 +19,7 @@ import '../../../app/routes/routes.dart';
 import '../../../languages/language_constants.dart';
 import '../../../widgets/social_icon_widget.dart';
 import '../../../widgets/dialogs/fogot_password_dialog.dart';
+import '../../controller/main/general_controller.dart';
 import '../signup_view/sign_up_view.dart';
 
 class SignInView extends GetView<LoginController> {
@@ -26,6 +27,8 @@ class SignInView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    final generalController = Get.find<GeneralController>();
+
     controller.checkDevice();
     return SafeArea(
       child: Scaffold(
@@ -350,8 +353,13 @@ class SignInView extends GetView<LoginController> {
                                   style: AppTextTheme.bodyText1Primary
                                       .copyWith(fontWeight: FontWeight.bold),
                                   recognizer: TapGestureRecognizer()
-                                    ..onTap =
-                                        () => Get.offAllNamed(AppRoutes.home),
+                                    ..onTap = (){
+                                      generalController.toggleVisibility();
+                                      Get.offAllNamed(AppRoutes.home);
+                                      
+                                    }
+                                      
+                                        
                                 ),
                               ],
                             ),

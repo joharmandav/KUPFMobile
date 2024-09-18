@@ -47,17 +47,26 @@ class GeneralController extends GetxController {
 
   // final RxInt _status = RxInt(0);
    final RxInt _status = 0.obs;   
+   RxBool isVisible = true.obs;
+
     int get status => _status.value;
 
+  void toggleVisibility() {
+   
+  isVisible.value = !isVisible.value;
 
+   }
   
     
-
+  
   bool checkStatus() {
     if (storageBox.hasData('status') && storageBox.read('status') == 1) {
       _status(storageBox.read('status'));
       return true;
-    } else {
+    }else if(isVisible.value == false){
+      return true;
+    }
+     else {
       storageBox.write('status', 0);
       _status(storageBox.read('status'));
       return false;

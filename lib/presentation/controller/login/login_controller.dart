@@ -166,16 +166,7 @@ void updateLoginFieldLabel() {
       return;
     }
     controller.detailedEmployeeModel = result;
-    // if(rememberMe.value){
-    //   controller.storageBox.write('username', phoneController.text);
-    //    controller.storageBox.write('password', passwordController.text);
-    //     controller.storageBox.write('rememberMe', true);
-    // }
-    // else{
-    //     controller.storageBox.remove('username');
-    //    controller.storageBox.remove('password');
-    //     controller.storageBox.write('rememberMe', false);
-    // }
+    
     controller.storageBox.write("device", device);
     await controller.storageBox.write('status', 1);
     await controller.storageBox.write('employeeId', result.employeeId);

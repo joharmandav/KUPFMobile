@@ -56,6 +56,11 @@ class ProfileBodyController extends GetxController
   @override
   void onInit() {
     super.onInit();
+    if(controller.isVisible.value == false){
+      employeeNameController.text = "Guestofer Mill Gen";
+      mobileController.text = "11111111";
+
+    }
     _tabController = TabController(length: 2, vsync: this);
     _connectivityService.initConnectivity();
     init();

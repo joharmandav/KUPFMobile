@@ -14,7 +14,7 @@ class DrawerView extends StatelessWidget {
   const DrawerView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-        final generalController = Get.find<GeneralController>();
+  final generalController = Get.find<GeneralController>();
 
     var format = DateFormat('d MMM y');
     return Drawer(
@@ -43,7 +43,7 @@ class DrawerView extends StatelessWidget {
                             Flexible(child: SizedBox(width: 145, child: Text(generalController.detailedEmployeeModel?.englishName ?? "Guest User", overflow: TextOverflow.ellipsis, style: const TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700, overflow: TextOverflow.ellipsis,), maxLines: 1, ))),
                           ],
                         )
-                        :   Text("Guest", style: TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700,),);
+                        :   const Text("Welcome Guestofer", style: TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700,),);
                       }),
                         
                         
@@ -69,7 +69,9 @@ class DrawerView extends StatelessWidget {
                         Get.back();
                       }
                     }),
-                DrawerTile(
+
+             Obx(()=> generalController.isVisible.value
+           ?  DrawerTile(
                     title: LanguageConstants.serviceProcured.tr,
                     leading: const Icon(Icons.design_services,
                         color: AppColor.white),
@@ -88,8 +90,12 @@ class DrawerView extends StatelessWidget {
                         drawerNotifier.value = DrawerState.service;
                         Get.back();
                       }
-                    }),
-                DrawerTile(
+                    }):
+                    const SizedBox.shrink()),
+                    // online form
+              Obx(()=> 
+              generalController.isVisible.value
+             ?  DrawerTile(
                   title: LanguageConstants.onLineForm.tr,
                   leading: const Icon(Icons.format_align_center,
                       color: AppColor.white),
@@ -97,6 +103,8 @@ class DrawerView extends StatelessWidget {
                     drawerNotifier.value = DrawerState.onlineForm;
                     Get.back();
                   },
+                ) :
+                 const SizedBox.shrink(),
                 ),
                 DrawerTile(
                     title: LanguageConstants.specialService.tr,
@@ -113,18 +121,19 @@ class DrawerView extends StatelessWidget {
                       drawerNotifier.value = DrawerState.settings;
                       Get.back();
                     }),
-                DrawerTile(
-                    title: Get.find<GeneralController>().checkStatus()
+                 DrawerTile(
+                    title:  (Get.find<GeneralController>().checkStatus() && generalController.isVisible.value == true)
                         ? LanguageConstants.logout.tr
                         : LanguageConstants.signIn.tr,
-                    leading: Icon(
-                        Get.find<GeneralController>().checkStatus()
+                    leading:  
+                    Icon(
+                       ( Get.find<GeneralController>().checkStatus()  && generalController.isVisible.value == true)
                             ? Icons.logout
                             : Icons.login_outlined,
                         color: AppColor.white),
                     onTap: () async {
                       //drawerNotifier.value = DrawerState.logout;
-                      if (Get.find<GeneralController>().checkStatus()) {
+                      if (Get.find<GeneralController>().checkStatus() &&  generalController.isVisible.value == true) {
                         await Get.find<GeneralController>().logout();
                         Get.offAllNamed(AppRoutes.login);
                       } else {
