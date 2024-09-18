@@ -110,7 +110,7 @@ class ApiProvider extends GetConnect {
     try {
       final response = await get("/Employee/GetEmployeeById?employeeId=$id");
       if (response.statusCode == 200) {
-        print(response.body);
+       
         Map<String, dynamic> data = response.body;
         return DetailedEmployeeModel.fromJson(data);
       }

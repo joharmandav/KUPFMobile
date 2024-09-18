@@ -230,9 +230,10 @@ class ProfileBodyController extends GetxController
     _isLoading(true);
     if (await _connectivityService.checkConnectivity()) {
       try {
-        print(controller.storageBox.read("employeeID").runtimeType);
+        print(controller.storageBox.read("employeeId").runtimeType);
+
         detailedEmployeeModel =
-            await _apiProvider.getEmployeeProfileById(controller.storageBox.read("employeeID"));
+            await _apiProvider.getEmployeeProfileById(controller.storageBox.read("employeeId"));
       } on Exception catch (e) {
         _isLoading(false);
         Toaster.showError(e.toString());
