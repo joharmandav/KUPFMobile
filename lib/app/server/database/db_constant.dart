@@ -1,6 +1,6 @@
 class Constants {
   static const database = 'kupf.db';
-  static const kupfDatabase = 'KUPFSQLLite.db';
+  static const kupfDatabase = 'kupf_new.db';
   static const socialUserInfoTable = 'socialUserInfoTable';
   static const crupAuditTable = 'CRUPAudit';
   static const detailedEmployeeTable = 'DetailedEmployee';

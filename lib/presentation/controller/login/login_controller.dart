@@ -82,18 +82,18 @@ class LoginController extends GetxController {
   //   }
   // }
   void loadUserCredentials() {
-  if (controller.storageBox.read('rememberMe') ?? false) {
+  if (controller.storageBox.read('rememberMe') ?? false) {    
     // Load the last used login type (Mobile or EmployeeId)
     String loginType = controller.storageBox.read('loginType') ?? 'Mobile';
     
     if (loginType == 'Mobile') {
       isPhone.value = true;  // Set the toggle to phone login
       selectedLoginType.value = 'Mobile'; 
-      phoneController.text = controller.storageBox.read('phone') ?? '';
+       phoneController.text = controller.storageBox.read('mobileCreds') ?? '';
     } else if (loginType == 'EmployeeId') {
       isPhone.value = false;  // Set the toggle to employee ID login
       selectedLoginType.value = 'EmployeeId';
-      employeeIdController.text = controller.storageBox.read('employeeId') ?? '';
+    employeeIdController.text = controller.storageBox.read('employeeIDCreds') ?? '';
     }
 
     passwordController.text = controller.storageBox.read('password') ?? '';
@@ -177,9 +177,12 @@ void updateLoginFieldLabel() {
   
     // await controller.storageBox.write('token', result.t);
     if (isPhone.value) {
-      await controller.storageBox.write('phone', userName);
+    String purePhoneNumber = phoneController.text.replaceFirst(countryCode.value, '');
+     type = "Mobile";
+      await controller.storageBox.write('mobileCreds', purePhoneNumber);
     } else {
-      await controller.storageBox.write('employeeId', userName);
+      type = "EmployeeId";
+    await controller.storageBox.write('employeeIDCreds', employeeIdController.text) ;
     }
     await controller.storageBox.write('password', passwordController.text);
 
