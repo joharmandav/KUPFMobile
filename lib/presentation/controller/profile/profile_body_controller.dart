@@ -192,14 +192,14 @@ class ProfileBodyController extends GetxController
   _isLoading(true);
 
   // Prepare payload
-  Map<String, dynamic> payload = detailedEmployeeModel!.toJson();
+  Map<String, dynamic> payload = detailedEmployeeModel!.toMap();
 
 
   
 
   // Check for fields that were not updated (i.e., remain null or default)
   Map<String, dynamic> unsentFields = {};
-  detailedEmployeeModel!.toJson().forEach((key, value) {
+  detailedEmployeeModel!.toMap().forEach((key, value) {
     if (value == null || value == '') {
       unsentFields[key] = value;
     }
@@ -210,7 +210,7 @@ class ProfileBodyController extends GetxController
 
   // Make the API request
   dynamic response = await _apiProvider.updateEmployeeProfile(payload,bearertoken??"");
-  print("  RED MODEL: ${detailedEmployeeModel!.toJson()}");
+  print("  RED MODEL: ${detailedEmployeeModel!.toMap()}");
 
   if (response == null) {
     _isLoading(false);
@@ -225,7 +225,7 @@ class ProfileBodyController extends GetxController
 }
 
   Future<void> init() async {
-    if (controller.checkStatus()) return;
+    // if (controller.checkStatus()) return;
     // String device = await controller.deviceID();
     _isLoading(true);
     if (await _connectivityService.checkConnectivity()) {

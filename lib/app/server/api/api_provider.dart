@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:kupf_mobile/app/server/database/kupf_database.dart';
 import 'package:kupf_mobile/helper/toaster.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 import 'package:kupf_mobile/presentation/models/service_setup_model.dart';
 
 import '../../../presentation/controller/login/login_controller.dart';
 import '../../../presentation/models/detailed_employee_model.dart';
+import '../../../presentation/models/login_response_model.dart';
 import '../../../presentation/models/offers_model.dart';
 
 class ApiProvider extends GetConnect {
@@ -40,6 +42,8 @@ class ApiProvider extends GetConnect {
 
   Future loginEmployee(String userName, String password,String type) async {
       final LoginController loginController = Get.find<LoginController>();
+      const String table = 'DetailedEmployee';
+      final db = DbManager(); 
 
       bool rememberUser = loginController.rememberMe.value;
 
@@ -61,6 +65,10 @@ class ApiProvider extends GetConnect {
         controller.storageBox.write('rememberMe', true);
        }
      
+      LoginResModel employee = LoginResModel.fromJson(response.body);
+      
+      // Insert into the database
+      await db.insert(table, employee);
 
         //  save bearer token
         String token = response.body['token'];
@@ -68,7 +76,7 @@ class ApiProvider extends GetConnect {
        final generalController = Get.find<GeneralController>();
        await generalController.saveBearerToken(token);
 
-      return response.body;
+      return employee;
       }else{
          controller.storageBox.remove('username');
        controller.storageBox.remove('password');
@@ -106,20 +114,32 @@ class ApiProvider extends GetConnect {
     return null;
   }
 
-  Future<DetailedEmployeeModel?> getEmployeeProfileById(int id) async {
-    try {
-      final response = await get("/Employee/GetEmployeeById?employeeId=$id");
-      if (response.statusCode == 200) {
-       
-        Map<String, dynamic> data = response.body;
-        return DetailedEmployeeModel.fromJson(data);
-      }
-      return null;
-    } on Exception catch (e) {
-      Future.value(e);
+Future<DetailedEmployeeModel?> getEmployeeProfileById(int id) async {
+ 
+
+  try {
+    final response = await get("/Employee/GetEmployeeById?employeeId=$id");
+    
+    if (response.statusCode == 200) {
+    
+      DetailedEmployeeModel employee = DetailedEmployeeModel.fromJson(response.body);
+      
+     
+
+      return employee;
+    } else {
+      // Handle non-200 responses
+      print('Failed to load employee data. Status code: ${response.statusCode}');
     }
-    return null;
+  } catch (e) {
+    // Handle exceptions
+    print('Error occurred: $e');
+    Toaster.showError(e.toString()); // Show error to the user or log it
   }
+  
+  return null;
+}
+
 
   Future<dynamic> updateEmployeeProfile(Map<String, dynamic> data, String bearerToken) async {
   try {

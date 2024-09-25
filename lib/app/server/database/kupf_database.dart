@@ -35,46 +35,117 @@ class DbManager extends GetxService {
     _database = await initializeDatabase();
     return _database;
   }
-
+  // new
   Future<Database> initializeDatabase() async {
-    var databasesPath = await getDatabasesPath();
-    var path = join(databasesPath, Constants.kupfDatabase);
+  var databasesPath = await getDatabasesPath();
+  var path = join(databasesPath, Constants.kupfDatabase);
 
-    // Check if the database exists
-    var exists = await databaseExists(path);
+  // Check if the database exists
+  var exists = await databaseExists(path);
 
-    if (!exists) {
-      // Should happen only the first time you launch your application
-      Get.log("Creating new copy from asset");
+  if (!exists) {
+    Get.log("Creating new copy from asset");
 
-      // Make sure the parent directory exists
-      try {
-        await Directory(dirname(path)).create(recursive: true);
-      } catch (_) {}
+    // Make sure the parent directory exists
+    try {
+      await Directory(dirname(path)).create(recursive: true);
+    } catch (e) {
+      Get.log("Error creating directory: $e");
+      rethrow;  // rethrow the error after logging
+    }
 
-      // Copy from asset
-      ByteData data =
-      await rootBundle.load(join("assets/database", Constants.kupfDatabase));
+    // Copy the database from assets
+    try {
+      ByteData data = await rootBundle.load(join("assets/database", Constants.kupfDatabase));
       List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       // Write and flush the bytes written
       await File(path).writeAsBytes(bytes, flush: true);
-    } else {
-      Get.log("Opening existing database");
+    } catch (e) {
+      Get.log("Error copying database from assets: $e");
+      rethrow;  // rethrow the error after logging
     }
-
-    return await openDatabase(path);
+  } else {
+    Get.log("Opening existing database");
   }
+
+  // Open the database and handle the version or upgrade logic
+  return await openDatabase(
+    path,
+    version: 1,  // specify your database version here
+    onUpgrade: (db, oldVersion, newVersion) async {
+      if(oldVersion< newVersion){
+    
+      }
+      Get.log("Upgrading database from version $oldVersion to $newVersion");
+      // Handle the database schema upgrade logic here
+    },
+    onOpen: (db) {
+      Get.log("Database opened successfully");
+    }
+  );
+}
+
+
+  // Future<Database> initializeDatabase() async {
+  //   var databasesPath = await getDatabasesPath();
+  //   var path = join(databasesPath, Constants.kupfDatabase);
+
+  //   // Check if the database exists
+  //   var exists = await databaseExists(path);
+
+  //   if (!exists) {
+  //     // Should happen only the first time you launch your application
+  //     Get.log("Creating new copy from asset");
+
+  //     // Make sure the parent directory exists
+  //     try {
+  //       await Directory(dirname(path)).create(recursive: true);
+  //     } catch (_) {}
+
+  //     // Copy from asset
+  //     ByteData data =
+  //     await rootBundle.load(join("assets/database", Constants.kupfDatabase));
+  //     List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+  //     // Write and flush the bytes written
+  //     await File(path).writeAsBytes(bytes, flush: true);
+  //   } else {
+  //     Get.log("Opening existing database");
+  //   }
+
+  //   return await openDatabase(path);
+  // }
 
   Future<List<Map<String, dynamic>>> getMapList(String table) async {
     // final db = await database;
     return await _database.query(table);
   }
+  
+   Future<void> insertEmployee(DetailedEmployeeModel employee) async {
+  int result = await insert('DetailedEmployee', employee);
+
+  if (result > 0) {
+    print('Employee inserted successfully with row id: $result');
+  } else {
+    print('Failed to insert employee');
+  }
+}
 
   Future<int> insert(String table, dynamic model) async {
     // final db = await database;
-    return await _database.insert(table, model.toMap(), conflictAlgorithm: ConflictAlgorithm.replace,);
+    try{
+      return await _database.insert(
+      table,
+      model.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace);
+    }catch(e){
+       print('Error inserting data: $e');
+    return -1; // Return -1 in case of an error   q   
+    }
   }
+ 
+
 
   Future<int> update(String table, dynamic model) async {
 
@@ -106,7 +177,7 @@ class DbManager extends GetxService {
     try {
       return await _database.update(
         Constants.detailedEmployeeTable,
-        model.toJson(),
+        model.toMap(),
         // Ensure that the table has a matching id.
         where: '${Constants.employeeID} = ?',
         // Pass the table's id as a whereArg to prevent SQL injection.
