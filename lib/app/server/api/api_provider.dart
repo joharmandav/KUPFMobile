@@ -11,6 +11,7 @@ import '../../../presentation/controller/login/login_controller.dart';
 import '../../../presentation/models/detailed_employee_model.dart';
 import '../../../presentation/models/login_response_model.dart';
 import '../../../presentation/models/offers_model.dart';
+import '../database/database_helper.dart';
 
 class ApiProvider extends GetConnect {
 
@@ -42,8 +43,7 @@ class ApiProvider extends GetConnect {
 
   Future loginEmployee(String userName, String password,String type) async {
       final LoginController loginController = Get.find<LoginController>();
-      const String table = 'DetailedEmployee';
-      final db = DbManager(); 
+     
 
       bool rememberUser = loginController.rememberMe.value;
 
@@ -65,10 +65,29 @@ class ApiProvider extends GetConnect {
         controller.storageBox.write('rememberMe', true);
        }
      
-      LoginResModel employee = LoginResModel.fromJson(response.body);
+      Map<String, dynamic> responseBody = response.body;
+            LoginResModel employee = LoginResModel.fromJson(responseBody);
+
+
       
-      // Insert into the database
-      await db.insert(table, employee);
+      // Insert into the database   old model
+      // await db.insert(table, employee);
+
+      // new model
+      await DatabaseHelper.instance.insertData({
+      'tenentId': employee.tenentId,
+      'englishName': employee.englishName,
+      'number': employee.mobileNumber,
+      'arabicName': employee.arabicName,
+      'empDob':employee.empBirthday,
+      'empGender': employee.empGender,
+      'locationId': employee.locationId,
+      'employeId': employee.employeeId
+      });
+
+       // Retrieve and print the stored data
+    List<Map<String, dynamic>> savedData = await DatabaseHelper.instance.getData();
+    print("SQFLITE DATABASE STORED : >> $savedData");
 
         //  save bearer token
         String token = response.body['token'];
@@ -76,7 +95,7 @@ class ApiProvider extends GetConnect {
        final generalController = Get.find<GeneralController>();
        await generalController.saveBearerToken(token);
 
-      return employee;
+      return responseBody;
       }else{
          controller.storageBox.remove('username');
        controller.storageBox.remove('password');
