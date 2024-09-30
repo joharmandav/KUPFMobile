@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:kupf_mobile/app/server/api/api_provider.dart';
+import 'package:kupf_mobile/app/server/database/database_helper.dart';
 import 'package:kupf_mobile/app/server/database/kupf_database.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
-import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
+import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 import 'package:kupf_mobile/presentation/models/ref_table_model.dart';
 
 import '../../../helper/toaster.dart';
@@ -40,7 +41,7 @@ class ProfileBodyController extends GetxController
   String RejectedDate = "2024-09-12T12:34:56";
 
   
-  DetailedEmployeeModel? detailedEmployeeModel;
+  LoginResModel? detailedEmployeeModel;
 
   RxnString gender = RxnString();
   RxnString marital = RxnString();
@@ -155,39 +156,40 @@ class ProfileBodyController extends GetxController
    Future<void> updateProfile() async {
     final generalController = GeneralController();
     
-    // String bearertoken = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5OTUwMTU2NiIsImV4cCI6MTcyNjY0ODE0NCwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.3fVvDqShH7jhPMtPuS4WZXi3K4qBz_bfhsRgl1k5x4DVTnENanPIUeJXnvLQTFY9CwfBDlFNaofOtI4kf9PPJw";
-   String? bearertoken = await generalController.getBearerToken();
-  // Updating model with controller values
+   String bearertoken = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxODEwMTk0OSIsImV4cCI6MTcyNzk0OTY4NywiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.NVbEMNBFRWp0D8Z-TvCPojsbk5UWLp3R9uwSeeN2Rk7oDXdvSSJGsAXaibHwgpevpZgXScyAJaR0aHNu17kphA";
+  //  String? bearertoken = await generalController.getBearerToken();
+  // // Updating model with controller values
+
   detailedEmployeeModel!.englishName = employeeNameController.text;
-  detailedEmployeeModel!.arabicName = arabicNameController.text;
-  detailedEmployeeModel!.empBirthday = dobController.text;
-  detailedEmployeeModel!.empGender =  
-      gender.value != null && gender.value == LanguageConstants.male.tr
-          ? 1
-          : 0;
-  detailedEmployeeModel!.empMaritalStatus =
-      marital.value != null && marital.value == LanguageConstants.married.tr
-          ? 1
-          : 0;
-  detailedEmployeeModel!.mobileNumber = mobileController.text;
-  detailedEmployeeModel!.empWorkTelephone = landLineController.text;
-  detailedEmployeeModel!.empWorkEmail = emailController.text;
-  detailedEmployeeModel!.next2KinMobNumber = nextToKinMobileController.text;
-  detailedEmployeeModel!.next2KinName = nextToKinNameController.text;
-  detailedEmployeeModel!.salary = int.tryParse(salaryController.text) ?? 0;
-  detailedEmployeeModel!.empPaciNum = paciController.text;
-  detailedEmployeeModel!.empOtherId = otherIDController.text;
-  detailedEmployeeModel!.departmentName = occupation.value?.shortName ?? "";
-  detailedEmployeeModel!.department = department.value?.refID ?? 0;
-  detailedEmployeeModel!.tenentId = tenantID;
-  detailedEmployeeModel!.rejectedDate = RejectedDate;
+  // detailedEmployeeModel!.arabicName = arabicNameController.text;
+  // detailedEmployeeModel!.empBirthday = dobController.text;
+  // detailedEmployeeModel!.empGender =  
+  //     gender.value != null && gender.value == LanguageConstants.male.tr
+  //         ? 1
+  //         : 0;
+  // // detailedEmployeeModel!.empMaritalStatus =
+  // //     marital.value != null && marital.value == LanguageConstants.married.tr
+  // //         ? 1
+  // //         : 0;
+  // detailedEmployeeModel!.mobileNumber = mobileController.text;
+  // detailedEmployeeModel!.empWorkTelephone = landLineController.text;
+  // detailedEmployeeModel!.empWorkEmail = emailController.text;
+  // detailedEmployeeModel!.next2KinMobNumber = nextToKinMobileController.text;
+  // detailedEmployeeModel!.next2KinName = nextToKinNameController.text;
+  // detailedEmployeeModel!.salary = int.tryParse(salaryController.text) ?? 0;
+  // detailedEmployeeModel!.empPaciNum = paciController.text;
+  // detailedEmployeeModel!.empOtherId = otherIDController.text;
+  // detailedEmployeeModel!.departmentName = occupation.value?.shortName ?? "";
+  // detailedEmployeeModel!.department = department.value?.refID ?? 0;
+  // detailedEmployeeModel!.tenentId = tenantID;
+  // // detailedEmployeeModel!.rejectedDate = RejectedDate;
 
 
-  if (controller.status == 0) return;
-  if (await _connectivityService.checkConnectivity()) {
-    ConnectivityService.internetErrorDialog();
-    return;
-  }
+  // if (controller.status == 0) return;
+  // if (await _connectivityService.checkConnectivity()) {
+  //   ConnectivityService.internetErrorDialog();
+  //   return;
+  // }/
 
   _isLoading(true);
 
@@ -211,6 +213,7 @@ class ProfileBodyController extends GetxController
   // Make the API request
   dynamic response = await _apiProvider.updateEmployeeProfile(payload,bearertoken??"");
   print("  RED MODEL: ${detailedEmployeeModel!.toMap()}");
+   await DatabaseHelper.instance.updateData({'englishName':employeeNameController.text});
 
   if (response == null) {
     _isLoading(false);
@@ -219,7 +222,8 @@ class ProfileBodyController extends GetxController
   
   // Handle success
   Toaster.showConfirm("Successfully Updated");
-  await db.updateEmployeeDetails(detailedEmployeeModel!);
+ 
+  // await db.updateEmployeeDetails(detailedEmployeeModel!);
   _isLoading(false);
   controller.detailedEmployeeModel = detailedEmployeeModel!;
 }

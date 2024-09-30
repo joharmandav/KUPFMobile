@@ -5,6 +5,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:huawei_account/huawei_account.dart';
 import 'package:kupf_mobile/app/server/database/kupf_database.dart';
 import 'package:kupf_mobile/presentation/controller/login/local_auth/local_auth_controller.dart';
+import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../../app/routes/routes.dart';
@@ -149,7 +150,7 @@ void updateLoginFieldLabel() {
     
    final controller = Get.find<GeneralController>();
     String device = await controller.deviceID();
-    DetailedEmployeeModel? result;
+    LoginResModel? result;
     bool isOnline = await _connectivityService.checkConnectivity();
     if (isOnline) {
       try {
@@ -185,12 +186,14 @@ void updateLoginFieldLabel() {
     await controller.storageBox.write('employeeIDCreds', employeeIdController.text) ;
     }
     await controller.storageBox.write('password', passwordController.text);
+   
 
-    String emplyId = result.employeeId.toString();
-    int? tntId  = result.tenentId;
-    int? locId = result.locationId;
+  //  TODO SYNCHING API CALL LATER 
+    // String emplyId = result.employeeId.toString();
+    // int? tntId  = result.tenentId;
+    // int? locId = result.locationId;
 
-      await syncEmployeeApi(emplyId,tntId??0,locId??0 );
+      // await syncEmployeeApi(emplyId,tntId??0,locId??0 );
     isAction(false);
     navigation();
   }
@@ -209,18 +212,18 @@ void updateLoginFieldLabel() {
   }
   
 
-  Future<DetailedEmployeeModel?> loginApi(String username, String password,String type) async {
+  Future<LoginResModel?> loginApi(String username, String password,String type) async {
     try {
       var response = await _apiProvider.loginEmployee(username, password,type);
       if (response == null) return null;
-      DetailedEmployeeModel detailedEmployeeModel = DetailedEmployeeModel.fromJson(response);
+      LoginResModel detailedEmployeeModel = LoginResModel.fromJson(response);
       return detailedEmployeeModel;
     } on Exception catch (e) {
       return Future.error(e);
     }
   }
 
-  Future<DetailedEmployeeModel?> loginWithDB(String username, String password, String deviceID) async {
+  Future<LoginResModel?> loginWithDB(String username, String password, String deviceID) async {
     try {
       return await db.getLogin(username, password, deviceID);
     } on Exception catch (e) {

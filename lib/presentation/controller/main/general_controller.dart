@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kupf_mobile/app/services/auth.dart';
 import 'package:kupf_mobile/app_utility/app_color.dart';
-import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
+import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 
 class GeneralController extends GetxController {
   GetStorage storageBox = GetStorage();
@@ -39,7 +39,7 @@ class GeneralController extends GetxController {
   Locale? selectedLocale;
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   // final Rxn<DetailedEmployeeModel> _detailedEmployeeModel = Rxn<DetailedEmployeeModel>();
-    final _detailedEmployeeModel = Rx<DetailedEmployeeModel?>(null);
+    final _detailedEmployeeModel = Rx<LoginResModel?>(null);
 
   // final Rxn<CRUPAuditModel> _crupAuditModel = Rxn<CRUPAuditModel>();
   // final Rxn<FunctionMSTModel> _functionMSTModel = Rxn<FunctionMSTModel>();
@@ -151,9 +151,9 @@ class GeneralController extends GetxController {
     return primaryColor.value;
   }
 
-  DetailedEmployeeModel? get detailedEmployeeModel => _detailedEmployeeModel.value;
+  LoginResModel? get detailedEmployeeModel => _detailedEmployeeModel.value;
 
-  set detailedEmployeeModel(DetailedEmployeeModel? value) {
+  set detailedEmployeeModel(LoginResModel? value) {
     _detailedEmployeeModel(value);
   }
 }

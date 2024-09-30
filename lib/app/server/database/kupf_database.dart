@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:kupf_mobile/helper/toaster.dart';
 import 'package:kupf_mobile/presentation/models/crup_audit_model.dart';
+import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
 import 'package:path/path.dart';
@@ -171,15 +172,15 @@ class DbManager extends GetxService {
     // return 1;
   }
 
-  Future<int> updateEmployeeDetails(DetailedEmployeeModel model) async {
+  Future<int> updateEmployeeDetails(LoginResModel model) async {
 
     // final db = await database;
     try {
       return await _database.update(
-        Constants.detailedEmployeeTable,
+        'my_table',
         model.toMap(),
         // Ensure that the table has a matching id.
-        where: '${Constants.employeeID} = ?',
+        where: 'employeId = ?',
         // Pass the table's id as a whereArg to prevent SQL injection.
         whereArgs: [model.employeeId],
       );
@@ -230,10 +231,10 @@ class DbManager extends GetxService {
     return adultList;
   }
 
-  Future<DetailedEmployeeModel?> getLogin(String loginID, String password, String deviceID) async {
+  Future<LoginResModel?> getLogin(String loginID, String password, String deviceID) async {
     final db = await database;
     // List<FunctionMSTModel> adultList = [];
-    DetailedEmployeeModel? detailedEmployeeModel;
+    LoginResModel? detailedEmployeeModel;
     var adult = await db.rawQuery(
       "SELECT * FROM ${Constants.detailedEmployeeTable} WHERE ${Constants.employeeLoginID} = '$loginID' AND ${Constants.employeePassword} = '$password' AND ${Constants.tenentID} = '21' AND ${Constants.deLocationID} = '1';",
     );
@@ -241,7 +242,7 @@ class DbManager extends GetxService {
     Get.log(adult.toString());
 
     if (adult.isNotEmpty) {
-      detailedEmployeeModel = DetailedEmployeeModel.fromJson(adult.first);
+      detailedEmployeeModel = LoginResModel.fromJson(adult.first);
       // detailedEmployeeModel.deviceID = deviceID;
       var result = await updateEmployeeDetails(detailedEmployeeModel);
       Get.log(result.toString());

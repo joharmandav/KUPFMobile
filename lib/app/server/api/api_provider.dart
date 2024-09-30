@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
-import 'package:kupf_mobile/app/server/database/kupf_database.dart';
 import 'package:kupf_mobile/helper/toaster.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 import 'package:kupf_mobile/presentation/models/service_setup_model.dart';
 
 import '../../../presentation/controller/login/login_controller.dart';
-import '../../../presentation/models/detailed_employee_model.dart';
 import '../../../presentation/models/login_response_model.dart';
 import '../../../presentation/models/offers_model.dart';
 import '../database/database_helper.dart';
@@ -82,12 +80,24 @@ class ApiProvider extends GetConnect {
       'empDob':employee.empBirthday,
       'empGender': employee.empGender,
       'locationId': employee.locationId,
-      'employeId': employee.employeeId
+      'employeId': employee.employeeId,
+      'empWorkEmail':employee.empWorkEmail,
+      'department':employee.department,
+      'salary':employee.salary,
+      'empPaciNum':employee.empPaciNum,
+      'empOtherId':employee.empOtherId,
+      'next2KinName':employee.next2KinName,
+      'next2KinMobNumber':employee.next2KinMobNumber,
+      'jobTitleName':employee.jobTitleName
+
       });
 
        // Retrieve and print the stored data
     List<Map<String, dynamic>> savedData = await DatabaseHelper.instance.getData();
     print("SQFLITE DATABASE STORED : >> $savedData");
+
+
+     
 
         //  save bearer token
         String token = response.body['token'];
@@ -133,7 +143,7 @@ class ApiProvider extends GetConnect {
     return null;
   }
 
-Future<DetailedEmployeeModel?> getEmployeeProfileById(int id) async {
+Future<LoginResModel?> getEmployeeProfileById(int id) async {
  
 
   try {
@@ -141,7 +151,7 @@ Future<DetailedEmployeeModel?> getEmployeeProfileById(int id) async {
     
     if (response.statusCode == 200) {
     
-      DetailedEmployeeModel employee = DetailedEmployeeModel.fromJson(response.body);
+      LoginResModel employee = LoginResModel.fromJson(response.body);
       
      
 
