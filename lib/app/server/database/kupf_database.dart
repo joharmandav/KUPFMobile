@@ -6,8 +6,6 @@ import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
 import 'package:path/path.dart';
-
-import '../../../presentation/models/detailed_employee_model.dart';
 import '../../../presentation/models/function_mst_model.dart';
 import '../../../presentation/models/function_user_model.dart';
 import '../../../presentation/models/kupf_image_model.dart';
@@ -123,7 +121,7 @@ class DbManager extends GetxService {
     return await _database.query(table);
   }
   
-   Future<void> insertEmployee(DetailedEmployeeModel employee) async {
+   Future<void> insertEmployee(LoginResModel employee) async {
   int result = await insert('DetailedEmployee', employee);
 
   if (result > 0) {
@@ -332,16 +330,16 @@ class DbManager extends GetxService {
     return adultList;
   }
 
-  Future<List<DetailedEmployeeModel>> getDetailedEmployee() async {
+  Future<List<LoginResModel>> getDetailedEmployee() async {
     final db = await database;
-    List<DetailedEmployeeModel> adultList = [];
+    List<LoginResModel> adultList = [];
     var adult = await db.query(
       Constants.detailedEmployeeTable,
     );
 
     if (adult.isNotEmpty) {
       for (var item in adult) {
-        adultList.add(DetailedEmployeeModel.fromJson(item));
+        adultList.add(LoginResModel.fromJson(item));
         Get.log(item.toString());
       }
     }

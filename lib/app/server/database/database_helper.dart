@@ -53,14 +53,6 @@ class DatabaseHelper {
   }
 //  TODO REMOVE AFTER TESTING 
   Future<void> addNewColums(Database db) async{
-  await db.execute('ALTER TABLE my_table ADD COLUMN empWorkEmail TEXT');
-  await db.execute('ALTER TABLE my_table ADD COLUMN department INTEGER');
-  await db.execute('ALTER TABLE my_table ADD COLUMN salary NUMERIC');
-  await db.execute('ALTER TABLE my_table ADD COLUMN empPaciNum NVARCHAR');
-  await db.execute('ALTER TABLE my_table ADD COLUMN empOtherId NVARCHAR');
-  await db.execute('ALTER TABLE my_table ADD COLUMN next2KinName NVARCHAR');
-  await db.execute('ALTER TABLE my_table ADD COLUMN next2KinMobNumber NVARCHAR');
-  await db.execute('ALTER TABLE my_table ADD COLUMN jobTitleName NVARCHAR');
   }
 
    Future<int> insertData(Map<String, dynamic> data) async {

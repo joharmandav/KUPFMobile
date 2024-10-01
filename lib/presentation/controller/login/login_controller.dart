@@ -14,7 +14,6 @@ import '../../../app/server/database/database.dart';
 import '../../../app/server/database/db_constant.dart';
 import '../../../app/services/auth.dart';
 import '../../../helper/toaster.dart';
-import '../../models/detailed_employee_model.dart';
 import '../connectivity_controller.dart';
 import '../main/general_controller.dart';
 
@@ -198,11 +197,11 @@ void updateLoginFieldLabel() {
     navigation();
   }
 
-  Future<DetailedEmployeeModel?> syncEmployeeApi(String employeeId,int teantId,int locationId) async{
+  Future<LoginResModel?> syncEmployeeApi(String employeeId,int teantId,int locationId) async{
    try{
     var response = await _apiProvider.getEmployeeSync(employeeId, teantId, locationId);
     if(response == null) return null;
-   DetailedEmployeeModel syncEmployeeModel = DetailedEmployeeModel.fromJson(response);
+   LoginResModel syncEmployeeModel = LoginResModel.fromJson(response);
     return syncEmployeeModel;
 
    } on Exception catch(e){
