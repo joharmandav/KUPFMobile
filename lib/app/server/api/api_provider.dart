@@ -72,28 +72,28 @@ class ApiProvider extends GetConnect {
       // await db.insert(table, employee);
 
       // new model
-      await DatabaseHelper.instance.insertData({
-      'tenentId': employee.tenentId,
-      'englishName': employee.englishName,
-      'number': employee.mobileNumber,
-      'arabicName': employee.arabicName,
-      'empDob':employee.empBirthday,
-      'empGender': employee.empGender,
-      'locationId': employee.locationId,
-      'employeId': employee.employeeId,
-      'empWorkEmail':employee.empWorkEmail,
-      'department':employee.department,
+      await DatabaseHelper().insertData({
+      'TenentID': employee.tenentId,
+      'EnglishName': employee.englishName,
+      'MobileNumber': employee.mobileNumber,
+      'ArabicName': employee.arabicName,
+      'emp_birthday':employee.empBirthday,
+      'emp_gender': employee.empGender,
+      'LocationID': employee.locationId,
+      'employeeID': employee.employeeId,
+      'emp_work_email':employee.empWorkEmail,
+      'Department':employee.department,
       'salary':employee.salary,
-      'empPaciNum':employee.empPaciNum,
-      'empOtherId':employee.empOtherId,
-      'next2KinName':employee.next2KinName,
-      'next2KinMobNumber':employee.next2KinMobNumber,
-      'jobTitleName':employee.jobTitleName
+      'emp_paci_num':employee.empPaciNum,
+      'emp_other_id':employee.empOtherId,
+      'Next2KinName':employee.next2KinName,
+      'Next2KinMobNumber':employee.next2KinMobNumber,
+      'job_title_Name':employee.jobTitleName
 
       });
 
        // Retrieve and print the stored data
-    List<Map<String, dynamic>> savedData = await DatabaseHelper.instance.getData();
+    List<Map<String, dynamic>> savedData = await DatabaseHelper().getData();
     print("SQFLITE DATABASE STORED : >> $savedData");
 
 

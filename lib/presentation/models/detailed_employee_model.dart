@@ -561,7 +561,7 @@ class DetailedEmployeeModel {
 //         cidNumber: map[Constants.empCIDNum],
 //         empPaciNum: map[Constants.empPaciNum],
 //         empOtherId: map[Constants.empOtherID],
-//         subscriptionStatus: map[Constants.subscriptionStatus],
+        // subscriptionStatus: map[Constants.subscriptionStatus],
 //         employeeStatus: map[Constants.empStatus],
 //         joinedDate: DateFormat().format(map[Constants.joinedDate]),
 //         endDate: DateFormat().format(map[Constants.endDate]),

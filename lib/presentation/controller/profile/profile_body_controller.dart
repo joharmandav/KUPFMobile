@@ -213,7 +213,7 @@ class ProfileBodyController extends GetxController
   // Make the API request
   dynamic response = await _apiProvider.updateEmployeeProfile(payload,bearertoken??"");
   print("  RED MODEL: ${detailedEmployeeModel!.toMap()}");
-   await DatabaseHelper.instance.updateData({'englishName':employeeNameController.text});
+   await DatabaseHelper().updateData({'englishName':employeeNameController.text});
 
   if (response == null) {
     _isLoading(false);

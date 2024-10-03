@@ -107,7 +107,7 @@ class LoginResModel {
     dynamic amaCurBal;
     dynamic contractName;
 
-    LoginResModel({this.tenentId, this.locationId, this.employeeId, this.contractType, this.pfid, this.token, this.subscribedDate, this.agreedSubAmount, this.reSubscribed, this.employeeType, this.arabicName, this.englishName, this.jobTitleCode, this.jobTitleName, this.department, this.departmentName, this.empGender, this.empBirthday, this.empMaritalStatus, this.salary, this.empWorkTelephone, this.empWorkEmail, this.mobileNumber, this.next2KinName, this.next2KinMobNumber, this.nationCode, this.nationName, this.empCidNum, this.empPaciNum, this.empOtherId, this.empStatus, this.joinedDate, this.endDate, this.terminationId, this.subscriptionDate, this.reSubscripedDate, this.loanAct, this.hajjAct, this.consumerLoanAct, this.persLoanAct, this.otherAct1, this.otherAct2, this.otherAct3, this.otherAct4, this.otherAct5, this.empStreet1, this.empStreet2, this.cityCode, this.counCode, this.remarks, this.userId, this.activeDirectoryId, this.mainHrroleId, this.employeeLoginId, this.employeePassword, this.active, this.deleted, this.dateTime, this.deviceId, this.uploadDate, this.uploadby, this.syncDate, this.syncby, this.synId, this.refName1, this.refName2, this.membership, this.membershipJoiningDate, this.termination, this.terminationDate, this.isKuEmployee, this.isOnSickLeave, this.isMemberOfFund, this.subFrozen, this.subFrozenDate, this.cruPId, this.settlementSerMonths, this.settlementAmount, this.nextSetlementPayDate, this.nextSetlementPayAmount, this.subscriptionStatus, this.username, this.createdDate, this.loanOpNotPaidAmount, this.loanOpAmount, this.subOpNotPaidAmount, this.subOpAmount, this.holdQty, this.holdRemarks, this.unHoldDate, this.unHoldBy, this.terminationBanned, this.isChecked, this.imageUrl, this.employeeStatus, this.rejectedBy, this.rejecteddate, this.isWarning, this.transactionHddmsDtos, this.subsOpBal, this.subsCurBal, this.loanOpBal, this.loanCurBal, this.amaOpBal, this.amaCurBal, this.contractName});
+    LoginResModel({this.tenentId, this.locationId, this.employeeId, this.contractType, this.pfid, this.token, this.subscribedDate, this.agreedSubAmount, this.reSubscribed, this.employeeType, this.arabicName, this.englishName, this.jobTitleCode, this.jobTitleName, this.department, this.departmentName, this.empGender, this.empBirthday, this.empMaritalStatus, this.salary, this.empWorkTelephone, this.empWorkEmail, this.mobileNumber, this.next2KinName, this.next2KinMobNumber, this.nationCode, this.nationName, this.empCidNum, this.empPaciNum, this.empOtherId, this.empStatus, this.joinedDate, this.endDate, this.terminationId, this.subscriptionDate, this.reSubscripedDate, this.loanAct, this.hajjAct, this.consumerLoanAct, this.persLoanAct, this.otherAct1, this.otherAct2, this.otherAct3, this.otherAct4, this.otherAct5, this.empStreet1, this.empStreet2, this.cityCode, this.counCode, this.remarks, this.userId, this.activeDirectoryId, this.mainHrroleId, this.employeeLoginId, this.employeePassword, this.active, this.deleted, this.dateTime, this.deviceId, this.uploadDate, this.uploadby, this.syncDate, this.syncby, this.synId, this.refName1, this.refName2, this.membership, this.membershipJoiningDate, this.termination, this.terminationDate, this.isKuEmployee, this.isOnSickLeave, this.isMemberOfFund, this.subFrozen, this.subFrozenDate, this.cruPId, this.settlementSerMonths, this.settlementAmount, this.nextSetlementPayDate, this.nextSetlementPayAmount, this.username, this.createdDate, this.loanOpNotPaidAmount, this.loanOpAmount, this.subOpNotPaidAmount, this.subOpAmount, this.holdQty, this.holdRemarks, this.unHoldDate, this.unHoldBy, this.terminationBanned, this.isChecked, this.imageUrl, this.employeeStatus, this.rejectedBy, this.rejecteddate, this.isWarning, this.transactionHddmsDtos, this.subsOpBal, this.subsCurBal, this.loanOpBal, this.loanCurBal, this.amaOpBal, this.amaCurBal, this.contractName,this.subscriptionStatus});
 
     LoginResModel.fromJson(Map<String, dynamic> json) {
         if(json["tenentId"] is int) {
@@ -286,9 +286,12 @@ class LoginResModel {
         settlementAmount = json["settlementAmount"];
         nextSetlementPayDate = json["nextSetlementPayDate"];
         nextSetlementPayAmount = json["nextSetlementPayAmount"];
-        if(json["subscription_status"] is int) {
-            subscriptionStatus = json["subscription_status"];
+        // TODO later add it 
+        if(json["subscription_status"] is int){
+         int.tryParse(json['subscription_status'].toString()) ?? 0;
         }
+       
+      
         username = json["username"];
         createdDate = json["createdDate"];
         loanOpNotPaidAmount = json["loanOPNotPaidAmount"];
@@ -407,7 +410,7 @@ class LoginResModel {
         // _data["settlementAmount"] = settlementAmount;
         // _data["nextSetlementPayDate"] = nextSetlementPayDate;
         // _data["nextSetlementPayAmount"] = nextSetlementPayAmount;
-        _data["subscription_status"] = subscriptionStatus;
+        // _data["subscription_status"] = subscriptionStatus;
         // _data["username"] = username;
         // _data["createdDate"] = createdDate;
         // _data["loanOPNotPaidAmount"] = loanOpNotPaidAmount;
@@ -422,7 +425,7 @@ class LoginResModel {
         // _data["isChecked"] = isChecked;
         _data["imageUrl"] = imageUrl;
         // _data["employeeStatus"] = employeeStatus;
-        // _data["subscriptionStatus"] = subscriptionStatus;
+        _data["subscriptionStatus"] = subscriptionStatus;
         // _data["rejectedBy"] = rejectedBy;
         _data["rejecteddate"] = rejecteddate;
         // _data["isWarning"] = isWarning;
