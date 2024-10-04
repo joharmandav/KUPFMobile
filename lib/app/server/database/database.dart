@@ -29,7 +29,7 @@ class DatabaseManager extends GetxService {
   }
 
   void _createDb(Database db, int newVersion) async {
-    await db.execute(Constants.socialUserInfoScheme);
+    // await db.execute(Constants.socialUserInfoScheme);
     // await db.execute(Constants.functionMSTScheme);
     // await db.execute(Constants.functionUserScheme);
     // await db.execute(Constants.refTableScheme);
