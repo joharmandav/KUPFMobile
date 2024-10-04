@@ -234,7 +234,7 @@ class DbManager extends GetxService {
     // List<FunctionMSTModel> adultList = [];
     LoginResModel? detailedEmployeeModel;
     var adult = await db.rawQuery(
-      "SELECT * FROM ${Constants.detailedEmployeeTable} WHERE ${Constants.employeeLoginID} = '$loginID' AND ${Constants.employeePassword} = '$password' AND ${Constants.tenentID} = '21' AND ${Constants.deLocationID} = '1';",
+      "SELECT * FROM ${Constants.detailedEmployeeTablel} WHERE ${Constants.employeeLoginID} = '$loginID' AND ${Constants.employeePassword} = '$password' AND ${Constants.tenentID} = '21' AND ${Constants.deLocationID} = '1';",
     );
 
     Get.log(adult.toString());
@@ -334,7 +334,7 @@ class DbManager extends GetxService {
     final db = await database;
     List<LoginResModel> adultList = [];
     var adult = await db.query(
-      Constants.detailedEmployeeTable,
+      Constants.detailedEmployeeTablel,
     );
 
     if (adult.isNotEmpty) {

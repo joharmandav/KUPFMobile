@@ -156,7 +156,7 @@ class ProfileBodyController extends GetxController
    Future<void> updateProfile() async {
     final generalController = GeneralController();
     
-   String bearertoken = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxODEwMTk0OSIsImV4cCI6MTcyNzk0OTY4NywiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.NVbEMNBFRWp0D8Z-TvCPojsbk5UWLp3R9uwSeeN2Rk7oDXdvSSJGsAXaibHwgpevpZgXScyAJaR0aHNu17kphA";
+   String bearertoken = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxODEwMTk0OSIsImV4cCI6MTcyODYzNzg0NiwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.W5xPXdedpyAdXz5hDTbehf5NdZneRVlIhebfmkz0Dt3Qjqi0x6gFrgDKQsT5U4llZQy7yY6VlrUCm58ia4KP1Q";
   //  String? bearertoken = await generalController.getBearerToken();
   // // Updating model with controller values
 

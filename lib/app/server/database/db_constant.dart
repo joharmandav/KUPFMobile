@@ -3,7 +3,9 @@ class Constants {
   static const kupfDatabase = 'kupf_new.db';
   static const socialUserInfoTable = 'socialUserInfoTable';
   static const crupAuditTable = 'CRUPAudit';
-  static const detailedEmployeeTable = 'DetailedEmployee';
+  // static const detailedEmployeeTable = 'DetailedEmploye';
+  static const detailedEmployeeTablel = "DetailedEmployee";
+
   static const functionMSTTable = 'FUNCTION_MST';
   static const functionUserTable = 'FUNCTION_USER';
   static const kupfImageTable = 'KUPFImageTable';
@@ -340,7 +342,7 @@ class Constants {
 
   // detailed employee table
    static const String detailEmpTableScehma = '''
-   CREATE TABLE $detailedEmployeeTable (
+   CREATE TABLE $detailedEmployeeTablel (
       TenentID               INTEGER        NOT NULL,
       LocationID             INTEGER        NOT NULL
                                           DEFAULT 1,
@@ -465,9 +467,9 @@ class Constants {
  
 
 
-  // static const socialUserInfoScheme =
-  //     "CREATE TABLE $socialUserInfoTable ($id TEXT, $name TEXT, "
-  //     "$picture TEXT, $dateOfBirth TEXT, $gender TEXT, $maritalStatus TEXT, $email TEXT, $phone TEXT )";
+  static const socialUserInfoScheme =
+      "CREATE TABLE $socialUserInfoTable ($id TEXT, $name TEXT, "
+      "$picture TEXT, $dateOfBirth TEXT, $gender TEXT, $maritalStatus TEXT, $email TEXT, $phone TEXT )";
 
   // static const functionMSTScheme =
   //     "CREATE TABLE $functionMSTTable ($tenentID INTEGER NOT NULL, "

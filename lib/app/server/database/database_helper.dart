@@ -28,7 +28,7 @@ class DatabaseHelper {
 
   Future<void> _createDB(Database db, int version) async {
   try {
-    await db.execute(Constants.detailedEmployeeTable);
+    await db.execute(Constants.detailEmpTableScehma);
     print("Table 'DetailedEmployee' created successfully.");
   } catch (e) {
     print("Error creating 'DetailedEmployee' table: $e");
@@ -76,7 +76,7 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getData() async {
     final db = _database;
-    return await db.query(Constants.detailedEmployeeTable);
+    return await db.query(Constants.detailedEmployeeTablel);
   }
 
   Future close() async {

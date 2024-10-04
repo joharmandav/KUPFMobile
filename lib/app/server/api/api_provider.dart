@@ -65,14 +65,7 @@ class ApiProvider extends GetConnect {
      
       Map<String, dynamic> responseBody = response.body;
             LoginResModel employee = LoginResModel.fromJson(responseBody);
-
-
-      
-      // Insert into the database   old model
-      // await db.insert(table, employee);
-
-      // new model
-      await DatabaseHelper().insertData({
+       await DatabaseHelper().insertData({
       'TenentID': employee.tenentId,
       'EnglishName': employee.englishName,
       'MobileNumber': employee.mobileNumber,
@@ -179,7 +172,7 @@ Future<LoginResModel?> getEmployeeProfileById(int id) async {
     print("BEARER TOKEN SENDING>>>>: $bearerToken");
 
     final response = await put(
-      "/Employee/UpdateEmployee",
+      "/Employee/UpdateMobileEmployee",
       data,
       headers: headers, 
     );
