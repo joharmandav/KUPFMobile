@@ -1,100 +1,113 @@
 import '../../app/server/database/db_constant.dart';
 
-class TransactionDTModel {
-  final int tenentID;
-  final int locationID;
-  final int myTransID;
-  final int myID;
-  final int? employeeID;
-  final int installmentNumber;
-  final int? attachID;
-  final int? periodCode;
-  final int installmentAmount;
-  final int receivedAmount;
-  final int? pendingAmount;
-  final int? discountAmount;
-  final String? discountReference;
-  final String? universityBatchNo;
-  final String? receivedDate;
-  final String? effectedAccount;
-  final String? otherReference;
-  final int activityID;
-  final int? crupID;
-  final String glPost;
-  final String glPost1;
-  final String glPostRef1;
-  final String? glPostRef;
-  final int? active;
-  final String? switch1;
-  final int? delFlag;
+import 'dart:convert';
 
-  TransactionDTModel({
-    required this.tenentID,
-    required this.locationID,
-    required this.myTransID,
-    required this.myID,
-    this.employeeID,
-    required this.installmentNumber,
-    this.attachID,
-    this.periodCode,
-    required this.installmentAmount,
-    required this.receivedAmount,
-    this.pendingAmount,
-    this.discountAmount,
-    this.discountReference,
-    this.universityBatchNo,
-    this.receivedDate,
-    this.effectedAccount,
-    this.otherReference,
-    required this.activityID,
-    this.crupID,
-    required this.glPost,
-    required this.glPost1,
-    required this.glPostRef1,
-    this.glPostRef,
-    this.active,
-    this.switch1,
-    this.delFlag,
-  });
+class TransactionDtModel {
+    final int tenentId;
+    final int locationId;
+    final int mytransid;
+    final int myid;
+    final int employeeId;
+    final int installmentNumber;
+    final int attachId;
+    final int periodCode;
+    final double installmentAmount;
+    final double receivedAmount;
+    final double pendingAmount;
+    final double discountAmount;
+    final String discountReference;
+    final String universityBatchNo;
+    final dynamic receivedDate;
+    final dynamic effectedAccount;
+    final dynamic otherReference;
+    final int activityid;
+    final dynamic crupId;
+    final dynamic glpost;
+    final dynamic glpost1;
+    final dynamic glpostref1;
+    final dynamic glpostref;
+    final bool active;
+    final dynamic switch1;
+    final dynamic delFlag;
+    final String userid;
+    final DateTime entrydate;
+    final dynamic jvNumber;
 
-  factory TransactionDTModel.fromMap(Map<String, dynamic> map) =>
-      TransactionDTModel(
-        tenentID: map[Constants.tenentID],
-        locationID: map[Constants.locationID],
-        myTransID: map[Constants.myTransID],
-        myID: map[Constants.myID],
-        employeeID: map[Constants.employeeID],
-        installmentNumber: map[Constants.installmentNumber],
-        attachID: map[Constants.attachID],
-        periodCode: map[Constants.periodCode],
-        installmentAmount: map[Constants.installmentAmount],
-        receivedAmount: map[Constants.receivedAmount],
-        pendingAmount: map[Constants.pendingAmount],
-        discountAmount: map[Constants.discountAmount],
-        discountReference: map[Constants.discountReference],
-        universityBatchNo: map[Constants.universityBatchNo],
-        receivedDate: map[Constants.receivedDate],
-        effectedAccount: map[Constants.effectedAmount],
-        otherReference: map[Constants.otherReference],
-        activityID: map[Constants.activityID],
-        crupID: map[Constants.crupID],
-        glPost: map[Constants.glPost],
-        glPost1: map[Constants.glPost1],
-        glPostRef1: map[Constants.glPostRef1],
-        glPostRef: map[Constants.glPostRef],
-        active: map[Constants.active],
-        switch1: map[Constants.switch1],
-        delFlag: map[Constants.delFlag],
-      );
+    TransactionDtModel({
+        required this.tenentId,
+        required this.locationId,
+        required this.mytransid,
+        required this.myid,
+        required this.employeeId,
+        required this.installmentNumber,
+        required this.attachId,
+        required this.periodCode,
+        required this.installmentAmount,
+        required this.receivedAmount,
+        required this.pendingAmount,
+        required this.discountAmount,
+        required this.discountReference,
+        required this.universityBatchNo,
+        required this.receivedDate,
+        required this.effectedAccount,
+        required this.otherReference,
+        required this.activityid,
+        required this.crupId,
+        required this.glpost,
+        required this.glpost1,
+        required this.glpostref1,
+        required this.glpostref,
+        required this.active,
+        required this.switch1,
+        required this.delFlag,
+        required this.userid,
+        required this.entrydate,
+        required this.jvNumber,
+    });
 
-  Map<String, dynamic> toMap() => {
-    Constants.tenentID: tenentID,
-    Constants.locationID: locationID,
-    Constants.myTransID: myTransID,
-    Constants.myID: myID,
-    Constants.employeeID: employeeID,
+    factory TransactionDtModel.fromJson(String str) => TransactionDtModel.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory TransactionDtModel.fromMap(Map<String, dynamic> json) => TransactionDtModel(
+        tenentId: json["tenentId"],
+        locationId: json["locationId"],
+        mytransid: json["mytransid"],
+        myid: json["myid"],
+        employeeId: json["employeeId"],
+        installmentNumber: json["installmentNumber"],
+        attachId: json["attachId"],
+        periodCode: json["periodCode"],
+        installmentAmount: json["installmentAmount"]?.toDouble()??0.0,
+        receivedAmount: json["receivedAmount"]?.toDouble()??0.0,
+        pendingAmount: json["pendingAmount"]?.toDouble()??0.0,
+        discountAmount: json["discountAmount"]?.toDouble()??0.0,
+        discountReference: json["discountReference"],
+        universityBatchNo: json["universityBatchNo"],
+        receivedDate: json["receivedDate"],
+        effectedAccount: json["effectedAccount"],
+        otherReference: json["otherReference"],
+        activityid: json["activityid"],
+        crupId: json["crupId"],
+        glpost: json["glpost"],
+        glpost1: json["glpost1"],
+        glpostref1: json["glpostref1"],
+        glpostref: json["glpostref"],
+        active: json["active"],
+        switch1: json["switch1"],
+        delFlag: json["delFlag"],
+        userid: json["userid"],
+        entrydate: DateTime.parse(json["entrydate"]),
+        jvNumber: json["jvNumber"],
+    );
+    Map<String, dynamic> toMap() => {
+    Constants.tenentID: tenentId,
+    'locationID': locationId,
+    Constants.myTransID: mytransid,
+    Constants.myID: myid,
+    Constants.employeeID: employeeId,
     Constants.installmentNumber: installmentNumber,
-    Constants.attachID: attachID,
+    Constants.attachID: attachId,
     Constants.periodCode: periodCode,
     Constants.installmentAmount: installmentAmount,
     Constants.receivedAmount: receivedAmount,
@@ -103,16 +116,55 @@ class TransactionDTModel {
     Constants.discountReference: discountReference,
     Constants.universityBatchNo: universityBatchNo,
     Constants.receivedDate: receivedDate,
-    Constants.effectedAmount: effectedAccount,
+    'EffectedAccount': effectedAccount,
     Constants.otherReference: otherReference,
-    Constants.activityID: activityID,
-    Constants.crupID: crupID,
-    Constants.glPost: glPost,
-    Constants.glPost1: glPost1,
-    Constants.glPostRef1: glPostRef1,
-    Constants.glPostRef: glPostRef,
+    Constants.activityID: activityid,
+    Constants.crupID: crupId,
+    Constants.glPost: glpost,
+    Constants.glPost1: glpost1,
+    Constants.glPostRef1: glpostref1,
+    Constants.glPostRef: glpostref,
     Constants.active: active,
     Constants.switch1: switch1,
     Constants.delFlag: delFlag,
+    "ENTRYDATE":entrydate.toIso8601String(),
+    "JVNumber":jvNumber,
+    'USERID':userid
+
   };
+
+    // Map<String, dynamic> toMap() => {
+    //     "tenentId": tenentId,
+    //     "locationId": locationId,
+    //     "mytransid": mytransid,
+    //     "myid": myid,
+    //     "employeeId": employeeId,
+    //     "installmentNumber": installmentNumber,
+    //     "attachId": attachId,
+    //     "periodCode": periodCode,
+    //     "installmentAmount": installmentAmount,
+    //     "receivedAmount": receivedAmount,
+    //     "pendingAmount": pendingAmount,
+    //     "discountAmount": discountAmount,
+    //     "discountReference": discountReference,
+    //     "universityBatchNo": universityBatchNo,
+    //     "receivedDate": receivedDate,
+    //     "effectedAccount": effectedAccount,
+    //     "otherReference": otherReference,
+    //     "activityid": activityid,
+    //     "crupId": crupId,
+    //     "glpost": glpost,
+    //     "glpost1": glpost1,
+    //     "glpostref1": glpostref1,
+    //     "glpostref": glpostref,
+    //     "active": active,
+    //     "switch1": switch1,
+    //     "delFlag": delFlag,
+    //     "userid": userid,
+    //     "entrydate": entrydate.toIso8601String(),
+    //     "jvNumber": jvNumber,
+    // };
 }
+
+
+ 

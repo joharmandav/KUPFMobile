@@ -172,6 +172,7 @@ void updateLoginFieldLabel() {
     await controller.storageBox.write('employeeId', result.employeeId);
     await controller.storageBox.write('tenentId', result.tenentId);
     await controller.storageBox.write('locationId', result.locationId);
+    await controller.storageBox.write('token', result.token);
    await controller.storageBox.write('loginType', type);
 
   
@@ -187,28 +188,29 @@ void updateLoginFieldLabel() {
     await controller.storageBox.write('password', passwordController.text);
    
 
-  //  TODO SYNCHING API CALL LATER 
-    // String emplyId = result.employeeId.toString();
-    // int? tntId  = result.tenentId;
-    // int? locId = result.locationId;
+   
+    String emplyId = result.employeeId.toString();
+    int? tntId  = result.tenentId;
+    int? locId = result.locationId;
+    String? bearToken = result.token;
 
-      // await syncEmployeeApi(emplyId,tntId??0,locId??0 );
+    await syncEmployeeApi(emplyId,tntId??0,locId??0,bearToken??'');
     isAction(false);
     navigation();
   }
 
-  Future<LoginResModel?> syncEmployeeApi(String employeeId,int teantId,int locationId) async{
+  Future<void> syncEmployeeApi(String employeeId,int teantId,int locationId,String btoken) async{
    try{
-    var response = await _apiProvider.getEmployeeSync(employeeId, teantId, locationId);
-    if(response == null) return null;
-   LoginResModel syncEmployeeModel = LoginResModel.fromJson(response);
-    return syncEmployeeModel;
+    var response = await _apiProvider.getEmployeeSync(employeeId, teantId, locationId,btoken);
+    if(response == null) return ;
+        // Step 2: Pass the API response to the insertion function
+  // await DatabaseHelper().insertDataIntoTables(response);
 
    } on Exception catch(e){
     Toaster.showError(e.toString());
    }
-   return null;
   }
+ 
   
 
   Future<LoginResModel?> loginApi(String username, String password,String type) async {
@@ -224,7 +226,8 @@ void updateLoginFieldLabel() {
 
   Future<LoginResModel?> loginWithDB(String username, String password, String deviceID) async {
     try {
-      return await db.getLogin(username, password, deviceID);
+      // TODO uncomment later
+      // return await db.getLogin(username, password, deviceID);
     } on Exception catch (e) {
       Toaster.showError("Error:: ${e.toString()}");
       return null;

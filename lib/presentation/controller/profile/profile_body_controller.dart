@@ -81,7 +81,7 @@ class ProfileBodyController extends GetxController
     if (detailedEmployeeModel!.department != null &&
   detailedEmployeeModel!.department != 0) {
       department.value = _departmentList.firstWhere(
-          (element) => element.refID == detailedEmployeeModel!.department);
+          (element) => element.refid == detailedEmployeeModel!.department);
     }
   }
 
@@ -94,7 +94,7 @@ class ProfileBodyController extends GetxController
         detailedEmployeeModel!.departmentName!.isNotEmpty) {
       try {
         occupation.value = _occupationList.firstWhere((element) =>
-            element.shortName == detailedEmployeeModel!.departmentName,
+            element.shortname == detailedEmployeeModel!.departmentName,
             // returning first itel wwr no match is foun
             orElse: (){
               return _occupationList[0];
@@ -244,10 +244,11 @@ class ProfileBodyController extends GetxController
         return;
       }
     } else {
-      detailedEmployeeModel = await db.getLogin(
-              controller.storageBox.read("phone"),
-          controller.storageBox.read("password"),
-          controller.storageBox.read("device"));
+      // TODO uncomment later
+      // detailedEmployeeModel = await db.getLogin(
+      //         controller.storageBox.read("phone"),
+      //     controller.storageBox.read("password"),
+      //     controller.storageBox.read("device"));
     }
     _isLoading(false);
     if (detailedEmployeeModel == null) {

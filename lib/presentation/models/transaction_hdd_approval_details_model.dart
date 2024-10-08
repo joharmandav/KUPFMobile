@@ -67,7 +67,7 @@ class TransactionHDDApprovalDetailsModel {
         updateTime: map[Constants.updateTime],
       );
 
-  Map<String, dynamic> toMAp() => {
+  Map<String, dynamic> toMap() => {
     Constants.tenentID: tenetID,
     Constants.myTransID: myTransID,
     Constants.thLocationID:locationID,

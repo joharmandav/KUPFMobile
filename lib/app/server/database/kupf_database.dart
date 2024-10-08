@@ -15,6 +15,7 @@ import '../../../presentation/models/service_setup_model.dart';
 import '../../../presentation/models/transaction_dt_model.dart';
 import '../../../presentation/models/transaction_hd_model.dart';
 import '../../../presentation/models/transaction_hdd_approval_details_model.dart';
+import '../../../presentation/models/web_page_url_model.dart';
 import '../../../presentation/models/web_pages_model.dart';
 import 'db_constant.dart';
 
@@ -229,25 +230,25 @@ class DbManager extends GetxService {
     return adultList;
   }
 
-  Future<LoginResModel?> getLogin(String loginID, String password, String deviceID) async {
-    final db = await database;
-    // List<FunctionMSTModel> adultList = [];
-    LoginResModel? detailedEmployeeModel;
-    var adult = await db.rawQuery(
-      "SELECT * FROM ${Constants.detailedEmployeeTablel} WHERE ${Constants.employeeLoginID} = '$loginID' AND ${Constants.employeePassword} = '$password' AND ${Constants.tenentID} = '21' AND ${Constants.deLocationID} = '1';",
-    );
+  // Future<LoginResModel?> getLogin(String loginID, String password, String deviceID) async {
+  //   final db = await database;
+  //   // List<FunctionMSTModel> adultList = [];
+  //   LoginResModel? detailedEmployeeModel;
+  //   var adult = await db.rawQuery(
+  //     "SELECT * FROM ${Constants.detailedEmployeeTablel} WHERE ${Constants.employeeLoginID} = '$loginID' AND ${Constants.employeePassword} = '$password' AND ${Constants.tenentID} = '21' AND ${Constants.deLocationID} = '1';",
+  //   );
 
-    Get.log(adult.toString());
+  //   Get.log(adult.toString());
 
-    if (adult.isNotEmpty) {
-      detailedEmployeeModel = LoginResModel.fromJson(adult.first);
-      // detailedEmployeeModel.deviceID = deviceID;
-      var result = await updateEmployeeDetails(detailedEmployeeModel);
-      Get.log(result.toString());
-      Get.log(adult.toString());
-    }
-    return detailedEmployeeModel;
-  }
+  //   if (adult.isNotEmpty) {
+  //     detailedEmployeeModel = LoginResModel.fromJson(adult.first);
+  //     // detailedEmployeeModel.deviceID = deviceID;
+  //     var result = await updateEmployeeDetails(detailedEmployeeModel);
+  //     Get.log(result.toString());
+  //     Get.log(adult.toString());
+  //   }
+  //   return detailedEmployeeModel;
+  // }
 
   Future<List<RefTableModel>> getDepartments() async {
     final db = await database;
@@ -330,21 +331,21 @@ class DbManager extends GetxService {
     return adultList;
   }
 
-  Future<List<LoginResModel>> getDetailedEmployee() async {
-    final db = await database;
-    List<LoginResModel> adultList = [];
-    var adult = await db.query(
-      Constants.detailedEmployeeTablel,
-    );
+  // Future<List<LoginResModel>> getDetailedEmployee() async {
+  //   final db = await database;
+  //   List<LoginResModel> adultList = [];
+  //   var adult = await db.query(
+  //     Constants.detailedEmployeeTablel,
+  //   );
 
-    if (adult.isNotEmpty) {
-      for (var item in adult) {
-        adultList.add(LoginResModel.fromJson(item));
-        Get.log(item.toString());
-      }
-    }
-    return adultList;
-  }
+  //   if (adult.isNotEmpty) {
+  //     for (var item in adult) {
+  //       adultList.add(LoginResModel.fromJson(item));
+  //       Get.log(item.toString());
+  //     }
+  //   }
+  //   return adultList;
+  // }
 
   Future<List<FunctionMSTModel>> getFunctionMST() async {
     final db = await database;
@@ -394,21 +395,7 @@ class DbManager extends GetxService {
     return adultList;
   }
 
-  Future<List<RefTableModel>> getREFTable() async {
-    final db = await database;
-    List<RefTableModel> adultList = [];
-    var adult = await db.query(
-      Constants.refTable,
-    );
-
-    if (adult.isNotEmpty) {
-      for (var item in adult) {
-        adultList.add(RefTableModel.fromMap(item));
-        Get.log(item.toString());
-      }
-    }
-    return adultList;
-  }
+ 
 
   Future<List<WebPagesModel>> getWebPages() async {
     final db = await database;
@@ -442,16 +429,16 @@ class DbManager extends GetxService {
     return adultList;
   }
 
-  Future<List<TransactionDTModel>> getTransactionDT() async {
+  Future<List<TransactionDtModel>> getTransactionDT() async {
     final db = await database;
-    List<TransactionDTModel> adultList = [];
+    List<TransactionDtModel> adultList = [];
     var adult = await db.query(
       Constants.transactionDTTable,
     );
 
     if (adult.isNotEmpty) {
       for (var item in adult) {
-        adultList.add(TransactionDTModel.fromMap(item));
+        adultList.add(TransactionDtModel.fromMap(item));
         Get.log(item.toString());
       }
     }

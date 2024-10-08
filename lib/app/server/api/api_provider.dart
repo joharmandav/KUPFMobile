@@ -25,25 +25,62 @@ class ApiProvider extends GetConnect {
     });
   }
 
-  Future getEmployeeSync(String employeeId,int teantId,int locationId)async{
-  try{
-    Response response = await get("/Common/GetEmployeeSynchronization?EmployeeId=$employeeId&TeantId=$teantId&LocationId=$locationId");
-    if(response.statusCode == 200){
-    return response.body;
-    }else{
-      print("Employee Sync Failed");
+  Future getEmployeeSync(String employeeId, int teantId, int locationId,String token) async {
+   try {
+      final headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      };
+      Response response =
+          await get("/Common/GetEmployeeSynchronization?EmployeeId=$employeeId&TeantId=$teantId&LocationId=$locationId",headers:headers );
+      if (response.statusCode == 200) {
+        Map<String, dynamic> responseData = response.body;
+        print(responseData.runtimeType); 
+        var detEmpData = responseData['detailedEmployee']??[];
+        var transHd = responseData['transactionHD']??[];
+        var transDt = responseData['transactionDT']??[];
+        var refTble = responseData['refTable']??[];
+        var servStp = responseData['serviceSetup']??[];
+        var webPge = responseData['webPages']??[];
+        var webPUrl = responseData['webPageUrl']??[];
+        var webCnt = responseData['webContent']??[];
+        var fucMst = responseData['functioN_MST']??[];
+        var fucUsr = responseData['functioN_USER']??[];
+        var trasDtSubMon = responseData['transDTSubMonthly']??[];
+        var trnsHddAproDetail = responseData['transactionHddapprovalDetail']??[];
+        var trnsHddm = responseData['transactionHddm']??[];
+        Map<String, dynamic> dataInsertion  ={
+        'detailedEmployee': detEmpData,
+        'transactionHD': transHd,
+        'transactionDT': transDt,
+        'refTable': refTble,
+        'serviceSetup': servStp,
+        'webPages': webPge,
+        'webPageUrl': webPUrl,
+        'webContent': webCnt,
+        'functioN_MST': fucMst,
+        'functioN_USER': fucUsr,
+        'transDTSubMonthly': trasDtSubMon,
+        'transactionHddapprovalDetail': trnsHddAproDetail,
+        'transactionHddm': trnsHddm,
+        };
+        await DatabaseHelper().insertDataIntoTables(dataInsertion);
+        Get.log(responseData.toString());
+
+        return responseData;
+      } else {
+        print("Employee Sync Failed");
+      }
+    } on Exception catch (e) {
+      Toaster.showError(e.toString());
     }
-   
-   }on Exception catch(e){
-     Toaster.showError(e.toString());
-   }
+    return null;
   }
 
-  Future loginEmployee(String userName, String password,String type) async {
-      final LoginController loginController = Get.find<LoginController>();
-     
+  Future loginEmployee(String userName, String password, String type) async {
+    final LoginController loginController = Get.find<LoginController>();
 
-      bool rememberUser = loginController.rememberMe.value;
+    bool rememberUser = loginController.rememberMe.value;
 
     Map<String, dynamic> data = {
       "username": userName,
@@ -57,37 +94,17 @@ class ApiProvider extends GetConnect {
       Response response = await post("/Login/MobileLogin", data);
 
       if (response.statusCode == 200) {
-       if(rememberUser){
-        controller.storageBox.write('username', userName);
-        controller.storageBox.write('password', password);
-        controller.storageBox.write('rememberMe', true);
-       }
-     
-      Map<String, dynamic> responseBody = response.body;
-            LoginResModel employee = LoginResModel.fromJson(responseBody);
-       await DatabaseHelper().insertData({
-      'TenentID': employee.tenentId,
-      'EnglishName': employee.englishName,
-      'MobileNumber': employee.mobileNumber,
-      'ArabicName': employee.arabicName,
-      'emp_birthday':employee.empBirthday,
-      'emp_gender': employee.empGender,
-      'LocationID': employee.locationId,
-      'employeeID': employee.employeeId,
-      'emp_work_email':employee.empWorkEmail,
-      'Department':employee.department,
-      'salary':employee.salary,
-      'emp_paci_num':employee.empPaciNum,
-      'emp_other_id':employee.empOtherId,
-      'Next2KinName':employee.next2KinName,
-      'Next2KinMobNumber':employee.next2KinMobNumber,
-      'job_title_Name':employee.jobTitleName
+        if (rememberUser) {
+          controller.storageBox.write('username', userName);
+          controller.storageBox.write('password', password);
+          controller.storageBox.write('rememberMe', true);
+        }
 
-      });
-
-       // Retrieve and print the stored data
-    List<Map<String, dynamic>> savedData = await DatabaseHelper().getData();
-    print("SQFLITE DATABASE STORED : >> $savedData");
+        Map<String, dynamic> responseBody = response.body;
+        LoginResModel employee = LoginResModel.fromJson(responseBody);
+        // Retrieve and print the stored data
+        List<Map<String, dynamic>> savedData = await DatabaseHelper().getData();
+        print("SQFLITE DATABASE STORED : >> $savedData");
 
 
      
@@ -162,33 +179,32 @@ Future<LoginResModel?> getEmployeeProfileById(int id) async {
   return null;
 }
 
+  Future<dynamic> updateEmployeeProfile(
+      Map<String, dynamic> data, String bearerToken) async {
+    try {
+      final headers = {
+        'Authorization': 'Bearer $bearerToken',
+        'Content-Type': 'application/json',
+      };
+      print("BEARER TOKEN SENDING>>>>: $bearerToken");
 
-  Future<dynamic> updateEmployeeProfile(Map<String, dynamic> data, String bearerToken) async {
-  try {
-    final headers = {
-      'Authorization': 'Bearer $bearerToken',
-      'Content-Type': 'application/json',
-    };
-    print("BEARER TOKEN SENDING>>>>: $bearerToken");
+      final response = await put(
+        "/Employee/UpdateMobileEmployee",
+        data,
+        headers: headers,
+      );
 
-    final response = await put(
-      "/Employee/UpdateMobileEmployee",
-      data,
-      headers: headers, 
-    );
-
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      Toaster.showError(response.body.toString());
-      print("ERROR >>>>: ${response.body.toString()}");
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        Toaster.showError(response.body.toString());
+        print("ERROR >>>>: ${response.body.toString()}");
+      }
+    } on Exception catch (e) {
+      Toaster.showError(e.toString());
     }
-  } on Exception catch (e) {
-    Toaster.showError(e.toString());
+    return null;
   }
-  return null;
-}
-
 
   Future<List<OffersModel>> getOffers() async {
     try {

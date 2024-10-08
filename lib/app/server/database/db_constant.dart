@@ -3,9 +3,7 @@ class Constants {
   static const kupfDatabase = 'kupf_new.db';
   static const socialUserInfoTable = 'socialUserInfoTable';
   static const crupAuditTable = 'CRUPAudit';
-  // static const detailedEmployeeTable = 'DetailedEmploye';
   static const detailedEmployeeTablel = "DetailedEmployee";
-
   static const functionMSTTable = 'FUNCTION_MST';
   static const functionUserTable = 'FUNCTION_USER';
   static const kupfImageTable = 'KUPFImageTable';
@@ -342,10 +340,9 @@ class Constants {
 
   // detailed employee table
    static const String detailEmpTableScehma = '''
-   CREATE TABLE $detailedEmployeeTablel (
+   CREATE TABLE IF NOT EXISTS $detailedEmployeeTablel (
       TenentID               INTEGER        NOT NULL,
-      LocationID             INTEGER        NOT NULL
-                                          DEFAULT 1,
+      LocationID             INTEGER        NOT NULL DEFAULT 1,
       employeeID             INTEGER        NOT NULL,
       ContractType           NVARCHAR (50)  COLLATE NOCASE,
       PFID                   NVARCHAR (20)  COLLATE NOCASE,
@@ -355,8 +352,7 @@ class Constants {
       OnSickLeave            BIT            DEFAULT 0,
       MemberOfFund           BIT            DEFAULT 0,
       ReSubscribed           DATETIME,
-      EmployeeType           NVARCHAR (20)  COLLATE NOCASE
-                                          DEFAULT '1',
+      EmployeeType           NVARCHAR (20)  COLLATE NOCASE DEFAULT '1',
       ArabicName             NVARCHAR (200) COLLATE NOCASE,
       EnglishName            NVARCHAR (200) COLLATE NOCASE,
       job_title_code         INTEGER        DEFAULT 1,
@@ -367,10 +363,8 @@ class Constants {
       emp_birthday           DATETIME       COLLATE NOCASE,
       emp_marital_status     NVARCHAR (20)  COLLATE NOCASE,
       salary                 NUMERIC,
-      emp_work_telephone     NVARCHAR (50)  COLLATE NOCASE
-                                          DEFAULT 1,
-      emp_work_email         NVARCHAR (50)  COLLATE NOCASE
-                                          DEFAULT 1,
+      emp_work_telephone     NVARCHAR (50)  COLLATE NOCASE DEFAULT 1,
+      emp_work_email         NVARCHAR (50)  COLLATE NOCASE DEFAULT 1,
       MobileNumber           NVARCHAR (15)  COLLATE NOCASE,
       TerminationBanned      BIT            DEFAULT 0,
       HoldQty                NUMERIC,
@@ -381,12 +375,9 @@ class Constants {
       Next2KinMobNumber      NVARCHAR (15)  COLLATE NOCASE,
       nation_code            INTEGER        DEFAULT 126,
       nation_Name            NVARCHAR (200) COLLATE NOCASE,
-      emp_cid_num            NVARCHAR       COLLATE NOCASE
-                                          DEFAULT 1,
-      emp_paci_num           NVARCHAR (100) COLLATE NOCASE
-                                          DEFAULT 1,
-      emp_other_id           NVARCHAR (100) COLLATE NOCASE
-                                          DEFAULT 1,
+      emp_cid_num            NVARCHAR       COLLATE NOCASE DEFAULT 1,
+      emp_paci_num           NVARCHAR (100) COLLATE NOCASE DEFAULT 1,
+      emp_other_id           NVARCHAR (100) COLLATE NOCASE DEFAULT 1,
       Subscription_status    INTEGER        DEFAULT 1,
       LastSubRecDate         DATETIME,
       EmpStatus              INTEGER        DEFAULT 1,
@@ -421,12 +412,9 @@ class Constants {
       FirstTermination_id    INTEGER,
       FirstTTermination      NVARCHAR (150) COLLATE NOCASE,
       FirstTTerminationDate  DATETIME,
-      emp_street1            NVARCHAR (100) COLLATE NOCASE
-                                          DEFAULT 1,
-      emp_street2            NVARCHAR (100) COLLATE NOCASE
-                                          DEFAULT 1,
-      city_code              NVARCHAR (50)  COLLATE NOCASE
-                                          DEFAULT 1,
+      emp_street1            NVARCHAR (100) COLLATE NOCASE DEFAULT 1,
+      emp_street2            NVARCHAR (100) COLLATE NOCASE DEFAULT 1,
+      city_code              NVARCHAR (50)  COLLATE NOCASE DEFAULT 1,
       coun_code              INTEGER        DEFAULT 1,
       Remarks                NVARCHAR (500) COLLATE NOCASE,
       userID                 NVARCHAR (100) COLLATE NOCASE,
@@ -437,14 +425,11 @@ class Constants {
       Active                 BIT,
       Deleted                BIT,
       DateTime               DATETIME       DEFAULT (CURRENT_TIMESTAMP),
-      DeviceID               NVARCHAR (50)  COLLATE NOCASE
-                                          DEFAULT 0,
+      DeviceID               NVARCHAR (50)  COLLATE NOCASE DEFAULT 0,
       ImageUrl               NVARCHAR       COLLATE NOCASE,
       IsKUEmployee           BIT,
-      IsOnSickLeave          BIT            NOT NULL
-                                          DEFAULT 0,
-      IsMemberOfFund         BIT            NOT NULL
-                                          DEFAULT 0,
+      IsOnSickLeave          BIT            NOT NULL DEFAULT 0,
+      IsMemberOfFund         BIT            NOT NULL DEFAULT 0,
       SubOPAmount            NUMERIC,
       SubOPNotPaidAmount     NUMERIC,
       LoanOPAmount           NUMERIC,
@@ -452,7 +437,7 @@ class Constants {
       CRUP_ID                INTEGER,
       UploadDate             DATETIME,
       Uploadby               NVARCHAR (50)  COLLATE NOCASE,
-      SyncDate               DATETIME,
+      SyncDate             DATETIME,
       Syncby                 NVARCHAR (50)  COLLATE NOCASE,
       SynID                  INTEGER,
       RejectedBy             VARCHAR (100)  COLLATE NOCASE,
@@ -540,7 +525,7 @@ class Constants {
   //     "$syncBY TEXT DEFAULT NULL,"
   //     "$synID	INTEGER DEFAULT NULL,"
   //     "PRIMARY KEY($tenentID,$refID,$refType,$refSubType))";
-
+//  add data from syncemploye api TODO
   static const serviceSetupTableSchemal =''' 
   CREATE TABLE $serviceSetupTable (
     TenentID             INTEGER        NOT NULL,
@@ -809,9 +794,9 @@ CREATE TABLE $functionUserTable (
                                   COLLATE NOCASE,
     REFNAME3       NVARCHAR (100) NOT NULL
                                   COLLATE NOCASE,
-    SWITCH1        VARCHAR (50)   COLLATE NOCASE,
-    SWITCH2        VARCHAR (50)   COLLATE NOCASE,
-    SWITCH3        VARCHAR (50)   COLLATE NOCASE,
+    SWITCH1        TEXT,
+    SWITCH2        TEXT,
+    SWITCH3        TEXT,
     SWITCH4        INTEGER,
     Remarks        NVARCHAR       COLLATE NOCASE,
     ACTIVE         VARCHAR (1)    COLLATE NOCASE
@@ -880,7 +865,7 @@ CREATE TABLE $transactionDTTable (
  ''';
 
  static const transactionHdScehma = ''' 
- CREATE TABLE $transactionDTTable (
+ CREATE TABLE $transactionHdTable (
     TenentID                INTEGER        NOT NULL
                                            DEFAULT 1,
     locationID              INTEGER        NOT NULL
@@ -1335,6 +1320,7 @@ CREATE TABLE $webPageUrlTable (
     Url          VARCHAR (50) COLLATE NOCASE
 );
  ''';
+//  This below view is combination from various table to display directly all the data into profile
  static const employeeViewScehma = ''' 
  CREATE VIEW $employeeViewTable AS
     SELECT a.EmployeeLoginID,

@@ -186,7 +186,7 @@ class ProfileBody extends StatelessWidget {
                         items: controller.departmentList.map<DropdownMenuItem<RefTableModel>>((RefTableModel value) {
                           return DropdownMenuItem<RefTableModel>(
                             value:  value,
-                            child: Text(value.shortName ?? "No Name", style: const TextStyle(overflow: TextOverflow.ellipsis), overflow: TextOverflow.ellipsis, maxLines: 1,),
+                            child: Text(value.shortname ?? "No Name", style: const TextStyle(overflow: TextOverflow.ellipsis), overflow: TextOverflow.ellipsis, maxLines: 1,),
                           );
                         }).toList(),
                       )),
@@ -208,7 +208,7 @@ class ProfileBody extends StatelessWidget {
                         items: controller.occupationList.map<DropdownMenuItem<RefTableModel>>((RefTableModel value) {
                           return DropdownMenuItem<RefTableModel>(
                             value:  value,
-                            child: Text(value.shortName ?? "No Name", style: const TextStyle(overflow: TextOverflow.ellipsis), overflow: TextOverflow.ellipsis, maxLines: 1,),
+                            child: Text(value.shortname ?? "No Name", style: const TextStyle(overflow: TextOverflow.ellipsis), overflow: TextOverflow.ellipsis, maxLines: 1,),
                           );
                         }).toList(),
                       )),
