@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:kupf_mobile/presentation/controller/connectivity_controller.dart';
-import 'package:kupf_mobile/presentation/models/service_setup_model.dart';
 
 import '../../../app/server/api/api_provider.dart';
 import '../../../app/server/database/kupf_database.dart';

@@ -12,7 +12,7 @@ import '../../../../widgets/custom_card.dart';
 import '../../../../widgets/loading.dart';
 import '../../../controller/main/general_controller.dart';
 import '../../../controller/services/service_setup_controller.dart';
-import '../../../models/service_setup_model.dart';
+import '../../../models/serviceSetup_model.dart';
 
 
 class ServiceBody extends StatelessWidget {
@@ -63,18 +63,18 @@ class ServiceBody extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Flexible(
-                                    child: KText(Get.find<GeneralController>().isArabic() ? serviceSetupModel.serviceName2.split(" - ").first : serviceSetupModel.serviceName1.split(" - ").first,
+                                    child: KText(Get.find<GeneralController>().isArabic() ? serviceSetupModel.serviceName2??"" : serviceSetupModel.serviceName1??"",
                                         style: AppTextTheme.bodyText1Black.copyWith(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18)),
                                   ),
-                                  KText("ID: ${serviceSetupModel.serviceID}",
+                                  KText("ID: ${serviceSetupModel.serviceId}",
                                       style: AppTextTheme.bodyText1Black),
                                 ],
                               ),
                             ),
                             const SizedBox(width: 12),
-                            Text(serviceSetupModel.entryDate ?? "24 Dec 21"),
+                            Text(serviceSetupModel.entrydate.toString()),
                           ],
                         ),
                       ),

@@ -1,10 +1,6 @@
 import 'package:get/get_core/src/get_main.dart';
 import 'package:kupf_mobile/app/server/database/db_constant.dart';
-import 'package:kupf_mobile/presentation/models/crup_audit_model.dart';
 import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
-import 'package:kupf_mobile/presentation/models/function_user_model.dart';
-import 'package:kupf_mobile/presentation/models/service_setup_model.dart';
-import 'package:kupf_mobile/presentation/models/transDtSubMonthly_model.dart';
 import 'package:kupf_mobile/presentation/models/transactionHddMs_model.dart';
 import 'package:kupf_mobile/presentation/models/transaction_dt_model.dart';
 import 'package:kupf_mobile/presentation/models/transaction_hdd_approval_details_model.dart';
@@ -208,17 +204,44 @@ if (transhdData != null) {
  
 
 
-  // serviceSetup table
-  var serViceSetupData = data['serviceSetup'];
-  if(serViceSetupData!=null){
-  if(serViceSetupData is List){
-    List<ServiceSetupModel> ssetpModelList = serViceSetupData
-        .map((item) => ServiceSetupModel.fromMap(item))
+  // serviceSetup table TODO NULL ERROR IN MODEL
+  // var serViceSetupData = data['serviceSetup'];
+  // if(serViceSetupData!=null){
+  // if(serViceSetupData is List){
+  //   List<ServiceSetupModel> ssetpModelList = serViceSetupData
+  //       .map((item) => ServiceSetupModel.fromJson(item))
+  //       .toList();
+
+  //   for (var model in ssetpModelList) {
+  //   await db.insert(
+  //     'ServiceSetup',
+  //     model.toMap(),
+  //     conflictAlgorithm: ConflictAlgorithm.replace,
+  //   );
+  // }
+  // }else{
+
+  // }
+  // }else{
+
+  // }
+  // // printing data
+  //  List<Map<String, dynamic>> sstPData =
+  //     await db.query(Constants.serviceSetupTable);
+  // print("DATA OF SERVICE SETUP: $sstPData");
+  // TODO
+ 
+  // WebPages table
+  var webPageData = data['webPages'];
+  if(webPageData!=null){
+  if(webPageData is List){
+    List<WebPagesModel> webPageModelList = webPageData
+        .map((item) => WebPagesModel.fromMap(item))
         .toList();
 
-    for (var model in ssetpModelList) {
+    for (var model in webPageModelList) {
     await db.insert(
-      'ServiceSetup',
+      'WebPages',
       model.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -230,126 +253,200 @@ if (transhdData != null) {
 
   }
   // printing data
-   List<Map<String, dynamic>> sstPData =
-      await db.query(Constants.serviceSetupTable);
-  print("DATA OF SERVICE SETUP: $sstPData");
-  // TODO
- 
-  // WebPages table
-  List<WebPagesModel> webPageModel = (data[Constants.webPagesTable] as List)
-      .map((item) => WebPagesModel.fromMap(item))
-      .toList();
-  for (var model in webPageModel) {
-    await db.insert(
-      Constants.webPagesTable,
-      model.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
+   List<Map<String, dynamic>> webPageDataP =
+      await db.query(Constants.webPagesTable);
+  print("DATA OF WEB PAGE DATA: $webPageDataP");
+
   // WebPageUrls table
-  List<WebPageUrlModel> webPageUrlModel = (data[Constants.webPageUrlTable] as List)
-      .map((item) => WebPageUrlModel.fromMap(item))
-      .toList();
-  for (var model in webPageUrlModel) {
+ var webPageUrlData = data['webPageUrl'];
+  if(webPageUrlData!=null){
+  if(webPageUrlData is List){
+    List<WebPageUrlModel> webPageUrlModelList = webPageUrlData
+        .map((item) => WebPageUrlModel.fromMap(item))
+        .toList();
+
+    for (var model in webPageUrlModelList) {
     await db.insert(
-      Constants.webPageUrlTable,
+      'WebPageUrls',
       model.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+  }else{
+
+  }
+  }else{
+
+  }
+  // printing data
+   List<Map<String, dynamic>> webPageUrlDataP =
+      await db.query(Constants.webPageUrlTable);
+  print("DATA OF WEB PAGE URL DATA: $webPageUrlDataP");
+
+
     // WebContent table
-  List<WebContentModel> webContentModel = (data[Constants.webContentTable] as List)
-      .map((item) => WebContentModel.fromMap(item))
-      .toList();
-  for (var model in webContentModel) {
+   var webPageContentData = data['webContent'];
+  if(webPageContentData!=null){
+  if(webPageContentData is List){
+    List<WebContentModel> webPageContentModelList = webPageContentData
+        .map((item) => WebContentModel.fromMap(item))
+        .toList();
+
+    for (var model in webPageContentModelList) {
     await db.insert(
-      Constants.webContentTable,
+      'WebContent',
       model.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+  }else{
 
-
-  // CRUP_AUDIT table is emty
-  List<CRUPAuditModel> crupAuditModel = (data[Constants.crupAuditTable] as List)
-      .map((item) => CRUPAuditModel.fromMap(item))
-      .toList();
-  for (var model in crupAuditModel) {
-    await db.insert(
-      Constants.crupAuditTable,
-      model.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
   }
+  }else{
+
+  }
+  // printing data
+   List<Map<String, dynamic>> webPageContentDataP =
+      await db.query(Constants.webContentTable);
+  print("DATA OF WEB PAGE Content DATA: $webPageContentDataP");
+
+  // TODO LATER CRUP_AUDIT table is emty 
+  // List<CRUPAuditModel> crupAuditModel = (data[Constants.crupAuditTable] as List)
+  //     .map((item) => CRUPAuditModel.fromMap(item))
+  //     .toList();
+  // for (var model in crupAuditModel) {
+  //   await db.insert(
+  //     Constants.crupAuditTable,
+  //     model.toMap(),
+  //     conflictAlgorithm: ConflictAlgorithm.replace,
+  //   );
+  // }
 
  
 
   
 
   // FUNCTION_MST table
-  List<FunctionMSTModel> functionMstModel = (data[Constants.functionMSTTable] as List)
-      .map((item) => FunctionMSTModel.fromMap(item))
-      .toList();
-  for (var model in functionMstModel) {
-    await db.insert(
-      Constants.functionMSTTable,
-      model.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
+   var fuctMstData = data['functioN_MST'];
+  if(fuctMstData!=null){
+  if(fuctMstData is List){
+    List<FunctionMSTModel> fuctMstModelList = fuctMstData
+        .map((item) => FunctionMSTModel.fromJson(item))
+        .toList();
 
-  // FUNCTION_USER table
-  List<FunctionUserModel> functionUserModel = (data[Constants.functionUserTable] as List)
-      .map((item) => FunctionUserModel.fromMap(item))
-      .toList();
-  for (var model in functionUserModel) {
+    for (var model in fuctMstModelList) {
     await db.insert(
-      Constants.functionUserTable,
+      'FUNCTION_MST',
       model.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-  // TransDTSubMonthly table
-  List<TransactionDtSubMonthlyModel> transSubMonModel =
-      (data[Constants.transDTSubMonTable] as List)
-          .map((item) => TransactionDtSubMonthlyModel.fromMap(item))
-          .toList();
-  for (var model in transSubMonModel) {
-    await db.insert(
-      Constants.transDTSubMonTable,
-      model.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  }else{
+
   }
+  }else{
+
+  }
+  // printing data
+   List<Map<String, dynamic>> fuctMstDataP =
+      await db.query(Constants.functionMSTTable);
+  print("DATA OF FUCTION MST DATA: $fuctMstDataP");
+
+  // FUNCTION_USER table TODO
+  //  var fuctUsrData = data['functioN_USER'];
+  // if(fuctUsrData!=null){
+  // if(fuctUsrData is List){
+  //   List<FunctionUserModel> fuctUsrModelList = fuctUsrData
+  //       .map((item) => FunctionUserModel.fromJson(item))
+  //       .toList();
+
+  //   for (var model in fuctUsrModelList) {
+  //   await db.insert(
+  //     'FUNCTION_USER',
+  //     model.toMap(),
+  //     conflictAlgorithm: ConflictAlgorithm.replace,
+  //   );
+  // }
+  // }else{
+
+  // }
+  // }else{
+
+  // }
+  // // printing data
+  //  List<Map<String, dynamic>> fuctUsrDataP =
+  //     await db.query(Constants.functionUserTable);
+  // print("DATA OF FUCTION MST DATA: $fuctUsrDataP");
+
+  // TransDTSubMonthly table TODO
+  // List<TransactionDtSubMonthlyModel> transSubMonModel =
+  //     (data[Constants.transDTSubMonTable] as List)
+  //         .map((item) => TransactionDtSubMonthlyModel.fromMap(item))
+  //         .toList();
+  // for (var model in transSubMonModel) {
+  //   await db.insert(
+  //     Constants.transDTSubMonTable,
+  //     model.toMap(),
+  //     conflictAlgorithm: ConflictAlgorithm.replace,
+  //   );
+  // }
   
 
 
  
 
-  // TransactionHDDApprovalDetails table
-  List<TransactionHDDApprovalDetailsModel> trsacHddAproModel =
-      (data[Constants.transactionHDDApprovalDetailsTable] as List)
-          .map((item) => TransactionHDDApprovalDetailsModel.fromMap(item))
-          .toList();
-  for (var model in trsacHddAproModel) {
+  // TransactionHDDApprovalDetails table TODO
+   var transHDAprovalDeTMData = data['transactionHddapprovalDetail'];
+  if(transHDAprovalDeTMData!=null){
+  if(transHDAprovalDeTMData is List){
+    List<TransactionHDDApprovalDetailsModel> trnHDDAprDetMModelList = transHDAprovalDeTMData
+        .map((item) => TransactionHDDApprovalDetailsModel.fromMap(item))
+        .toList();
+
+    for (var model in trnHDDAprDetMModelList) {
     await db.insert(
-      Constants.transactionHDDApprovalDetailsTable,
+      'TransactionHDDApprovalDetails',
       model.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+  }else{
+
+  }
+  }else{
+
+  }
+  // printing data
+   List<Map<String, dynamic>> trnHDDAprDatap =
+      await db.query(Constants.transactionHDDApprovalDetailsTable);
+  print("DATA OF TransactionHDDAPROVAL DETAILS DATA: $trnHDDAprDatap");
+
 
   // TransactionHDDM table
-  List<TransactionHddmsModel> transHddmsModel = (data[Constants.transactionHDDMSTable] as List)
-      .map((item) => TransactionHddmsModel.fromMap(item))
-      .toList();
-  for (var model in transHddmsModel) {
+     var transHDdMData = data['transactionHddm'];
+  if(transHDdMData!=null){
+  if(transHDdMData is List){
+    List<TransactionHddmsModel> trnsHdMModelList = transHDdMData
+        .map((item) => TransactionHddmsModel.fromMap(item))
+        .toList();
+
+    for (var model in trnsHdMModelList) {
     await db.insert(
-      Constants.transactionHDDMSTable,
+      'TransactionHDDMS',
       model.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+  }else{
+
+  }
+  }else{
+
+  }
+  // printing data
+   List<Map<String, dynamic>> trnsHdMDataP =
+      await db.query(Constants.transactionHDDMSTable);
+  print("DATA OF TransactionHDDMS DATA: $trnsHdMDataP");
 
  
 

@@ -12,9 +12,9 @@ class WebPageUrlModel {
   });
 
   factory WebPageUrlModel.fromMap(Map<String, dynamic> map) => WebPageUrlModel(
-        webPageUrlID: map[Constants.webPageUrlID],
-        webPageID: map[Constants.webPageUID],
-        url: map[Constants.url],
+        webPageUrlID: map[Constants.webPageUrlID]??0,
+        webPageID: map[Constants.webPageUID]??0,
+        url: map[Constants.url]??"",
       );
 
   Map<String, dynamic> toMap() => {

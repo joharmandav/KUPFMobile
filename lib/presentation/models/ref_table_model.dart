@@ -102,32 +102,6 @@ class RefTableModel {
     Constants.syncBY: syncby,
     Constants.synID: synId,
   };
-  // Map<String, dynamic> toMap() {
-  //   return {
-  //     'tenentId': tenentId,
-  //     'refid': refid,
-  //     'reftype': reftype,
-  //     'refsubtype': refsubtype,
-  //     'shortname': shortname,
-  //     'refname1': refname1,
-  //     'refname2': refname2,
-  //     'refname3': refname3,
-  //     'switch1': switch1,
-  //     'switch2': switch2 is DateTime ? (switch2 as DateTime).toIso8601String() : switch2,
-  //     'switch3': switch3 is DateTime ? (switch3 as DateTime).toIso8601String() : switch3,
-  //     'switch4': switch4,
-  //     'remarks': remarks,
-  //     'active': active,
-  //     'crupId': crupId,
-  //     'infrastructure': infrastructure,
-  //     'refImage': refImage,
-  //     'uploadDate': uploadDate?.toIso8601String(),
-  //     'uploadby': uploadby,
-  //     'syncDate': syncDate?.toIso8601String(),
-  //     'syncby': syncby,
-  //     'synId': synId,
-  //   };
-  // }
 
   // Helper method to handle dynamic date parsing
   static dynamic _parseSwitch(dynamic switchValue) {

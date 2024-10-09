@@ -26,16 +26,16 @@ class WebPagesModel {
   });
 
   factory WebPagesModel.fromMap(Map<String, dynamic> map) => WebPagesModel(
-        webPageID: map[Constants.webPageID],
-        parentID: map[Constants.parentID],
-        isVisible: map[Constants.isVisible],
-        pageIcon: map[Constants.pageIcon],
-        pageOrder: map[Constants.pageOrder],
-        pageTitle: map[Constants.pageTitle],
-        controllerName: map[Constants.controllerName],
-        viewName: map[Constants.viewName],
-        description: map[Constants.description],
-        arabicPageTitle: map[Constants.arabicPageTitle],
+        webPageID: map[Constants.webPageID]??0,
+        parentID: map[Constants.parentID]??0,
+        isVisible: map[Constants.isVisible]??0,
+        pageIcon: map[Constants.pageIcon]??"",
+        pageOrder: map[Constants.pageOrder]??0,
+        pageTitle: map[Constants.pageTitle]??"",
+        controllerName: map[Constants.controllerName]??"",
+        viewName: map[Constants.viewName]??"",
+        description: map[Constants.description]??"",
+        arabicPageTitle: map[Constants.arabicPageTitle]??"",
       );
 
   Map<String, dynamic> toMap() => {

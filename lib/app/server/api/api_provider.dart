@@ -4,11 +4,10 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:kupf_mobile/helper/toaster.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
-import 'package:kupf_mobile/presentation/models/service_setup_model.dart';
-
 import '../../../presentation/controller/login/login_controller.dart';
 import '../../../presentation/models/login_response_model.dart';
 import '../../../presentation/models/offers_model.dart';
+import '../../../presentation/models/serviceSetup_model.dart';
 import '../database/database_helper.dart';
 
 class ApiProvider extends GetConnect {

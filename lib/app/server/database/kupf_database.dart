@@ -11,7 +11,7 @@ import '../../../presentation/models/function_user_model.dart';
 import '../../../presentation/models/kupf_image_model.dart';
 import '../../../presentation/models/offers_model.dart';
 import '../../../presentation/models/ref_table_model.dart';
-import '../../../presentation/models/service_setup_model.dart';
+import '../../../presentation/models/serviceSetup_model.dart';
 import '../../../presentation/models/transaction_dt_model.dart';
 import '../../../presentation/models/transaction_hd_model.dart';
 import '../../../presentation/models/transaction_hdd_approval_details_model.dart';
@@ -292,7 +292,7 @@ class DbManager extends GetxService {
 
     if (adult.isNotEmpty) {
       for (var item in adult) {
-        adultList.add(FunctionMSTModel.fromMap(item));
+        adultList.add(FunctionMSTModel.fromJson(item));
         Get.log(item.toString());
       }
     }
@@ -308,7 +308,7 @@ class DbManager extends GetxService {
 
     if (adult.isNotEmpty) {
       for (var item in adult) {
-        adultList.add(FunctionUserModel.fromMap(item));
+        adultList.add(FunctionUserModel.fromJson(item));
         Get.log(item.toString());
       }
     }
@@ -356,7 +356,7 @@ class DbManager extends GetxService {
 
     if (adult.isNotEmpty) {
       for (var item in adult) {
-        adultList.add(FunctionMSTModel.fromMap(item));
+        adultList.add(FunctionMSTModel.fromJson(item));
         Get.log(item.toString());
       }
     }
@@ -372,7 +372,7 @@ class DbManager extends GetxService {
 
     if (adult.isNotEmpty) {
       for (var item in adult) {
-        adultList.add(FunctionUserModel.fromMap(item));
+        adultList.add(FunctionUserModel.fromJson(item));
         Get.log(item.toString());
       }
     }
@@ -486,7 +486,7 @@ class DbManager extends GetxService {
 
     if (adult.isNotEmpty) {
       for (var item in adult) {
-        adultList.add(ServiceSetupModel.fromMap(item));
+        adultList.add(ServiceSetupModel.fromJson(item));
         Get.log(item.toString());
       }
     }
