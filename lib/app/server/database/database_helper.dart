@@ -208,30 +208,8 @@ if (transhdData != null) {
 
 
   // serviceSetup table 
-  var serViceSetupData = data['serviceSetup'];
-  if(serViceSetupData!=null){
-  if(serViceSetupData is List){
-    List<ServiceSetupModel> ssetpModelList = serViceSetupData
-        .map((item) => ServiceSetupModel.fromMap(item))
-        .toList();
+  insertServiceSetupData(data);
 
-    for (var model in ssetpModelList) {
-    await db.insert(
-      'ServiceSetup',
-      model.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-  }else{
-
-  }
-  }else{
-
-  }
-  // printing data
-   List<Map<String, dynamic>> sstPData =
-      await db.query(Constants.serviceSetupTable);
-  print("DATA OF SERVICE SETUP: $sstPData");
 
  
   // WebPages table
@@ -314,22 +292,8 @@ if (transhdData != null) {
   print("DATA OF WEB PAGE Content DATA: $webPageContentDataP");
 
   // TODO LATER CRUP_AUDIT table is emty 
-  // List<CRUPAuditModel> crupAuditModel = (data[Constants.crupAuditTable] as List)
-  //     .map((item) => CRUPAuditModel.fromMap(item))
-  //     .toList();
-  // for (var model in crupAuditModel) {
-  //   await db.insert(
-  //     Constants.crupAuditTable,
-  //     model.toMap(),
-  //     conflictAlgorithm: ConflictAlgorithm.replace,
-  //   );
-  // }
-
  
-
-  
-
-  // FUNCTION_MST table
+ // FUNCTION_MST table
    var fuctMstData = data['functioN_MST'];
   if(fuctMstData!=null){
   if(fuctMstData is List){
@@ -473,12 +437,7 @@ if (transhdData != null) {
 
   // TODO: Add EmployeeView if necessary
 }
-
-
-
-
-
-  Future<int> updateData(Map<String, dynamic> data) async {
+Future<int> updateData(Map<String, dynamic> data) async {
     final db = _database.database;
 
     return await db.update(
@@ -527,6 +486,34 @@ if (transhdData != null) {
   // Return the retrieved list
   return adultList; 
 }
+// Make fuction s of others tables and add it like below added
+//  service setup table data
+  Future<void> insertServiceSetupData(Map<String, dynamic> data) async {
+    final db = _database;
+  // Extract service setup data from the provided data map
+  var serviceSetupData = data['serviceSetup'];
+
+  // Check if service setup data is not null and is a list
+  if (serviceSetupData is List) {
+    // Map the data to a list of ServiceSetupModel objects
+    List<ServiceSetupModel> serviceSetupModels = serviceSetupData
+        .map((item) => ServiceSetupModel.fromMap(item))
+        .toList();
+
+    // Insert each ServiceSetupModel into the database
+    for (var model in serviceSetupModels) {
+       print("Inserting SERVICE SETUP DATA: ${model.toMap()}");
+      await db.insert(
+        'ServiceSetup',
+        model.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+  }
+}
+
+
+
 
 
 }

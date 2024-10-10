@@ -133,37 +133,6 @@ class TransactionDtModel {
 
   };
 
-    // Map<String, dynamic> toMap() => {
-    //     "tenentId": tenentId,
-    //     "locationId": locationId,
-    //     "mytransid": mytransid,
-    //     "myid": myid,
-    //     "employeeId": employeeId,
-    //     "installmentNumber": installmentNumber,
-    //     "attachId": attachId,
-    //     "periodCode": periodCode,
-    //     "installmentAmount": installmentAmount,
-    //     "receivedAmount": receivedAmount,
-    //     "pendingAmount": pendingAmount,
-    //     "discountAmount": discountAmount,
-    //     "discountReference": discountReference,
-    //     "universityBatchNo": universityBatchNo,
-    //     "receivedDate": receivedDate,
-    //     "effectedAccount": effectedAccount,
-    //     "otherReference": otherReference,
-    //     "activityid": activityid,
-    //     "crupId": crupId,
-    //     "glpost": glpost,
-    //     "glpost1": glpost1,
-    //     "glpostref1": glpostref1,
-    //     "glpostref": glpostref,
-    //     "active": active,
-    //     "switch1": switch1,
-    //     "delFlag": delFlag,
-    //     "userid": userid,
-    //     "entrydate": entrydate.toIso8601String(),
-    //     "jvNumber": jvNumber,
-    // };
 }
 
 
