@@ -486,7 +486,7 @@ class DbManager extends GetxService {
 
     if (adult.isNotEmpty) {
       for (var item in adult) {
-        adultList.add(ServiceSetupModel.fromJson(item));
+        adultList.add(ServiceSetupModel.fromMap(item));
         Get.log(item.toString());
       }
     }

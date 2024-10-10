@@ -9,11 +9,11 @@ class TransactionDtSubMonthlyModel {
     final int installmentNumber;
     final int periodCode;
     final double installmentAmount;
-    final int receivedAmount;
+    final double receivedAmount;
     final double pendingAmount;
-    final int discountAmount;
-    final String discountReference;
-    final String universityBatchNo;
+    final double discountAmount;
+    final String? discountReference;
+    final String? universityBatchNo;
     final dynamic receivedDate;
     final dynamic effectedAccount;
     final dynamic otherReference;
@@ -81,8 +81,8 @@ class TransactionDtSubMonthlyModel {
         receivedAmount: json["receivedAmount"],
         pendingAmount: json["pendingAmount"]?.toDouble(),
         discountAmount: json["discountAmount"],
-        discountReference: json["discountReference"],
-        universityBatchNo: json["universityBatchNo"],
+        discountReference: json["discountReference"]??"",
+        universityBatchNo: json["universityBatchNo"]??"",
         receivedDate: json["receivedDate"],
         effectedAccount: json["effectedAccount"],
         otherReference: json["otherReference"],
@@ -103,35 +103,35 @@ class TransactionDtSubMonthlyModel {
     );
 
     Map<String, dynamic> toMap() => {
-        "tenentId": tenentId,
-        "locationId": locationId,
-        "mytransid": mytransid,
-        "myid": myid,
-        "employeeId": employeeId,
-        "installmentNumber": installmentNumber,
-        "periodCode": periodCode,
-        "installmentAmount": installmentAmount,
-        "receivedAmount": receivedAmount,
-        "pendingAmount": pendingAmount,
-        "discountAmount": discountAmount,
-        "discountReference": discountReference,
-        "universityBatchNo": universityBatchNo,
-        "receivedDate": receivedDate,
-        "effectedAccount": effectedAccount,
-        "otherReference": otherReference,
-        "activityid": activityid,
-        "crupId": crupId,
-        "glpost": glpost,
-        "glpost1": glpost1,
-        "glpostref1": glpostref1,
-        "glpostref": glpostref,
-        "active": active,
-        "switch1": switch1,
-        "delFlag": delFlag,
-        "userid": userid,
-        "entrydate": entrydate.toIso8601String(),
-        "totRecAmount": totRecAmount,
-        "seqId": seqId,
-        "jvNumber": jvNumber,
+        "TenentID": tenentId,
+        "locationID": locationId,
+        "MYTRANSID": mytransid,
+        "MYID": myid,
+        "employeeID": employeeId,
+        "InstallmentNumber": installmentNumber,
+        "PERIOD_CODE": periodCode,
+        "InstallmentAmount": installmentAmount,
+        "ReceivedAmount": receivedAmount,
+        "PendingAmount": pendingAmount,
+        "DiscountAmount": discountAmount,
+        "DiscountReference": discountReference,
+        "UniversityBatchNo": universityBatchNo,
+        "ReceivedDate": receivedDate,
+        "EffectedAccount": effectedAccount,
+        "OtherReference": otherReference,
+        "ACTIVITYID": activityid,
+        "CRUP_ID": crupId,
+        "GLPOST": glpost,
+        "GLPOST1": glpost1,
+        "GLPOSTREF1": glpostref1,
+        "GLPOSTREF": glpostref,
+        "ACTIVE": active,
+        "SWITCH1": switch1,
+        "DelFlag": delFlag,
+        "USERID": userid,
+        "ENTRYDATE": entrydate.toIso8601String(),
+        "TotRecAmount": totRecAmount,
+        "SEQID": seqId,
+        "JVNumber": jvNumber,
     };
 }

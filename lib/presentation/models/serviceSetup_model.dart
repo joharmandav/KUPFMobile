@@ -1,102 +1,101 @@
 import 'dart:convert';
 
 class ServiceSetupModel {
-  int? tenentId;
-  int? serviceId;
-  String? serviceIconMob;
-  String? serviceIconWeb;
-  String? serviceSerialNo;
-  String? masterServiceId;
-  int? serIdbyUser;
-  String? serviceShortName;
-  String? serviceName1;
-  String? serviceName2;
-  int? serviceType;
-  int? serviceSubType;
-  int? allowSponser;
-  bool allowedNonEmployees;
-  int? minMonthsService;
-  int? minInstallment;
-  int? maxInstallment;
-  bool frozen;
-  bool previousEmployees;
-  String? serApproval1;
-  String? approvalBy1;
-  DateTime? approvedDate1;
-  String? serApproval2;
-  String? approvalBy2;
-  DateTime? approvedDate2;
-  String? serApproval3;
-  String? approvalBy3;
-  DateTime? approvedDate3;
-  String? serApproval4;
-  String? approvalBy4;
-  DateTime? approvedDate4;
-  String? serApproval5;
-  String? approvalBy5;
-  DateTime? approvedDate5;
-  String? serApproval6;
-  String? approvalBy6;
-  DateTime? approvedDate6;
-  String? finalApproval;
-  String? remarks;
-  String? keyword;
-  String? loanAct;
-  String? hajjAct;
-  String? persLoanAct;
-  String? consumerLoanAct;
-  String? otherAct1;
-  String? otherAct2;
-  String? otherAct3;
-  String? otherAct4;
-  String? otherAct5;
-  String? sortBy;
-  String? active;
-  int? crupId;
-  String? userid;
-  DateTime? entrydate;
-  DateTime? entrytime;
-  DateTime? updttime;
-  DateTime? uploadDate;
-  String? uploadby;
-  DateTime? syncDate;
-  String? syncby;
-  int? synId;
-  bool allowDiscountPer;
-  String? discountType;
-  double allowDiscountAmount;
-  bool allowDiscountDefault;
-  String? offerName;
-  String? englishHTML;
-  String? englishWebPageName;
-  String? arabicHTML;
-  String? arabicWebPageName;
-  String? electronicForm1;
-  String? electronicForm1URL;
-  String? electronicForm2;
-  String? electronicForm2URL;
-  String? offerImage;
-  String? offerType;
-  String? offer;
-  DateTime? offerStartDate;
-  DateTime? offerEndDate;
-  double? offerAmount;
-  String? offerTypeName;
-  String? webArabic;
-  String? webEnglish;
-  String? isElectronicForm;
-  String? contractType;
-  String? tab1;
-  String? tab2;
-  String? tab3;
-  String? tab4;
-  String? tab5;
-  String? tab6;
-  int? documentsCount;
-  int? terminationID;
-  bool isOffer;
-  int? menuID;
-
+ final int tenentId;
+    final int serviceId;
+    final dynamic serviceIconMob;
+    final dynamic serviceIconWeb;
+    final dynamic serviceSerialNo;
+    final dynamic masterServiceId;
+    final dynamic serIdbyUser;
+    final dynamic serviceShortName;
+    final dynamic serviceName1;
+    final dynamic serviceName2;
+    final dynamic serviceType;
+    final dynamic serviceSubType;
+    final dynamic allowSponser;
+    final dynamic allowedNonEmployes;
+    final dynamic minMonthsService;
+    final dynamic minInstallment;
+    final dynamic maxInstallment;
+    final dynamic frozen;
+    final dynamic previousEmployees;
+    final dynamic serApproval1;
+    final dynamic approvalBy1;
+    final dynamic approvedDate1;
+    final dynamic serApproval2;
+    final dynamic approvalBy2;
+    final dynamic approvedDate2;
+    final dynamic serApproval3;
+    final dynamic approvalBy3;
+    final dynamic approvedDate3;
+    final dynamic serApproval4;
+    final dynamic approvalBy4;
+    final dynamic approvedDate4;
+    final dynamic serApproval5;
+    final dynamic approvalBy5;
+    final dynamic approvedDate5;
+    final dynamic serApproval6;
+    final dynamic approvalBy6;
+    final dynamic approvedDate6;
+    final dynamic finalApproval;
+    final dynamic remarks;
+    final dynamic keyword;
+    final dynamic loanAct;
+    final dynamic hajjAct;
+    final dynamic persLoanAct;
+    final dynamic consumerLoanAct;
+    final String? otherAct1;
+    final String? otherAct2;
+    final String? otherAct3;
+    final String? otherAct4;
+    final dynamic otherAct5;
+    final dynamic sortBy;
+    final dynamic active;
+    final dynamic crupId;
+    final dynamic userid;
+    final dynamic entrydate;
+    final dynamic entrytime;
+    final dynamic updttime;
+    final dynamic uploadDate;
+    final dynamic uploadby;
+    final dynamic syncDate;
+    final dynamic syncby;
+    final dynamic synId;
+    final dynamic allowDiscountPer;
+    final dynamic discountType;
+    final dynamic allowDiscountAmount;
+    final dynamic allowDiscountDefault;
+    final dynamic offerName;
+    final dynamic englishHtml;
+    final dynamic englishWebPageName;
+    final dynamic arabicHtml;
+    final dynamic arabicWebPageName;
+    final dynamic electronicForm1;
+    final dynamic electronicForm1Url;
+    final dynamic electronicForm2;
+    final dynamic electronicForm2Url;
+    final dynamic offerImage;
+    final dynamic offerType;
+    final dynamic offer;
+    final dynamic offerStartDate;
+    final dynamic offerEndDate;
+    final dynamic offerAmount;
+    final dynamic offerTypeName;
+    final dynamic webArabic;
+    final dynamic webEnglish;
+    final dynamic isElectronicForm;
+    final dynamic contractType;
+    final dynamic tab1;
+    final dynamic tab2;
+    final dynamic tab3;
+    final dynamic tab4;
+    final dynamic tab5;
+    final dynamic tab6;
+    final dynamic documentsCount;
+    final dynamic terminationId;
+    final dynamic isOffer;
+    final dynamic menUId;
 
     ServiceSetupModel({
         required this.tenentId,
@@ -112,7 +111,7 @@ class ServiceSetupModel {
         required this.serviceType,
         required this.serviceSubType,
         required this.allowSponser,
-        required this.allowedNonEmployees,
+        required this.allowedNonEmployes,
         required this.minMonthsService,
         required this.minInstallment,
         required this.maxInstallment,
@@ -165,14 +164,14 @@ class ServiceSetupModel {
         required this.allowDiscountAmount,
         required this.allowDiscountDefault,
         required this.offerName,
-        required this.englishHTML,
+        required this.englishHtml,
         required this.englishWebPageName,
-        required this.arabicHTML,
+        required this.arabicHtml,
         required this.arabicWebPageName,
         required this.electronicForm1,
-        required this.electronicForm1URL,
+        required this.electronicForm1Url,
         required this.electronicForm2,
-        required this.electronicForm2URL,
+        required this.electronicForm2Url,
         required this.offerImage,
         required this.offerType,
         required this.offer,
@@ -191,212 +190,114 @@ class ServiceSetupModel {
         required this.tab5,
         required this.tab6,
         required this.documentsCount,
-        required this.terminationID,
+        required this.terminationId,
         required this.isOffer,
-        required this.menuID,
+        required this.menUId,
     });
-    // Factory method to parse the JSON data
-  factory ServiceSetupModel.fromJson(Map<String, dynamic> json) {
-    return ServiceSetupModel(
-      tenentId: json['tenentId']??0,
-      serviceId: json['serviceId']??0,
-      serviceIconMob: json['serviceIconMob']??"",
-      serviceIconWeb: json['serviceIconWeb']??"",
-      serviceSerialNo: json['serviceSerialNo']??"",
-      masterServiceId: json['masterServiceId']??"",
-      serIdbyUser: json['serIdbyUser']??0,
-      serviceShortName: json['serviceShortName']??"",
-      serviceName1: json['serviceName1']??"",
-      serviceName2: json['serviceName2']??"",
-      serviceType: json['serviceType']??0,
-      serviceSubType: json['serviceSubType']??0,
-      allowSponser: json['allowSponser']??0,
-      allowedNonEmployees: json['allowedNonEmployes'] ?? false,
-      minMonthsService: json['minMonthsService']??0,
-      minInstallment: json['minInstallment']??0,
-      maxInstallment: json['maxInstallment']??0,
-      frozen: json['frozen'] ?? false,
-      previousEmployees: json['previousEmployees'] ?? false,
-      serApproval1: json['serApproval1']??"",
-      approvalBy1: json['approvalBy1']??"",
-      approvedDate1: json['approvedDate1'] != null ? DateTime.parse(json['approvedDate1']) : null,
-      serApproval2: json['serApproval2']??"",
-      approvalBy2: json['approvalBy2']??"",
-      approvedDate2: json['approvedDate2'] != null ? DateTime.parse(json['approvedDate2']) : null,
-      serApproval3: json['serApproval3']??"",
-      approvalBy3: json['approvalBy3']??"",
-      approvedDate3: json['approvedDate3'] != null ? DateTime.parse(json['approvedDate3']) : null,
-      serApproval4: json['serApproval4']??"",
-      approvalBy4: json['approvalBy4']??"",
-      approvedDate4: json['approvedDate4'] != null ? DateTime.parse(json['approvedDate4']) : null,
-      serApproval5: json['serApproval5']??"",
-      approvalBy5: json['approvalBy5']??"",
-      approvedDate5: json['approvedDate5'] != null ? DateTime.parse(json['approvedDate5']) : null,
-      serApproval6: json['serApproval6']??"",
-      approvalBy6: json['approvalBy6']??"",
-      approvedDate6: json['approvedDate6'] != null ? DateTime.parse(json['approvedDate6']) : null,
-      finalApproval: json['finalApproval']??"",
-      remarks: json['remarks']??"",
-      keyword: json['keyword']??"",
-      loanAct: json['loanAct']??"",
-      hajjAct: json['hajjAct']??"",
-      persLoanAct: json['persLoanAct']??"",
-      consumerLoanAct: json['consumerLoanAct']??"",
-      otherAct1: json['otherAct1']??"",
-      otherAct2: json['otherAct2']??"",
-      otherAct3: json['otherAct3']??"",
-      otherAct4: json['otherAct4']??"",
-      otherAct5: json['otherAct5']??"",
-      sortBy: json['sortBy']??"",
-      active: json['active']??"",
-      crupId: json['crupId']??0,
-      userid: json['userid']??"",
-      entrydate: json['entrydate'] != null ? DateTime.parse(json['entrydate']) : null,
-      entrytime: json['entrytime'] != null ? DateTime.parse(json['entrytime']) : null,
-      updttime: DateTime.parse(json['updttime']),
-      uploadDate: DateTime.parse(json['uploadDate']),
-      uploadby: json['uploadby']??"",
-      syncDate: DateTime.parse(json['syncDate']),
-      syncby: json['syncby']??"",
-      synId: json['synId']??0,
-      allowDiscountPer: json['allowDiscountPer'],
-      discountType: json['discountType']??"",
-      allowDiscountAmount: json['allowDiscountAmount'],
-      allowDiscountDefault: json['allowDiscountDefault'],
-      offerName: json['offerName']??"",
-      englishHTML: json['englishHTML']??"",
-      englishWebPageName: json['englishWebPageName']??"",
-      arabicHTML: json['arabicHTML']??"",
-      arabicWebPageName: json['arabicWebPageName']??"",
-      electronicForm1: json['electronicForm1']??"",
-      electronicForm1URL: json['electronicForm1URL']??"",
-      electronicForm2: json['electronicForm2']??"",
-      electronicForm2URL: json['electronicForm2URL']??"",
-      offerImage: json['offerImage']??"",
-      offerType: json['offerType']??"",
-      offer: json['offer']??"",
-      offerStartDate: json['offerStartDate'] != null ? DateTime.parse(json['offerStartDate']) : null,
-      offerEndDate: json['offerEndDate'] != null ? DateTime.parse(json['offerEndDate']) : null,
-      offerAmount: json['offerAmount'],
-      offerTypeName: json['offerTypeName']??"",
-      webArabic: json['webArabic']??"",
-      webEnglish: json['webEnglish']??"",
-      isElectronicForm: json['isElectronicForm']??"",
-      contractType: json['contractType']??"",
-      tab1: json['tab1']??"",
-      tab2: json['tab2']??"",
-      tab3: json['tab3']??"",
-      tab4: json['tab4']??"",
-      tab5: json['tab5']??"",
-      tab6: json['tab6']??'',
-      documentsCount: json['documentsCount']??0,
-      terminationID: json['terminationID']??0,
-      isOffer: json['isOffer'],
-      menuID: json['menuID']??0,
+
+    factory ServiceSetupModel.fromJson(String str) => ServiceSetupModel.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory ServiceSetupModel.fromMap(Map<String, dynamic> json) => ServiceSetupModel(
+        tenentId: json["tenentId"],
+        serviceId: json["serviceId"],
+        serviceIconMob: json["serviceIconMob"],
+        serviceIconWeb: json["serviceIconWeb"],
+        serviceSerialNo: json["serviceSerialNo"],
+        masterServiceId: json["masterServiceId"],
+        serIdbyUser: json["serIdbyUser"],
+        serviceShortName: json["serviceShortName"],
+        serviceName1: json["serviceName1"],
+        serviceName2: json["serviceName2"],
+        serviceType: json["serviceType"],
+        serviceSubType: json["serviceSubType"],
+        allowSponser: json["allowSponser"],
+        allowedNonEmployes: json["allowedNonEmployes"],
+        minMonthsService: json["minMonthsService"],
+        minInstallment: json["minInstallment"],
+        maxInstallment: json["maxInstallment"],
+        frozen: json["frozen"],
+        previousEmployees: json["previousEmployees"],
+        serApproval1: json["serApproval1"],
+        approvalBy1: json["approvalBy1"],
+        approvedDate1: json["approvedDate1"],
+        serApproval2: json["serApproval2"],
+        approvalBy2: json["approvalBy2"],
+        approvedDate2: json["approvedDate2"],
+        serApproval3: json["serApproval3"],
+        approvalBy3: json["approvalBy3"],
+        approvedDate3: json["approvedDate3"],
+        serApproval4: json["serApproval4"],
+        approvalBy4: json["approvalBy4"],
+        approvedDate4: json["approvedDate4"],
+        serApproval5: json["serApproval5"],
+        approvalBy5: json["approvalBy5"],
+        approvedDate5: json["approvedDate5"],
+        serApproval6: json["serApproval6"],
+        approvalBy6: json["approvalBy6"],
+        approvedDate6: json["approvedDate6"],
+        finalApproval: json["finalApproval"],
+        remarks: json["remarks"],
+        keyword: json["keyword"],
+        loanAct: json["loanAct"],
+        hajjAct: json["hajjAct"],
+        persLoanAct: json["persLoanAct"],
+        consumerLoanAct: json["consumerLoanAct"],
+        otherAct1: json["otherAct1"],
+        otherAct2: json["otherAct2"],
+        otherAct3: json["otherAct3"],
+        otherAct4: json["otherAct4"],
+        otherAct5: json["otherAct5"],
+        sortBy: json["sortBy"],
+        active: json["active"],
+        crupId: json["crupId"],
+        userid: json["userid"],
+        entrydate: json["entrydate"],
+        entrytime: json["entrytime"],
+        updttime: json["updttime"],
+        uploadDate: json["uploadDate"],
+        uploadby: json["uploadby"],
+        syncDate: json["syncDate"],
+        syncby: json["syncby"],
+        synId: json["synId"],
+        allowDiscountPer: json["allowDiscountPer"],
+        discountType: json["discountType"],
+        allowDiscountAmount: json["allowDiscountAmount"],
+        allowDiscountDefault: json["allowDiscountDefault"],
+        offerName: json["offerName"],
+        englishHtml: json["englishHTML"],
+        englishWebPageName: json["englishWebPageName"],
+        arabicHtml: json["arabicHTML"],
+        arabicWebPageName: json["arabicWebPageName"],
+        electronicForm1: json["electronicForm1"],
+        electronicForm1Url: json["electronicForm1URL"],
+        electronicForm2: json["electronicForm2"],
+        electronicForm2Url: json["electronicForm2URL"],
+        offerImage: json["offerImage"],
+        offerType: json["offerType"],
+        offer: json["offer"],
+        offerStartDate: json["offerStartDate"],
+        offerEndDate: json["offerEndDate"],
+        offerAmount: json["offerAmount"],
+        offerTypeName: json["offerTypeName"],
+        webArabic: json["webArabic"],
+        webEnglish: json["webEnglish"],
+        isElectronicForm: json["isElectronicForm"],
+        contractType: json["contractType"],
+        tab1: json["tab1"],
+        tab2: json["tab2"],
+        tab3: json["tab3"],
+        tab4: json["tab4"],
+        tab5: json["tab5"],
+        tab6: json["tab6"],
+        documentsCount: json["documentsCount"],
+        terminationId: json["terminationID"],
+        isOffer: json["isOffer"],
+        menUId: json["menU_ID"],
     );
-  }
 
-    // factory ServiceSetupModel.fromJson(String str) => ServiceSetupModel.fromMap(json.decode(str));
-
-    // String toJson() => json.encode(toMap());
-
-    // factory ServiceSetupModel.fromMap(Map<String, dynamic> json) => ServiceSetupModel(
-    //     tenentId: json["tenentId"],
-    //     serviceId: json["serviceId"],
-    //     serviceIconMob: json["serviceIconMob"]??"",
-    //     serviceIconWeb: json["serviceIconWeb"]??"",
-    //     serviceSerialNo: json["serviceSerialNo"]??"",
-    //     masterServiceId: json["masterServiceId"]??"",
-    //     serIdbyUser: json["serIdbyUser"]??0,
-    //     serviceShortName: json["serviceShortName"]??"",
-    //     serviceName1: json["serviceName1"]??"",
-    //     serviceName2: json["serviceName2"]??"",
-    //     serviceType: json["serviceType"]??0,
-    //     serviceSubType: json["serviceSubType"]??0,
-    //     allowSponser: json["allowSponser"]??0,
-    //     allowedNonEmployes: json["allowedNonEmployes"],
-    //     minMonthsService: json["minMonthsService"]??0,
-    //     minInstallment: json["minInstallment"]??0,
-    //     maxInstallment: json["maxInstallment"]??0,
-    //     frozen: json["frozen"],
-    //     previousEmployees: json["previousEmployees"],
-    //     serApproval1: json["serApproval1"]??"",
-    //     approvalBy1: json["approvalBy1"]??"",
-    //     approvedDate1: json["approvedDate1"],
-    //     serApproval2: json["serApproval2"],
-    //     approvalBy2: json["approvalBy2"],
-    //     approvedDate2: json["approvedDate2"],
-    //     serApproval3: json["serApproval3"]??"",
-    //     approvalBy3: json["approvalBy3"]??"",
-    //     approvedDate3: json["approvedDate3"],
-    //     serApproval4: json["serApproval4"]??"",
-    //     approvalBy4: json["approvalBy4"]??"",
-    //     approvedDate4: json["approvedDate4"],
-    //     serApproval5: json["serApproval5"]??"",
-    //     approvalBy5: json["approvalBy5"]??"",
-    //     approvedDate5: json["approvedDate5"],
-    //     serApproval6: json["serApproval6"],
-    //     approvalBy6: json["approvalBy6"]??"",
-    //     approvedDate6: json["approvedDate6"],
-    //     finalApproval: json["finalApproval"]??"",
-    //     remarks: json["remarks"],
-    //     keyword: json["keyword"],
-    //     loanAct: json["loanAct"],
-    //     hajjAct: json["hajjAct"],
-    //     persLoanAct: json["persLoanAct"],
-    //     consumerLoanAct: json["consumerLoanAct"]??"",
-    //     otherAct1: json["otherAct1"]??"",
-    //     otherAct2: json["otherAct2"]??"",
-    //     otherAct3: json["otherAct3"]??"",
-    //     otherAct4: json["otherAct4"]??"",
-    //     otherAct5: json["otherAct5"]??"",
-    //     sortBy: json["sortBy"],
-    //     active: json["active"]??"",
-    //     crupId: json["crupId"]??0,
-    //     userid: json["userid"],
-    //     entrydate: json["entrydate"],
-    //     entrytime: json["entrytime"],
-    //     updttime: DateTime.parse(json["updttime"]),
-    //     uploadDate: DateTime.parse(json["uploadDate"]),
-    //     uploadby: json["uploadby"],
-    //     syncDate: DateTime.parse(json["syncDate"]),
-    //     syncby: json["syncby"],
-    //     synId: json["synId"]??0,
-    //     allowDiscountPer: json["allowDiscountPer"],
-    //     discountType: json["discountType"],
-    //     allowDiscountAmount: json["allowDiscountAmount"],
-    //     allowDiscountDefault: json["allowDiscountDefault"],
-    //     offerName: json["offerName"]??"",
-    //     englishHtml: json["englishHTML"]??"",
-    //     englishWebPageName: json["englishWebPageName"],
-    //     arabicHtml: json["arabicHTML"]??"",
-    //     arabicWebPageName: json["arabicWebPageName"],
-    //     electronicForm1: json["electronicForm1"],
-    //     electronicForm1Url: json["electronicForm1URL"],
-    //     electronicForm2: json["electronicForm2"],
-    //     electronicForm2Url: json["electronicForm2URL"],
-    //     offerImage: json["offerImage"],
-    //     offerType: json["offerType"],
-    //     offer: json["offer"]??"",
-    //     offerStartDate: json["offerStartDate"],
-    //     offerEndDate: json["offerEndDate"],
-    //     offerAmount: json["offerAmount"],
-    //     offerTypeName: json["offerTypeName"],
-    //     webArabic: json["webArabic"]??"",
-    //     webEnglish: json["webEnglish"]??"",
-    //     isElectronicForm: json["isElectronicForm"],
-    //     contractType: json["contractType"],
-    //     tab1: json["tab1"]??"",
-    //     tab2: json["tab2"]??"",
-    //     tab3: json["tab3"]??"",
-    //     tab4: json["tab4"]??"",
-    //     tab5: json["tab5"]??"",
-    //     tab6: json["tab6"]??"",
-    //     documentsCount: json["documentsCount"]??0,
-    //     terminationId: json["terminationID"]??0,
-    //     isOffer: json["isOffer"],
-    //     menUId: json["menU_ID"]??0,
-    // );
+    
 
     Map<String, dynamic> toMap() => {
         "TenentID": tenentId,
@@ -412,7 +313,7 @@ class ServiceSetupModel {
         "ServiceType": serviceType,
         "ServiceSubType": serviceSubType,
         "AllowSponser": allowSponser,
-        "AllowedNonEmployes": allowedNonEmployees,
+        "AllowedNonEmployes": allowedNonEmployes,
         "MinMonthsService": minMonthsService,
         "MinInstallment": minInstallment,
         "MaxInstallment": maxInstallment,
@@ -465,14 +366,14 @@ class ServiceSetupModel {
         "AllowDiscountAmount": allowDiscountAmount,
         "AllowDiscountDefault": allowDiscountDefault,
         "OfferName": offerName,
-        "EnglishHTML": englishHTML,
+        "EnglishHTML": englishHtml,
         "EnglishWebPageName": englishWebPageName,
-        "ArabicHTML": arabicHTML,
+        "ArabicHTML": arabicHtml,
         "ArabicWebPageName": arabicWebPageName,
         "ElectronicForm1": electronicForm1,
-        "ElectronicForm1URL": electronicForm1URL,
+        "ElectronicForm1URL": electronicForm1Url,
         "ElectronicForm2": electronicForm2,
-        "ElectronicForm2URL": electronicForm2URL,
+        "ElectronicForm2URL": electronicForm2Url,
         "OfferImage": offerImage,
         "OfferType": offerType,
         "Offer": offer,
@@ -491,8 +392,8 @@ class ServiceSetupModel {
         "Tab5": tab5,
         "Tab6": tab6,
         "DocumentsCount": documentsCount,
-        "TerminationID": terminationID,
+        "TerminationID": terminationId,
         "ISOffer": isOffer,
-        "MENU_ID": menuID,
+        "MENU_ID": menUId,
     };
 }

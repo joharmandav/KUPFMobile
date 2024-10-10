@@ -1,6 +1,9 @@
 import 'package:get/get_core/src/get_main.dart';
 import 'package:kupf_mobile/app/server/database/db_constant.dart';
 import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
+import 'package:kupf_mobile/presentation/models/function_user_model.dart';
+import 'package:kupf_mobile/presentation/models/serviceSetup_model.dart';
+import 'package:kupf_mobile/presentation/models/transDtSubMonthly_model.dart';
 import 'package:kupf_mobile/presentation/models/transactionHddMs_model.dart';
 import 'package:kupf_mobile/presentation/models/transaction_dt_model.dart';
 import 'package:kupf_mobile/presentation/models/transaction_hdd_approval_details_model.dart';
@@ -204,32 +207,32 @@ if (transhdData != null) {
  
 
 
-  // serviceSetup table TODO NULL ERROR IN MODEL
-  // var serViceSetupData = data['serviceSetup'];
-  // if(serViceSetupData!=null){
-  // if(serViceSetupData is List){
-  //   List<ServiceSetupModel> ssetpModelList = serViceSetupData
-  //       .map((item) => ServiceSetupModel.fromJson(item))
-  //       .toList();
+  // serviceSetup table 
+  var serViceSetupData = data['serviceSetup'];
+  if(serViceSetupData!=null){
+  if(serViceSetupData is List){
+    List<ServiceSetupModel> ssetpModelList = serViceSetupData
+        .map((item) => ServiceSetupModel.fromMap(item))
+        .toList();
 
-  //   for (var model in ssetpModelList) {
-  //   await db.insert(
-  //     'ServiceSetup',
-  //     model.toMap(),
-  //     conflictAlgorithm: ConflictAlgorithm.replace,
-  //   );
-  // }
-  // }else{
+    for (var model in ssetpModelList) {
+    await db.insert(
+      'ServiceSetup',
+      model.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+  }else{
 
-  // }
-  // }else{
+  }
+  }else{
 
-  // }
-  // // printing data
-  //  List<Map<String, dynamic>> sstPData =
-  //     await db.query(Constants.serviceSetupTable);
-  // print("DATA OF SERVICE SETUP: $sstPData");
-  // TODO
+  }
+  // printing data
+   List<Map<String, dynamic>> sstPData =
+      await db.query(Constants.serviceSetupTable);
+  print("DATA OF SERVICE SETUP: $sstPData");
+
  
   // WebPages table
   var webPageData = data['webPages'];
@@ -352,50 +355,63 @@ if (transhdData != null) {
       await db.query(Constants.functionMSTTable);
   print("DATA OF FUCTION MST DATA: $fuctMstDataP");
 
-  // FUNCTION_USER table TODO
-  //  var fuctUsrData = data['functioN_USER'];
-  // if(fuctUsrData!=null){
-  // if(fuctUsrData is List){
-  //   List<FunctionUserModel> fuctUsrModelList = fuctUsrData
-  //       .map((item) => FunctionUserModel.fromJson(item))
-  //       .toList();
+  // FUNCTION_USER table 
+   var fuctUsrData = data['functioN_USER'];
+  if(fuctUsrData!=null){
+  if(fuctUsrData is List){
+    List<FunctionUserModel> fuctUsrModelList = fuctUsrData
+        .map((item) => FunctionUserModel.fromJson(item))
+        .toList();
 
-  //   for (var model in fuctUsrModelList) {
-  //   await db.insert(
-  //     'FUNCTION_USER',
-  //     model.toMap(),
-  //     conflictAlgorithm: ConflictAlgorithm.replace,
-  //   );
-  // }
-  // }else{
+    for (var model in fuctUsrModelList) {
+    await db.insert(
+      'FUNCTION_USER',
+      model.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+  }else{
 
-  // }
-  // }else{
+  }
+  }else{
 
-  // }
-  // // printing data
-  //  List<Map<String, dynamic>> fuctUsrDataP =
-  //     await db.query(Constants.functionUserTable);
-  // print("DATA OF FUCTION MST DATA: $fuctUsrDataP");
+  }
+  // printing data
+   List<Map<String, dynamic>> fuctUsrDataP =
+      await db.query(Constants.functionUserTable);
+  print("DATA OF FUCTION USER DATA: $fuctUsrDataP");
 
-  // TransDTSubMonthly table TODO
-  // List<TransactionDtSubMonthlyModel> transSubMonModel =
-  //     (data[Constants.transDTSubMonTable] as List)
-  //         .map((item) => TransactionDtSubMonthlyModel.fromMap(item))
-  //         .toList();
-  // for (var model in transSubMonModel) {
-  //   await db.insert(
-  //     Constants.transDTSubMonTable,
-  //     model.toMap(),
-  //     conflictAlgorithm: ConflictAlgorithm.replace,
-  //   );
-  // }
+  // TransDTSubMonthly table 
+  var transDTSubMonData = data['transDTSubMonthly'];
+  if(transDTSubMonData!=null){
+  if(transDTSubMonData is List){
+    List<TransactionDtSubMonthlyModel> transDTSubMonModelList = transDTSubMonData
+        .map((item) => TransactionDtSubMonthlyModel.fromMap(item))
+        .toList();
+
+    for (var model in transDTSubMonModelList) {
+    await db.insert(
+      'TransDTSubMonthly',
+      model.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+  }else{
+
+  }
+  }else{
+
+  }
+  // printing data
+   List<Map<String, dynamic>> transDTSubMonDataP =
+      await db.query(Constants.transDTSubMonTable);
+  print("DATA OF TransDT SUB MONTHLY  DATA: $transDTSubMonDataP");
   
 
 
  
 
-  // TransactionHDDApprovalDetails table TODO
+  // TransactionHDDApprovalDetails table 
    var transHDAprovalDeTMData = data['transactionHddapprovalDetail'];
   if(transHDAprovalDeTMData!=null){
   if(transHDAprovalDeTMData is List){
