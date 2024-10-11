@@ -1,5 +1,6 @@
 import 'package:get/get_core/src/get_main.dart';
 import 'package:kupf_mobile/app/server/database/db_constant.dart';
+import 'package:kupf_mobile/presentation/models/crup_audit_model.dart';
 import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
 import 'package:kupf_mobile/presentation/models/function_user_model.dart';
 import 'package:kupf_mobile/presentation/models/serviceSetup_model.dart';
@@ -487,6 +488,163 @@ Future<int> updateData(Map<String, dynamic> data) async {
   return adultList; 
 }
 // Make fuction s of others tables and add it like below added
+Future<void> insertDetailedEmployeeData(Map<String,dynamic> data)async{
+final db = _database;
+var detailEmployeeData = data['detailedEmployee'];
+if(detailEmployeeData is List){
+   List<DetailedEmployeeModel> detailEmployeeModelList =  detailEmployeeData.map((item)=>DetailedEmployeeModel.fromMap(item)).toList();
+    for(var model in detailEmployeeModelList){
+    await db.insert('DetailedEmployee', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+ 
+}
+Future<void> insertransactionHdData(Map<String,dynamic> data)async{
+  final db = _database;
+var transactionHdData = data['transactionHD'];
+if(transactionHdData is List){
+   List<TransactionHDModel> transactionHdModelList =  transactionHdData.map((item)=>TransactionHDModel.fromMap(item)).toList();
+    for(var model in transactionHdModelList){
+    await db.insert('TransactionHD', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> inserttransactionDTData(Map<String,dynamic> data)async{
+  final db = _database;
+  var transactionDT = data['transactionDT'];
+  if(transactionDT is List){
+   List<TransactionDtModel> transactionDTModelList =  transactionDT.map((item)=>TransactionDtModel.fromMap(item)).toList();
+    for(var model in transactionDTModelList){
+    await db.insert('TransactionDT', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertrefTableData(Map<String,dynamic> data)async{
+  final db = _database;
+  var refTabledata = data['refTable'];
+  if(refTabledata is List){
+   List<RefTableModel> refTablModelList =  refTabledata.map((item)=>RefTableModel.fromMap(item)).toList();
+    for(var model in refTablModelList){
+    await db.insert('REFTABLE', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertwebPagesData(Map<String,dynamic> data)async{
+  final db = _database;
+  var webPagesData = data['webPages'];
+  if(webPagesData is List){
+   List<WebPagesModel> webPagesModelList =  webPagesData.map((item)=>WebPagesModel.fromMap(item)).toList();
+    for(var model in webPagesModelList){
+    await db.insert('WebPages', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertWebPageUrlData(Map<String,dynamic> data)async{
+  final db = _database;
+  var webPageUrlData = data['webPageUrl'];
+  if(webPageUrlData is List){
+   List<WebPageUrlModel> webPageUrlModelList =  webPageUrlData.map((item)=>WebPageUrlModel.fromMap(item)).toList();
+    for(var model in webPageUrlModelList){
+    await db.insert('WebPageUrls', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertWebContentData(Map<String,dynamic> data)async{
+  final db = _database;
+  var webContentData = data['webContent'];
+   if(webContentData is List){
+   List<WebContentModel> webContentModelList =  webContentData.map((item)=>WebContentModel.fromMap(item)).toList();
+    for(var model in webContentModelList){
+    await db.insert('WebContent', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertCrupAuditData(Map<String,dynamic> data)async{
+  final db = _database;
+  var crupAuditData = data['crupAudit'];
+   if(crupAuditData is List){
+   List<CRUPAuditModel> crupAuditModelList =  crupAuditData.map((item)=>CRUPAuditModel.fromMap(item)).toList();
+    for(var model in crupAuditModelList){
+    await db.insert('table', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertFuctionMstData(Map<String,dynamic> data)async{
+  final db = _database;
+  var fuctionMstData = data['function_MST'];
+   if(fuctionMstData is List){
+   List<FunctionMSTModel> fuctionMSTModelList =  fuctionMstData.map((item)=>FunctionMSTModel.fromJson(item)).toList();
+    for(var model in fuctionMSTModelList){
+    await db.insert('FUNCTION_MST', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertfunctionUsrData(Map<String,dynamic> data)async{
+  final db = _database;
+  var fuctionUsrData = data['fuctioN_USER'];
+  if(fuctionUsrData is List){
+   List<FunctionUserModel> fuctionUsrDataList =  fuctionUsrData.map((item)=>FunctionUserModel.fromJson(item)).toList();
+    for(var model in fuctionUsrDataList){
+    await db.insert('FUNCTION_USER', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertTransDtSubMonData(Map<String,dynamic> data)async{
+  final db = _database;
+  var transactionDtSubMonData = data['transDTSubMonthly'];
+   if(transactionDtSubMonData is List){
+   List<TransactionDtSubMonthlyModel> transactionDtSubMonModelList =  transactionDtSubMonData.map((item)=>TransactionDtSubMonthlyModel.fromMap(item)).toList();
+    for(var model in transactionDtSubMonModelList){
+    await db.insert('TransDTSubMonthly', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertTrnsHdAproDetailsData(Map<String,dynamic> data)async{
+  final db = _database;
+  var transHdAproDetaData = data['transactionHddapprovalDetail'];
+  if(transHdAproDetaData is List){
+   List<TransactionHDDApprovalDetailsModel> transHdAproDetaDataModelList =  transHdAproDetaData.map((item)=>TransactionHDDApprovalDetailsModel.fromMap(item)).toList();
+    for(var model in transHdAproDetaDataModelList){
+    await db.insert('TransactionHDDApprovalDetails', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
+Future<void> insertTrnsHddMData(Map<String,dynamic> data)async{
+  final db = _database;
+  var transHddMData = data['transactionHddm'];
+  if(transHddMData is List){
+    List<TransactionHddmsModel> transHddMModelList =  transHddMData.map((item)=>TransactionHddmsModel.fromMap(item)).toList();
+    for(var model in transHddMModelList){
+    await db.insert('TransactionHDDMS', model.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    }
+  }
+}
 //  service setup table data
   Future<void> insertServiceSetupData(Map<String, dynamic> data) async {
     final db = _database;
