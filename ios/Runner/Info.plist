@@ -6,7 +6,12 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
+	<key>NSCameraUsageDescription</key>
+    <string>Your description for using the camera</string>
+    <key>CFBundleDisplayName</key>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Your description for accessing the photo library</string>
+
 	<string>Kupf Mobile</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -31,7 +36,19 @@
 			</array>
 		</dict>
 	</array>
-	<key>CFBundleVersion</key>
+    <key>CFBundleVersion</key>
+	<key>NSAppTransportSecurity</key>
+    <dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    </dict>
+	<key>UIBackgroundModes</key>
+     <array>
+    <string>fetch</string>
+    <string>remote-notification</string>
+    </array>
+
+
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FacebookAppID</key>
 	<string>1048533342480535</string>

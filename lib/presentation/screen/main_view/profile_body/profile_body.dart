@@ -147,6 +147,11 @@ class ProfileBody extends StatelessWidget {
                         labelText: LanguageConstants.email.tr,
                         hintText: LanguageConstants.email.tr,
                       ),
+                      LabelTextField(
+                        controller: controller.civilIdController,
+                        labelText: LanguageConstants.civilId.tr,
+                        hintText: LanguageConstants.civilId.tr,
+                      ),
                       AppUtility.heightBox,
                       LabelTextField(
                         controller: controller.nextToKinNameController,
@@ -225,18 +230,21 @@ class ProfileBody extends StatelessWidget {
                         controller: controller.salaryController,
                         labelText: LanguageConstants.monthlySalary.tr,
                         hintText: LanguageConstants.monthlySalary.tr,
+                        readOnly: true,
                       ),
                       AppUtility.heightBox,
                       LabelTextField(
                         controller: controller.paciController,
                         labelText: LanguageConstants.PACI.tr,
                         hintText: LanguageConstants.PACI.tr,
+                        readOnly: true,
                       ),
                       AppUtility.heightBox,
                       LabelTextField(
                         controller: controller.otherIDController,
                         labelText: LanguageConstants.otherID.tr,
                         hintText: LanguageConstants.otherID.tr,
+                        readOnly: true,
                       ),
                       AppUtility.heightBox,
                     ],

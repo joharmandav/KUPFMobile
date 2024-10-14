@@ -28,6 +28,7 @@ class ProfileBodyController extends GetxController
   final TextEditingController genderController = TextEditingController();
   final TextEditingController maritalStatusController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController civilIdController = TextEditingController();
   final TextEditingController landLineController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController nextToKinMobileController =
