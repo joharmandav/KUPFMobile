@@ -669,7 +669,33 @@ Future<void> insertTrnsHddMData(Map<String,dynamic> data)async{
     }
   }
 }
+ 
+//  selecting employee details from employee table
+Future<DetailedEmployeeModel> getDetailedEmployeeDetails()async{
+    final db = _database;
+  List<DetailedEmployeeModel> detailEmplList = [];
+   var empDet = await db.rawQuery("SELECT * FROM ${Constants.employeeViewTable} WHERE employeeID='18101949'");
+ if (empDet.isNotEmpty) {
+    return DetailedEmployeeModel.fromMap(empDet.first);  // Assuming fetching for a single employee
+  } else {
+    throw Exception('No employee data found');
+  }
+}
+// Future<List<RefTableModel>> getOccupation() async {
+//     final db = await database;
+//     List<RefTableModel> occupationList = [];
 
+//     var occupation = await db.rawQuery(
+//       "SELECT * FROM ${Constants.refTable} WHERE ${Constants.refType} = 'KUPF' AND ${Constants.refSubType} = 'Occupation';",
+//     );
+
+//     if (occupation.isNotEmpty) {
+//       for (var item in occupation) {
+//         occupationList.add(RefTableModel.fromMap(item));
+//       }
+//     }
+//     return occupationList;
+//   }
 
 
 

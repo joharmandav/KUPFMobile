@@ -27,7 +27,7 @@ class LoginController extends GetxController {
   AuthServices authServices = AuthServices();
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   final _apiProvider = Get.find<ApiProvider>();
-  DbManager db = DbManager();
+  // DbManager db = DbManager();
   final ConnectivityService _connectivityService = ConnectivityService();
   SocialUserInfo info = SocialUserInfo();
   RxBool rememberMe = RxBool(false);
