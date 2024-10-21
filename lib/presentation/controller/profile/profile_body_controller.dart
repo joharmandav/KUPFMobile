@@ -9,6 +9,7 @@ import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 import 'package:kupf_mobile/presentation/models/ref_table_model.dart';
 
 import '../../../helper/toaster.dart';
+import '../../../languages/language_constants.dart';
 import '../connectivity_controller.dart';
 
 class ProfileBodyController extends GetxController
@@ -87,8 +88,9 @@ class ProfileBodyController extends GetxController
            employeeNameController.text = employee.value!.englishName;
            arabicNameController.text = employee.value!.arabicName;
            dobController.text = employee.value!.dateofBirth;
-          genderController.text = employee.value!.empGender;
-          maritalStatusController.text = employee.value!.maritalStatus;
+          genderController.text =
+           (employee.value!.empGender !=null && employee.value!.empGender == LanguageConstants.male.tr?1:0).toString();
+          maritalStatusController.text = (employee.value!.maritalStatus !=null && employee.value!.maritalStatus == LanguageConstants.married.tr?1:0).toString();
           mobileController.text = employee.value!.mobileNumber;
           landLineController.text = employee.value!.landlineNumber;
           emailController.text = employee.value!.empWorkEmail;
