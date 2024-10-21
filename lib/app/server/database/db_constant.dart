@@ -3,7 +3,7 @@ class Constants {
   static const kupfDatabase = 'kupf_new.db';
   static const socialUserInfoTable = 'socialUserInfoTable';
   static const crupAuditTable = 'CRUPAudit';
-  static const detailedEmployeeTablel = "DetailedEmployee";
+  static const String  detailedEmployeeTablel = "DetailedEmployee";
   static const functionMSTTable = 'FUNCTION_MST';
   static const functionUserTable = 'FUNCTION_USER';
   static const kupfImageTable = 'KUPFImageTable';
@@ -48,7 +48,7 @@ class Constants {
   static const empMaritalStatus = "emp_marital_status";
   static const salary = "salary";
   static const empWorkTelephone = "emp_work_telephone";
-  static const empWorkEmail = "emp_work_email";
+  static const empWorkEmail = "empWorkEmail";
   static const mobileNumber = "MobileNumber";
   static const next2KinName = "Next2KinName";
   static const next2KinMobNumber = "Next2KinMobNumber";
@@ -340,114 +340,115 @@ class Constants {
 
   // detailed employee table
    static const String detailEmpTableScehma = '''
-   CREATE TABLE IF NOT EXISTS $detailedEmployeeTablel (
-      TenentID               INTEGER        NOT NULL,
-      LocationID             INTEGER        NOT NULL DEFAULT 1,
-      employeeID             INTEGER        NOT NULL,
-      ContractType           NVARCHAR (50)  COLLATE NOCASE,
-      PFID                   NVARCHAR (20)  COLLATE NOCASE,
-      SubscribedDate         DATETIME,
-      AgreedSubAmount        NUMERIC,
-      KUEmployee             BIT            DEFAULT 1,
-      OnSickLeave            BIT            DEFAULT 0,
-      MemberOfFund           BIT            DEFAULT 0,
-      ReSubscribed           DATETIME,
-      EmployeeType           NVARCHAR (20)  COLLATE NOCASE DEFAULT '1',
-      ArabicName             NVARCHAR (200) COLLATE NOCASE,
-      EnglishName            NVARCHAR (200) COLLATE NOCASE,
-      job_title_code         INTEGER        DEFAULT 1,
-      job_title_Name         NVARCHAR (200) COLLATE NOCASE,
-      Department             INTEGER,
-      Department_Name        NVARCHAR (200) COLLATE NOCASE,
-      emp_gender             SMALLINT,
-      emp_birthday           DATETIME       COLLATE NOCASE,
-      emp_marital_status     NVARCHAR (20)  COLLATE NOCASE,
-      salary                 NUMERIC,
-      emp_work_telephone     NVARCHAR (50)  COLLATE NOCASE DEFAULT 1,
-      emp_work_email         NVARCHAR (50)  COLLATE NOCASE DEFAULT 1,
-      MobileNumber           NVARCHAR (15)  COLLATE NOCASE,
-      TerminationBanned      BIT            DEFAULT 0,
-      HoldQty                NUMERIC,
-      HoldRemarks            NVARCHAR (200) COLLATE NOCASE,
-      UnHoldDate             DATETIME       COLLATE NOCASE,
-      UnHoldBy               NVARCHAR (10)  COLLATE NOCASE,
-      Next2KinName           NVARCHAR (200) COLLATE NOCASE,
-      Next2KinMobNumber      NVARCHAR (15)  COLLATE NOCASE,
-      nation_code            INTEGER        DEFAULT 126,
-      nation_Name            NVARCHAR (200) COLLATE NOCASE,
-      emp_cid_num            NVARCHAR       COLLATE NOCASE DEFAULT 1,
-      emp_paci_num           NVARCHAR (100) COLLATE NOCASE DEFAULT 1,
-      emp_other_id           NVARCHAR (100) COLLATE NOCASE DEFAULT 1,
-      Subscription_status    INTEGER        DEFAULT 1,
-      LastSubRecDate         DATETIME,
-      EmpStatus              INTEGER        DEFAULT 1,
-      SubFrozen              BIT            DEFAULT 0,
-      SubFrozenDate          DATETIME,
-      joined_date            DATETIME,
-      End_date               DATETIME,
-      SettlementSerMonths    INTEGER,
-      SettlementAmount       NUMERIC,
-      NextSetlementPayDate   DATETIME       COLLATE NOCASE,
-      NextSetlementPayAmount NUMERIC,
-      subscription_date      DATETIME,
-      ReSubscriped_date      DATETIME,
-      LoanAct                NVARCHAR (50)  COLLATE NOCASE,
-      LoanAmount             NUMERIC,
-      HajjAct                NVARCHAR (50)  COLLATE NOCASE,
-      HajjActAmount          NUMERIC,
-      PersLoanAct            NVARCHAR (50)  COLLATE NOCASE,
-      PersLoanAmount         NUMERIC,
-      ConsumerLoanAct        NVARCHAR (50)  COLLATE NOCASE,
-      ConsumerLoanAmount     NUMERIC,
-      OtherAct1              NVARCHAR (50)  COLLATE NOCASE,
-      OtherAct2              NVARCHAR (50)  COLLATE NOCASE,
-      OtherAct3              NVARCHAR (50)  COLLATE NOCASE,
-      OtherAct4              NVARCHAR (50)  COLLATE NOCASE,
-      OtherAct5              NVARCHAR (50)  COLLATE NOCASE,
-      Membership             NVARCHAR (150) COLLATE NOCASE,
-      MembershipJoiningDate  DATETIME,
-      termination_id         INTEGER,
-      Termination            NVARCHAR (150) COLLATE NOCASE,
-      TerminationDate        DATETIME,
-      FirstTermination_id    INTEGER,
-      FirstTTermination      NVARCHAR (150) COLLATE NOCASE,
-      FirstTTerminationDate  DATETIME,
-      emp_street1            NVARCHAR (100) COLLATE NOCASE DEFAULT 1,
-      emp_street2            NVARCHAR (100) COLLATE NOCASE DEFAULT 1,
-      city_code              NVARCHAR (50)  COLLATE NOCASE DEFAULT 1,
-      coun_code              INTEGER        DEFAULT 1,
-      Remarks                NVARCHAR (500) COLLATE NOCASE,
-      userID                 NVARCHAR (100) COLLATE NOCASE,
-      ActiveDirectoryID      NVARCHAR (100) COLLATE NOCASE,
-      MainHRRoleID           INTEGER,
-      EmployeeLoginID        NVARCHAR (100) COLLATE NOCASE,
-      EmployeePassword       NVARCHAR (150) COLLATE NOCASE,
-      Active                 BIT,
-      Deleted                BIT,
-      DateTime               DATETIME       DEFAULT (CURRENT_TIMESTAMP),
-      DeviceID               NVARCHAR (50)  COLLATE NOCASE DEFAULT 0,
-      ImageUrl               NVARCHAR       COLLATE NOCASE,
-      IsKUEmployee           BIT,
-      IsOnSickLeave          BIT            NOT NULL DEFAULT 0,
-      IsMemberOfFund         BIT            NOT NULL DEFAULT 0,
-      SubOPAmount            NUMERIC,
-      SubOPNotPaidAmount     NUMERIC,
-      LoanOPAmount           NUMERIC,
-      LoanOPNotPaidAmount    NUMERIC,
-      CRUP_ID                INTEGER,
-      UploadDate             DATETIME,
-      Uploadby               NVARCHAR (50)  COLLATE NOCASE,
-      SyncDate             DATETIME,
-      Syncby                 NVARCHAR (50)  COLLATE NOCASE,
-      SynID                  INTEGER,
-      RejectedBy             VARCHAR (100)  COLLATE NOCASE,
-      Rejecteddate           DATETIME       COLLATE NOCASE,
-      PRIMARY KEY (
-        TenentID,
-        LocationID,
-        employeeID
-      )
-    )
+   CREATE TABLE  $detailedEmployeeTablel (
+  TenentID               INTEGER        NOT NULL,
+  LocationID             INTEGER        NOT NULL DEFAULT 1,
+  employeeID             INTEGER        NOT NULL,
+  ContractType           TEXT           COLLATE NOCASE,
+  PFID                   TEXT           COLLATE NOCASE,
+  SubscribedDate         DATETIME,
+  AgreedSubAmount        NUMERIC,
+  KUEmployee             INTEGER        DEFAULT 1,  -- 1 for true, 0 for false
+  OnSickLeave            INTEGER        DEFAULT 0,  -- 1 for true, 0 for false
+  MemberOfFund           INTEGER        DEFAULT 0,  -- 1 for true, 0 for false
+  ReSubscribed           DATETIME,
+  EmployeeType           TEXT           COLLATE NOCASE DEFAULT '1',
+  ArabicName             TEXT           COLLATE NOCASE,
+  EnglishName            TEXT           COLLATE NOCASE,
+  job_title_code         INTEGER        DEFAULT 1,
+  job_title_Name         TEXT           COLLATE NOCASE,
+  Department             INTEGER,
+  Department_Name        TEXT           COLLATE NOCASE,
+  emp_gender             INTEGER,
+  emp_birthday           DATETIME       COLLATE NOCASE,
+  emp_marital_status     TEXT           COLLATE NOCASE,
+  salary                 NUMERIC,
+  emp_work_telephone     TEXT           COLLATE NOCASE DEFAULT '1',
+  empWorkEmail           TEXT           COLLATE NOCASE DEFAULT '1',
+  MobileNumber           TEXT           COLLATE NOCASE,
+  TerminationBanned      INTEGER        DEFAULT 0,  -- 1 for true, 0 for false
+  HoldQty                NUMERIC,
+  HoldRemarks            TEXT           COLLATE NOCASE,
+  UnHoldDate             DATETIME       COLLATE NOCASE,
+  UnHoldBy               TEXT           COLLATE NOCASE,
+  Next2KinName           TEXT           COLLATE NOCASE,
+  Next2KinMobNumber      TEXT           COLLATE NOCASE,
+  nation_code            INTEGER        DEFAULT 126,
+  nation_Name            TEXT           COLLATE NOCASE,
+  emp_cid_num            TEXT           COLLATE NOCASE DEFAULT '1',
+  emp_paci_num           TEXT           COLLATE NOCASE DEFAULT '1',
+  emp_other_id           TEXT           COLLATE NOCASE DEFAULT '1',
+  Subscription_status    INTEGER        DEFAULT 1,
+  LastSubRecDate         DATETIME,
+  EmpStatus              INTEGER        DEFAULT 1,
+  SubFrozen              INTEGER        DEFAULT 0,  -- 1 for true, 0 for false
+  SubFrozenDate          DATETIME,
+  joined_date            DATETIME,
+  End_date               DATETIME,
+  SettlementSerMonths    INTEGER,
+  SettlementAmount       NUMERIC,
+  NextSetlementPayDate   DATETIME       COLLATE NOCASE,
+  NextSetlementPayAmount NUMERIC,
+  subscription_date      DATETIME,
+  ReSubscriped_date      DATETIME,
+  LoanAct                TEXT           COLLATE NOCASE,
+  LoanAmount             NUMERIC,
+  HajjAct                TEXT           COLLATE NOCASE,
+  HajjActAmount          NUMERIC,
+  PersLoanAct            TEXT           COLLATE NOCASE,
+  PersLoanAmount         NUMERIC,
+  ConsumerLoanAct        TEXT           COLLATE NOCASE,
+  ConsumerLoanAmount     NUMERIC,
+  OtherAct1              TEXT           COLLATE NOCASE,
+  OtherAct2              TEXT           COLLATE NOCASE,
+  OtherAct3              TEXT           COLLATE NOCASE,
+  OtherAct4              TEXT           COLLATE NOCASE,
+  OtherAct5              TEXT           COLLATE NOCASE,
+  Membership             TEXT           COLLATE NOCASE,
+  MembershipJoiningDate  DATETIME,
+  termination_id         INTEGER,
+  Termination            TEXT           COLLATE NOCASE,
+  TerminationDate        DATETIME,
+  FirstTermination_id    INTEGER,
+  FirstTTermination      TEXT           COLLATE NOCASE,
+  FirstTTerminationDate  DATETIME,
+  emp_street1            TEXT           COLLATE NOCASE DEFAULT '1',
+  emp_street2            TEXT           COLLATE NOCASE DEFAULT '1',
+  city_code              TEXT           COLLATE NOCASE DEFAULT '1',
+  coun_code              INTEGER        DEFAULT 1,
+  Remarks                TEXT           COLLATE NOCASE,
+  userID                 TEXT           COLLATE NOCASE,
+  ActiveDirectoryID      TEXT           COLLATE NOCASE,
+  MainHRRoleID           INTEGER,
+  EmployeeLoginID        TEXT           COLLATE NOCASE DEFAULT '123',
+  EmployeePassword       TEXT           COLLATE NOCASE,
+  Active                 INTEGER,       -- 1 for true, 0 for false
+  Deleted                INTEGER,       -- 1 for true, 0 for false
+  DateTime               DATETIME       DEFAULT (CURRENT_TIMESTAMP),
+  DeviceID               TEXT           COLLATE NOCASE DEFAULT '0',
+  ImageUrl               TEXT           COLLATE NOCASE,
+  IsKUEmployee           INTEGER,       -- 1 for true, 0 for false
+  IsOnSickLeave          INTEGER        NOT NULL DEFAULT 0,  -- 1 for true, 0 for false
+  IsMemberOfFund         INTEGER        NOT NULL DEFAULT 0,  -- 1 for true, 0 for false
+  SubOPAmount            NUMERIC,
+  SubOPNotPaidAmount     NUMERIC,
+  LoanOPAmount           NUMERIC,
+  LoanOPNotPaidAmount    NUMERIC,
+  CRUP_ID                INTEGER,
+  UploadDate             DATETIME,
+  Uploadby               TEXT           COLLATE NOCASE,
+  SyncDate               DATETIME,
+  Syncby                 TEXT           COLLATE NOCASE,
+  SynID                  INTEGER,
+  RejectedBy             TEXT           COLLATE NOCASE,
+  Rejecteddate           DATETIME       COLLATE NOCASE,
+  PRIMARY KEY (
+    TenentID,
+    LocationID,
+    employeeID
+  )
+)
+
 ''';
  
 
@@ -1324,9 +1325,12 @@ CREATE TABLE $webPageUrlTable (
  static const employeeViewScehma = ''' 
  CREATE VIEW $employeeViewTable AS
     SELECT a.EmployeeLoginID,
-           a.emp_work_email,
+           a.empWorkEmail,
            a.employeeID,
            a.PFID,
+           a.emp_marital_status,
+           a.emp_birthday,
+           a.emp_work_telephone,
            a.ArabicName,
            a.EnglishName,
            a.salary,
@@ -1345,10 +1349,10 @@ CREATE TABLE $webPageUrlTable (
            a.emp_cid_num,
            a.emp_paci_num,
            a.emp_other_id
-      FROM DetailedEmployee a,
-           REFTABLE b,
-           REFTABLE c,
-           REFTABLE d
+      FROM ${Constants.detailedEmployeeTablel} a,
+           ${Constants.refTable} b,
+           ${Constants.refTable} c,
+           ${Constants.refTable} d
      WHERE a.TenentID = 21 AND 
            b.TenentID = 21 AND 
            b.REFTYPE = 'KUPF' AND 

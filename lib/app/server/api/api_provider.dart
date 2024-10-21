@@ -34,7 +34,6 @@ class ApiProvider extends GetConnect {
           await get("/Common/GetEmployeeSynchronization?EmployeeId=$employeeId&TeantId=$teantId&LocationId=$locationId",headers:headers );
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = response.body;
-        print(responseData.runtimeType); 
         var detEmpData = responseData['detailedEmployee']??[];
         var transHd = responseData['transactionHD']??[];
         var transDt = responseData['transactionDT']??[];
@@ -63,8 +62,25 @@ class ApiProvider extends GetConnect {
         'transactionHddapprovalDetail': trnsHddAproDetail,
         'transactionHddm': trnsHddm,
         };
-        await DatabaseHelper().insertDataIntoTables(dataInsertion);
-        Get.log(responseData.toString());
+        
+        await DatabaseHelper().insertDetailedEmployeeData(dataInsertion);
+        await DatabaseHelper().insertransactionHdData(dataInsertion);
+        await DatabaseHelper().inserttransactionDTData(dataInsertion);
+        await DatabaseHelper().insertrefTableData(dataInsertion);
+        await DatabaseHelper().insertwebPagesData(dataInsertion);
+        await DatabaseHelper().insertWebPageUrlData(dataInsertion);
+        await DatabaseHelper().insertWebContentData(dataInsertion);
+        await DatabaseHelper().insertCrupAuditData(dataInsertion);
+        await DatabaseHelper().insertFuctionMstData(dataInsertion);
+        await DatabaseHelper().insertfunctionUsrData(dataInsertion);
+        await DatabaseHelper().insertTransDtSubMonData(dataInsertion);
+        await DatabaseHelper().insertTrnsHdAproDetailsData(dataInsertion);
+        await DatabaseHelper().insertTrnsHddMData(dataInsertion);
+        await DatabaseHelper().insertServiceSetupData(dataInsertion);
+        await DatabaseHelper().insertTrnsHddMData(dataInsertion);
+        await DatabaseHelper().insertTrnsHddMData(dataInsertion);
+
+        // Get.log(responseData.toString());
 
         return responseData;
       } else {

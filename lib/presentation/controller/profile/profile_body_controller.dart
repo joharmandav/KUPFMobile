@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:kupf_mobile/app/server/api/api_provider.dart';
 import 'package:kupf_mobile/app/server/database/database_helper.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
-import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
+import 'package:kupf_mobile/presentation/models/employee_view_model.dart';
 import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 import 'package:kupf_mobile/presentation/models/ref_table_model.dart';
 
 import '../../../helper/toaster.dart';
-import '../../../languages/language_constants.dart';
 import '../connectivity_controller.dart';
 
 class ProfileBodyController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final _apiProvider = Get.find<ApiProvider>();
-  // final DbManager db = DbManager();
   final DatabaseHelper nDb = DatabaseHelper();
   final controller = Get.find<GeneralController>();
   final ConnectivityService _connectivityService = ConnectivityService();
@@ -54,7 +51,7 @@ class ProfileBodyController extends GetxController
 
   final RxList<RefTableModel> _occupationList = RxList<RefTableModel>();
   // var employee = DetailedEmployeeModel;
-  Rxn<DetailedEmployeeModel> employee = Rxn<DetailedEmployeeModel>();
+  Rxn<EmployeeViewModel> employee = Rxn<EmployeeViewModel>();
   Rxn<XFile> pickedFile = Rxn<XFile>();
 
   @override
@@ -80,11 +77,32 @@ class ProfileBodyController extends GetxController
   Future<void> getDetailedEmployeeProfile() async{
     try{
       _isLoading(true);
-    final empProfileDetails = await nDb.getDetailedEmployeeDetails();
-      employee.value = empProfileDetails;
-      employeeNameController.text = employee.value!.englishName;
       
-    }catch(e){
+    final empProfileDetails = await nDb.getDetailedEmployeeDetails();
+    
+   employee.value = empProfileDetails;
+   print("EMPLOYE VALUEE =>>>>>.. ${employee.value}");
+         // Ensure employee value is not null before accessing fields
+   if(employee.value != null){
+           employeeNameController.text = employee.value!.englishName;
+           arabicNameController.text = employee.value!.arabicName;
+           dobController.text = employee.value!.dateofBirth;
+          genderController.text = employee.value!.empGender;
+          maritalStatusController.text = employee.value!.maritalStatus;
+          mobileController.text = employee.value!.mobileNumber;
+          landLineController.text = employee.value!.landlineNumber;
+          emailController.text = employee.value!.empWorkEmail;
+          nextToKinNameController.text = employee.value!.next2KinName;
+          nextToKinMobileController.text = employee.value!.next2KinMobNumber;
+          civilIdController.text = employee.value!.empCidNum;
+
+   }else{
+            throw Exception("Employee data is null after fetching");
+
+   }
+ 
+    
+      }catch(e){
     print("Error fetching employee data: $e");
 
     }finally{
@@ -234,38 +252,35 @@ class ProfileBodyController extends GetxController
     controller.detailedEmployeeModel = detailedEmployeeModel;
 
     // employeeNameController.text = detailedEmployeeModel!.englishName??"";
-    arabicNameController.text = detailedEmployeeModel!.arabicName??"";
-    dobController.text = detailedEmployeeModel?.empBirthday != null ? DateFormat('yyyy-MM-dd')
-        .format(DateTime.parse(detailedEmployeeModel?.empBirthday ?? "")) : "";
+    // arabicNameController.text = detailedEmployeeModel!.arabicName??"";
+    // dobController.text = detailedEmployeeModel?.empBirthday != null ? DateFormat('yyyy-MM-dd')
+    //     .format(DateTime.parse(detailedEmployeeModel?.empBirthday ?? "")) : "";
 
     // gender.value = detailedEmployeeModel!.empGender != null &&
     //         detailedEmployeeModel!.empGender == 1
     //     ? LanguageConstants.male.tr
     //     : LanguageConstants.female.tr;
-    gender.value = detailedEmployeeModel!.empGender != null && detailedEmployeeModel!.empGender == 1
-    ? LanguageConstants.male.tr
-    : LanguageConstants.female.tr;
+    // gender.value = detailedEmployeeModel!.empGender != null && detailedEmployeeModel!.empGender == 1
+    // ? LanguageConstants.male.tr
+    // : LanguageConstants.female.tr;
 
 
     // marital.value = detailedEmployeeModel!.empMaritalStatus != null &&
     //         detailedEmployeeModel!.empMaritalStatus == 1
     //     ? LanguageConstants.married.tr
     //     : LanguageConstants.single.tr;
-    marital.value = detailedEmployeeModel!.empMaritalStatus != null && detailedEmployeeModel!.empMaritalStatus == 1
-    ? LanguageConstants.married.tr
-    : LanguageConstants.single.tr;
+    // marital.value = detailedEmployeeModel!.empMaritalStatus != null && detailedEmployeeModel!.empMaritalStatus == 1
+    // ? LanguageConstants.married.tr
+    // : LanguageConstants.single.tr;
 
 
-    mobileController.text = detailedEmployeeModel!.mobileNumber ?? "";
-    landLineController.text = detailedEmployeeModel!.empWorkTelephone??"";
-    emailController.text = detailedEmployeeModel!.empWorkEmail??"";
-    nextToKinMobileController.text =
-        detailedEmployeeModel!.next2KinMobNumber ?? "";
-    nextToKinNameController.text = detailedEmployeeModel!.next2KinName ?? "";
-    salaryController.text = detailedEmployeeModel!.salary?.toString() ?? "";
-    paciController.text = detailedEmployeeModel?.empPaciNum != null ? detailedEmployeeModel!.empPaciNum.toString() : "";
+    // mobileController.text = detailedEmployeeModel!.mobileNumber ?? "";
+    // landLineController.text = detailedEmployeeModel!.empWorkTelephone??"";
+    // emailController.text = detailedEmployeeModel!.empWorkEmail??"";
+    // nextToKinMobileController.text =
+    //     detailedEmployeeModel!.next2KinMobNumber ?? "";
+    // nextToKinNameController.text = detailedEmployeeModel!.next2KinName ?? "";
 
-    otherIDController.text = detailedEmployeeModel!.empOtherId??"";
     // if (detailedEmployeeModel!.uploadBy != null &&
     //     detailedEmployeeModel!.uploadBy!.isNotEmpty &&
     //     detailedEmployeeModel!.uploadBy != "string") {
