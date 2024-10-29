@@ -213,8 +213,8 @@ class DetailedEmployeeModel {
         empBirthday:json["empBirthday"] != null 
     ? DateTime.parse(json["empBirthday"]) 
     : null,
-        empMaritalStatus: json["empMaritalStatus"]??"",
-        salary: json["salary"],
+        empMaritalStatus: json["empMaritalStatus"] == "Single" || json["empMaritalStatus"] == "1" ? 1 : 0,
+        salary: json["salary"]== null ? 0 : int.tryParse(double.parse(json["salary"].toString()).toStringAsFixed(0)),
         empWorkTelephone: json["empWorkTelephone"]??"",
         empWorkEmail: json["empWorkEmail"]??"",
         mobileNumber: json["mobileNumber"]??"",

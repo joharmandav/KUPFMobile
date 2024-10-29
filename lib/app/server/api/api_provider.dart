@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kupf_mobile/helper/toaster.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 import '../../../presentation/controller/login/login_controller.dart';
@@ -11,6 +12,7 @@ import '../../../presentation/models/serviceSetup_model.dart';
 import '../database/database_helper.dart';
 
 class ApiProvider extends GetConnect {
+  final storageBox = GetStorage();
 
   @override
   void onInit() {
@@ -116,7 +118,7 @@ class ApiProvider extends GetConnect {
         }
 
         Map<String, dynamic> responseBody = response.body;
-        LoginResModel employee = LoginResModel.fromJson(responseBody);
+        // LoginResModel employee = LoginResModel.fromJson(responseBody);
         // Retrieve and print the stored data
         List<Map<String, dynamic>> savedData = await DatabaseHelper().getData();
         print("SQFLITE DATABASE STORED : >> $savedData");
@@ -125,8 +127,8 @@ class ApiProvider extends GetConnect {
      
 
         //  save bearer token
-        String token = response.body['token'];
-        print("TOKEN>>>>>: $token");
+      String token = response.body['token'];
+      print("TOKEN>>>>>: $token");
        final generalController = Get.find<GeneralController>();
        await generalController.saveBearerToken(token);
 
@@ -195,8 +197,10 @@ Future<LoginResModel?> getEmployeeProfileById(int id) async {
 }
 
   Future<dynamic> updateEmployeeProfile(
-      Map<String, dynamic> data, String bearerToken) async {
+      Map<String, dynamic> data,) async {
     try {
+      String? bearerToken = storageBox.read('token');
+
       final headers = {
         'Authorization': 'Bearer $bearerToken',
         'Content-Type': 'application/json',

@@ -4,8 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kupf_mobile/app/server/api/api_provider.dart';
 import 'package:kupf_mobile/app/server/database/database_helper.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
+import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
 import 'package:kupf_mobile/presentation/models/employee_view_model.dart';
-import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 import 'package:kupf_mobile/presentation/models/ref_table_model.dart';
 
 import '../../../helper/toaster.dart';
@@ -41,7 +41,8 @@ class ProfileBodyController extends GetxController
   String RejectedDate = "2024-09-12T12:34:56";
 
   
-  LoginResModel? detailedEmployeeModel;
+  DetailedEmployeeModel? employeeViewModel; 
+  
 
   RxnString gender = RxnString();
   RxnString marital = RxnString();
@@ -149,15 +150,16 @@ class ProfileBodyController extends GetxController
   // }
    
    Future<void> updateProfile() async {
-    final generalController = GeneralController();
-    
-   String bearertoken = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxODEwMTk0OSIsImV4cCI6MTcyODYzNzg0NiwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.W5xPXdedpyAdXz5hDTbehf5NdZneRVlIhebfmkz0Dt3Qjqi0x6gFrgDKQsT5U4llZQy7yY6VlrUCm58ia4KP1Q";
-  //  String? bearertoken = await generalController.getBearerToken();
-  // // Updating model with controller values
+  employee.value!.englishName = employeeNameController.text;
+  employee.value!.arabicName = arabicNameController.text;
+  employee.value!.dateofBirth = dobController.text;
+  employee.value!.mobileNumber = mobileController.text;
+  employee.value!.landlineNumber = landLineController.text;
+  employee.value!.empPaciNum = civilIdController.text;
+  employee.value!.next2KinMobNumber = nextToKinMobileController.text;
+  employee.value!.next2KinName = nextToKinNameController.text;
+  employee.value!.empGender = genderController.text;
 
-  detailedEmployeeModel!.englishName = employeeNameController.text;
-  // detailedEmployeeModel!.arabicName = arabicNameController.text;
-  // detailedEmployeeModel!.empBirthday = dobController.text;
   // detailedEmployeeModel!.empGender =  
   //     gender.value != null && gender.value == LanguageConstants.male.tr
   //         ? 1
@@ -166,18 +168,7 @@ class ProfileBodyController extends GetxController
   // //     marital.value != null && marital.value == LanguageConstants.married.tr
   // //         ? 1
   // //         : 0;
-  // detailedEmployeeModel!.mobileNumber = mobileController.text;
-  // detailedEmployeeModel!.empWorkTelephone = landLineController.text;
-  // detailedEmployeeModel!.empWorkEmail = emailController.text;
-  // detailedEmployeeModel!.next2KinMobNumber = nextToKinMobileController.text;
-  // detailedEmployeeModel!.next2KinName = nextToKinNameController.text;
-  // detailedEmployeeModel!.salary = int.tryParse(salaryController.text) ?? 0;
-  // detailedEmployeeModel!.empPaciNum = paciController.text;
-  // detailedEmployeeModel!.empOtherId = otherIDController.text;
-  // detailedEmployeeModel!.departmentName = occupation.value?.shortName ?? "";
-  // detailedEmployeeModel!.department = department.value?.refID ?? 0;
-  // detailedEmployeeModel!.tenentId = tenantID;
-  // // detailedEmployeeModel!.rejectedDate = RejectedDate;
+
 
 
   // if (controller.status == 0) return;
@@ -189,14 +180,14 @@ class ProfileBodyController extends GetxController
   _isLoading(true);
 
   // Prepare payload
-  Map<String, dynamic> payload = detailedEmployeeModel!.toMap();
+  Map<String, dynamic> payload = employee.value!.toMap();
 
 
   
 
   // Check for fields that were not updated (i.e., remain null or default)
   Map<String, dynamic> unsentFields = {};
-  detailedEmployeeModel!.toMap().forEach((key, value) {
+  employee.value!.toMap().forEach((key, value) {
     if (value == null || value == '') {
       unsentFields[key] = value;
     }
@@ -206,9 +197,18 @@ class ProfileBodyController extends GetxController
   print("Fields not being sent (null or empty): $unsentFields");
 
   // Make the API request
-  dynamic response = await _apiProvider.updateEmployeeProfile(payload,bearertoken??"");
-  print("  RED MODEL: ${detailedEmployeeModel!.toMap()}");
-   await DatabaseHelper().updateData({'englishName':employeeNameController.text});
+  dynamic response = await _apiProvider.updateEmployeeProfile(payload);
+  print("  RED MODEL: ${employee.value!.toMap()}");
+   await DatabaseHelper().updateData({
+    'EnglishName':employeeNameController.text,
+    'ArabicName':arabicNameController.text,
+    'emp_birthday':dobController.text,
+    'emp_cid_num':civilIdController.text,
+    'Next2KinName':nextToKinNameController.text,
+    'Next2KinMobNumber':nextToKinNameController.text,
+    'MobileNumber':mobileController.text,
+    'emp_work_telephone':landLineController.text,
+    });
 
   if (response == null) {
     _isLoading(false);
@@ -218,40 +218,40 @@ class ProfileBodyController extends GetxController
   // Handle success
   Toaster.showConfirm("Successfully Updated");
  
-  // await db.updateEmployeeDetails(detailedEmployeeModel!);
+  await nDb.updateData(employee.value!.toMap());
   _isLoading(false);
-  controller.detailedEmployeeModel = detailedEmployeeModel!;
+  // controller.detailedEmployeeModel = detailedEmployeeModel!;
 }
 
   Future<void> init() async {
     // if (controller.checkStatus()) return;
     // String device = await controller.deviceID();
     _isLoading(true);
-    if (await _connectivityService.checkConnectivity()) {
-      try {
-        print(controller.storageBox.read("employeeId").runtimeType);
+    // if (await _connectivityService.checkConnectivity()) {
+    //   try {
+    //     print(controller.storageBox.read("employeeId").runtimeType);
 
-        detailedEmployeeModel =
-            await _apiProvider.getEmployeeProfileById(controller.storageBox.read("employeeId"));
-      } on Exception catch (e) {
-        _isLoading(false);
-        Toaster.showError(e.toString());
-        return;
-      }
-    } else {
-      // TODO uncomment later
-      // detailedEmployeeModel = await db.getLogin(
-      //         controller.storageBox.read("phone"),
-      //     controller.storageBox.read("password"),
-      //     controller.storageBox.read("device"));
-    }
-    _isLoading(false);
-    if (detailedEmployeeModel == null) {
-      controller.storageBox.write("status", 0);
-      return;
-    }
+    //     detailedEmployeeModel =
+    //         await _apiProvider.getEmployeeProfileById(controller.storageBox.read("employeeId"));
+    //   } on Exception catch (e) {
+    //     _isLoading(false);
+    //     Toaster.showError(e.toString());
+    //     return;
+    //   }
+    // } else {
+    //   // TODO uncomment later
+    //   // detailedEmployeeModel = await db.getLogin(
+    //   //         controller.storageBox.read("phone"),
+    //   //     controller.storageBox.read("password"),
+    //   //     controller.storageBox.read("device"));
+    // }
+    // _isLoading(false);
+    // if (detailedEmployeeModel == null) {
+    //   controller.storageBox.write("status", 0);
+    //   return;
+    // }
 
-    controller.detailedEmployeeModel = detailedEmployeeModel;
+    // controller.detailedEmployeeModel = detailedEmployeeModel;
 
     // employeeNameController.text = detailedEmployeeModel!.englishName??"";
     // arabicNameController.text = detailedEmployeeModel!.arabicName??"";
