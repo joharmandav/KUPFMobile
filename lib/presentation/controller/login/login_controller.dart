@@ -2,16 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:get/get.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:huawei_account/huawei_account.dart';
-import 'package:kupf_mobile/app/server/database/kupf_database.dart';
+// import 'package:huawei_account/huawei_account.dart';
 import 'package:kupf_mobile/presentation/controller/login/local_auth/local_auth_controller.dart';
 import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../../app/routes/routes.dart';
 import '../../../app/server/api/api_provider.dart';
-import '../../../app/server/database/database.dart';
-import '../../../app/server/database/db_constant.dart';
 import '../../../app/services/auth.dart';
 import '../../../helper/toaster.dart';
 import '../connectivity_controller.dart';
@@ -47,7 +44,7 @@ class LoginController extends GetxController {
   RxBool isAction = RxBool(false);
   final RxBool isFirstTimeLogin = false.obs;
 
-  late AccountAuthService _authService;
+  // late AccountAuthService _authService;
   // login selection seitch
   var selectedLoginType = 'Mobile'.obs; 
    final TextEditingController seletionController = TextEditingController();
@@ -67,11 +64,11 @@ class LoginController extends GetxController {
     _connectivityService.initConnectivity();
 
     loadUserCredentials();
-    final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
-      ..setProfile()
-      ..setAccessToken();
-    final AccountAuthParams authParams = authParamsHelper.createParams();
-    _authService = AccountAuthManager.getService(authParams);
+    // final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
+    //   ..setProfile()
+    //   ..setAccessToken();
+    // final AccountAuthParams authParams = authParamsHelper.createParams();
+    // _authService = AccountAuthManager.getService(authParams);
   }
 
   // void loadUserCredeentials(){
@@ -280,25 +277,25 @@ void updateLoginFieldLabel() {
   //   navigation();
   // }
 
-  void signInWithHuawei() async {
-    isAction(true);
-    try {
-      final AuthAccount account = await _authService.signIn();
-      info.email = account.email;
-      info.name = account.displayName;
-      info.id = account.unionId;
-      info.picture = account.avatarUri;
+  // void signInWithHuawei() async {
+  //   isAction(true);
+  //   try {
+  //     final AuthAccount account = await _authService.signIn();
+  //     info.email = account.email;
+  //     info.name = account.displayName;
+  //     info.id = account.unionId;
+  //     info.picture = account.avatarUri;
 
-      Get.log('FROM SIGN IN: ${account.toMap().toString()}');
-      await DatabaseManager().insert(Constants.socialUserInfoTable, info);
-      Get.find<GeneralController>().storageBox.write('status', 1);
-      isAction(false);
-      navigation();
-    } on Exception catch (e) {
-      Toaster.showError("Huawei Sign Error: ${e.toString()}");
-      Get.log(e.toString());
-    }
-  }
+  //     Get.log('FROM SIGN IN: ${account.toMap().toString()}');
+  //     await DatabaseManager().insert(Constants.socialUserInfoTable, info);
+  //     Get.find<GeneralController>().storageBox.write('status', 1);
+  //     isAction(false);
+  //     navigation();
+  //   } on Exception catch (e) {
+  //     Toaster.showError("Huawei Sign Error: ${e.toString()}");
+  //     Get.log(e.toString());
+  //   }
+  // }
 
   Future<void> signInWithGoogle() async {
     isAction(true);
