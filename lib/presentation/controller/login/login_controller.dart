@@ -130,9 +130,7 @@ void updateLoginFieldLabel() {
     formKey.currentState!.save();
     Get.focusScope!.unfocus();
     isAction(true);
-   
     final String userName = isPhone.value ? countryCode.value + phoneController.text : employeeIdController.text;
-    
     Get.log(userName);
     String type;
     // container only digits
@@ -211,6 +209,7 @@ void updateLoginFieldLabel() {
   
 
   Future<LoginResModel?> loginApi(String username, String password,String type) async {
+    print("Api123");
     try {
       var response = await _apiProvider.loginEmployee(username, password,type);
       if (response == null) return null;

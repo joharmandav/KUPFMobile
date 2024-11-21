@@ -150,15 +150,15 @@ class ProfileBodyController extends GetxController
   // }
    
    Future<void> updateProfile() async {
-  employee.value!.englishName = employeeNameController.text;
-  employee.value!.arabicName = arabicNameController.text;
-  employee.value!.dateofBirth = dobController.text;
-  employee.value!.mobileNumber = mobileController.text;
-  employee.value!.landlineNumber = landLineController.text;
-  employee.value!.empPaciNum = civilIdController.text;
-  employee.value!.next2KinMobNumber = nextToKinMobileController.text;
-  employee.value!.next2KinName = nextToKinNameController.text;
-  employee.value!.empGender = genderController.text;
+  employee.value?.englishName = employeeNameController.text;
+  employee.value?.arabicName = arabicNameController.text;
+  employee.value?.dateofBirth = dobController.text;
+  employee.value?.mobileNumber = mobileController.text;
+  employee.value?.landlineNumber = landLineController.text;
+  employee.value?.empPaciNum = civilIdController.text;
+  employee.value?.next2KinMobNumber = nextToKinMobileController.text;
+  employee.value?.next2KinName = nextToKinNameController.text;
+  employee.value?.empGender = genderController.text;
 
   // detailedEmployeeModel!.empGender =  
   //     gender.value != null && gender.value == LanguageConstants.male.tr

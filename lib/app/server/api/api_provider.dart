@@ -66,21 +66,21 @@ class ApiProvider extends GetConnect {
         };
         
         await DatabaseHelper().insertDetailedEmployeeData(dataInsertion);
-        await DatabaseHelper().insertransactionHdData(dataInsertion);
-        await DatabaseHelper().inserttransactionDTData(dataInsertion);
-        await DatabaseHelper().insertrefTableData(dataInsertion);
-        await DatabaseHelper().insertwebPagesData(dataInsertion);
-        await DatabaseHelper().insertWebPageUrlData(dataInsertion);
-        await DatabaseHelper().insertWebContentData(dataInsertion);
-        await DatabaseHelper().insertCrupAuditData(dataInsertion);
-        await DatabaseHelper().insertFuctionMstData(dataInsertion);
-        await DatabaseHelper().insertfunctionUsrData(dataInsertion);
-        await DatabaseHelper().insertTransDtSubMonData(dataInsertion);
-        await DatabaseHelper().insertTrnsHdAproDetailsData(dataInsertion);
-        await DatabaseHelper().insertTrnsHddMData(dataInsertion);
-        await DatabaseHelper().insertServiceSetupData(dataInsertion);
-        await DatabaseHelper().insertTrnsHddMData(dataInsertion);
-        await DatabaseHelper().insertTrnsHddMData(dataInsertion);
+        // await DatabaseHelper().insertransactionHdData(dataInsertion);
+        // await DatabaseHelper().inserttransactionDTData(dataInsertion);
+        // await DatabaseHelper().insertrefTableData(dataInsertion);
+        // await DatabaseHelper().insertwebPagesData(dataInsertion);
+        // await DatabaseHelper().insertWebPageUrlData(dataInsertion);
+        // await DatabaseHelper().insertWebContentData(dataInsertion);
+        // await DatabaseHelper().insertCrupAuditData(dataInsertion);
+        // await DatabaseHelper().insertFuctionMstData(dataInsertion);
+        // await DatabaseHelper().insertfunctionUsrData(dataInsertion);
+        // await DatabaseHelper().insertTransDtSubMonData(dataInsertion);
+        // await DatabaseHelper().insertTrnsHdAproDetailsData(dataInsertion);
+        // await DatabaseHelper().insertTrnsHddMData(dataInsertion);
+        // await DatabaseHelper().insertServiceSetupData(dataInsertion);
+        // await DatabaseHelper().insertTrnsHddMData(dataInsertion);
+        // await DatabaseHelper().insertTrnsHddMData(dataInsertion);
 
         // Get.log(responseData.toString());
 
