@@ -78,7 +78,28 @@ class DatabaseHelper {
 
 //   // insert all data in tables
 
- // TODO: Add EmployeeView if necessary
+ // creating a view
+ Future<void> createEmployeeView(Database db) async {
+  await db.execute('''
+    CREATE VIEW IF NOT EXISTS employee_view AS
+    SELECT EnglishName
+    FROM ${Constants.detailedEmployeeTablel}
+    WHERE employeeID='18101949'
+  ''');
+}
+// fetching views
+Future<List<EmployeeViewModel>> fetchEmployeeView() async {
+  final db = _database.database;
+  final List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * FROM employee_view');
+  return List.generate(maps.length, (i) {
+    return EmployeeViewModel(
+      englishName: maps[i]['EnglishName'],
+    
+    );
+  });
+}
+
+
 
 Future<int> updateData(Map<String, dynamic> data) async {
     final db = _database.database;
