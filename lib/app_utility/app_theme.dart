@@ -19,7 +19,7 @@ ThemeData _lightTheme = ThemeData(
       elevation: 0.0,
       backgroundColor: mainColor.value,
       iconTheme: const IconThemeData(color: AppColor.white),
-      titleTextStyle: AppTextTheme.bodyText1white.copyWith(fontSize: 26, fontWeight: FontWeight.bold)),
+      titleTextStyle: AppTextTheme.bodyText1white.copyWith(fontSize: 26 , fontFamily: 'ZillaSlab' , fontStyle: FontStyle.italic)),
 
   inputDecorationTheme: const InputDecorationTheme(
     border: OutlineInputBorder(

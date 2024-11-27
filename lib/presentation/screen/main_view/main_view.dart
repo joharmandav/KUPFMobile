@@ -26,7 +26,7 @@ class MainView extends GetView<HomeController> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: KText('KUPF', style: AppTextTheme.bodyText1white),
+          title: KText('KUPF', style: TextStyle( fontFamily: 'Zillaslab' ,fontSize: 25)),
           bottom: const PreferredSize(
               preferredSize: Size(0.0, 5), child: AppUtility.emptyBox),
         ),
