@@ -17,7 +17,7 @@ class AppPages {
   static final List<GetPage> pages = [
     GetPage(name: AppRoutes.home, page: () => const MainView(), binding: HomeBinding()),
     GetPage(name: AppRoutes.login, page: () => const SignInView(), binding: LoginBinding()),
-    GetPage(name: AppRoutes.register, page: () => const SignUpView()),
+    // GetPage(name: AppRoutes.register, page: () => const SignUpView()),
     GetPage(name: AppRoutes.initial, page: () => const SplashView()),
     GetPage(name: AppRoutes.reset, page: () => const ResetPasswordView(), binding: ResetPasswordBinding()),
     GetPage(name: AppRoutes.forgot, page: () => const ForgotPasswordView(), binding: ForgotBinding()),

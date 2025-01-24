@@ -38,8 +38,7 @@ class MyApp extends StatelessWidget {
                 800: value.withOpacity(0.9),
                 900: value,
               };
-              MaterialColor materialColor =
-              MaterialColor(0xFF567DF4, color);
+              MaterialColor materialColor = MaterialColor(0xFF567DF4, color);
               return GetMaterialApp(
                 debugShowCheckedModeBanner: false,
                 initialRoute: AppRoutes.initial,
@@ -94,20 +93,25 @@ class MyApp extends StatelessWidget {
                       elevation: 0.0,
                       backgroundColor: value,
                       iconTheme: const IconThemeData(color: AppColor.white),
-                      titleTextStyle: AppTextTheme.bodyText1white.copyWith(fontSize: 26, fontWeight: FontWeight.bold)), colorScheme: ColorScheme.fromSwatch(primarySwatch: materialColor).copyWith(background: scaffoldValue),
+                      titleTextStyle: AppTextTheme.bodyText1white
+                          .copyWith(fontSize: 26, fontWeight: FontWeight.bold)),
+                  colorScheme:
+                      ColorScheme.fromSwatch(primarySwatch: materialColor)
+                          .copyWith(background: scaffoldValue),
                 ),
                 themeMode: ThemeMode.light,
                 darkTheme: AppTheme.darkTheme,
                 translations: LanguagesChang(),
-                locale: Locale('${Get.find<GeneralController>().storageBox.read('languageCode') ?? 'en'}',
+                locale: Locale(
+                    '${Get.find<GeneralController>().storageBox.read('languageCode') ?? 'en'}',
                     '${Get.find<GeneralController>().storageBox.read('countryCode') ?? 'US'}'),
-                fallbackLocale: Locale('${Get.find<GeneralController>().storageBox.read('languageCode')}',
+                fallbackLocale: Locale(
+                    '${Get.find<GeneralController>().storageBox.read('languageCode')}',
                     '${Get.find<GeneralController>().storageBox.read('countryCode')}'),
                 getPages: AppPages.pages,
               );
             },
           );
         });
-
   }
 }

@@ -8,6 +8,7 @@ import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
 import 'package:kupf_mobile/presentation/models/employee_view_model.dart';
 import 'package:kupf_mobile/presentation/models/ref_table_model.dart';
 
+import '../../../app/server/database/db_constant.dart';
 import '../../../helper/toaster.dart';
 import '../../../languages/language_constants.dart';
 import '../connectivity_controller.dart';
@@ -20,7 +21,6 @@ class ProfileBodyController extends GetxController
   final ConnectivityService _connectivityService = ConnectivityService();
   final RxBool _isLoading = RxBool(false);
   late final TabController _tabController;
-
   final TextEditingController employeeNameController = TextEditingController();
   final TextEditingController arabicNameController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
@@ -39,11 +39,7 @@ class ProfileBodyController extends GetxController
   final TextEditingController userIdController = TextEditingController();
   int tenantID = 21;
   String RejectedDate = "2024-09-12T12:34:56";
-
-  
-  DetailedEmployeeModel? employeeViewModel; 
-  
-
+  DetailedEmployeeModel? employeeViewModel;
   RxnString gender = RxnString();
   RxnString marital = RxnString();
   Rxn<RefTableModel> department = Rxn<RefTableModel>();
@@ -59,10 +55,9 @@ class ProfileBodyController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    if(controller.isVisible.value == false){
+    if (controller.isVisible.value == false) {
       employeeNameController.text = "Guestofer Mill Gen";
       mobileController.text = "11111111";
-
     }
     _tabController = TabController(length: 2, vsync: this);
     _connectivityService.initConnectivity();
@@ -75,44 +70,44 @@ class ProfileBodyController extends GetxController
     super.onClose();
   }
 
-  
-  Future<void> getDetailedEmployeeProfile() async{
-    try{
+  Future<void> getDetailedEmployeeProfile() async {
+    try {
       _isLoading(true);
-      
-    final empProfileDetails = await nDb.getDetailedEmployeeDetails();
-    
-   employee.value = empProfileDetails;
-   print("EMPLOYE VALUEE =>>>>>.. ${employee.value}");
-         // Ensure employee value is not null before accessing fields
-   if(employee.value != null){
-           employeeNameController.text = employee.value!.englishName;
-           arabicNameController.text = employee.value!.arabicName;
-           dobController.text = employee.value!.dateofBirth;
-          genderController.text =
-           (employee.value!.empGender !=null && employee.value!.empGender == LanguageConstants.male.tr?1:0).toString();
-          maritalStatusController.text = (employee.value!.maritalStatus !=null && employee.value!.maritalStatus == LanguageConstants.married.tr?1:0).toString();
-          mobileController.text = employee.value!.mobileNumber;
-          landLineController.text = employee.value!.landlineNumber;
-          emailController.text = employee.value!.empWorkEmail;
-          nextToKinNameController.text = employee.value!.next2KinName;
-          nextToKinMobileController.text = employee.value!.next2KinMobNumber;
-          civilIdController.text = employee.value!.empCidNum;
 
-   }else{
-            throw Exception("Employee data is null after fetching");
+      final empProfileDetails = await nDb.getDetailedEmployeeDetails();
 
-   }
- 
-    
-      }catch(e){
-    print("Error fetching employee data: $e");
-
-    }finally{
+      employee.value = empProfileDetails as EmployeeViewModel?;
+      print("EMPLOYE VALUEE =>>>>>.. ${employee.value}");
+      // Ensure employee value is not null before accessing fields
+      if (employee.value != null) {
+        employeeNameController.text = employee.value!.englishName;
+        arabicNameController.text = employee.value!.arabicName;
+        dobController.text = employee.value!.dateofBirth;
+        genderController.text = (employee.value!.empGender != null &&
+                    employee.value!.empGender == LanguageConstants.male.tr
+                ? 1
+                : 0)
+            .toString();
+        maritalStatusController.text = (employee.value!.maritalStatus != null &&
+                    employee.value!.maritalStatus ==
+                        LanguageConstants.married.tr
+                ? 1
+                : 0)
+            .toString();
+        mobileController.text = employee.value!.mobileNumber;
+        landLineController.text = employee.value!.landlineNumber;
+        emailController.text = employee.value!.empWorkEmail;
+        nextToKinNameController.text = employee.value!.next2KinName;
+        nextToKinMobileController.text = employee.value!.next2KinMobNumber;
+        civilIdController.text = employee.value!.empCidNum;
+      } else {
+        throw Exception("Employee data is null after fetching");
+      }
+    } catch (e) {
+      print("Error fetching employee data: $e");
+    } finally {
       _isLoading(false);
     }
-    
-   
   }
 
   // Future<void> getDepartment() async {
@@ -142,86 +137,81 @@ class ProfileBodyController extends GetxController
   //             return _occupationList[0];
   //           }
   //           );
-            
+
   //     } on Exception catch (e) {
   //       Toaster.showError(e.toString());
   //     }
   //   }
   // }
-   
-   Future<void> updateProfile() async {
-  employee.value?.englishName = employeeNameController.text;
-  employee.value?.arabicName = arabicNameController.text;
-  employee.value?.dateofBirth = dobController.text;
-  employee.value?.mobileNumber = mobileController.text;
-  employee.value?.landlineNumber = landLineController.text;
-  employee.value?.empPaciNum = civilIdController.text;
-  employee.value?.next2KinMobNumber = nextToKinMobileController.text;
-  employee.value?.next2KinName = nextToKinNameController.text;
-  employee.value?.empGender = genderController.text;
 
-  // detailedEmployeeModel!.empGender =  
-  //     gender.value != null && gender.value == LanguageConstants.male.tr
-  //         ? 1
-  //         : 0;
-  // // detailedEmployeeModel!.empMaritalStatus =
-  // //     marital.value != null && marital.value == LanguageConstants.married.tr
-  // //         ? 1
-  // //         : 0;
+  Future<void> updateProfile() async {
+    employee.value?.englishName = employeeNameController.text;
+    employee.value?.arabicName = arabicNameController.text;
+    employee.value?.dateofBirth = dobController.text;
+    employee.value?.mobileNumber = mobileController.text;
+    employee.value?.landlineNumber = landLineController.text;
+    employee.value?.empPaciNum = civilIdController.text;
+    employee.value?.next2KinMobNumber = nextToKinMobileController.text;
+    employee.value?.next2KinName = nextToKinNameController.text;
+    employee.value?.empGender = genderController.text;
 
+    // detailedEmployeeModel!.empGender =
+    //     gender.value != null && gender.value == LanguageConstants.male.tr
+    //         ? 1
+    //         : 0;
+    // // detailedEmployeeModel!.empMaritalStatus =
+    // //     marital.value != null && marital.value == LanguageConstants.married.tr
+    // //         ? 1
+    // //         : 0;
 
+    // if (controller.status == 0) return;
+    // if (await _connectivityService.checkConnectivity()) {
+    //   ConnectivityService.internetErrorDialog();
+    //   return;
+    // }/
 
-  // if (controller.status == 0) return;
-  // if (await _connectivityService.checkConnectivity()) {
-  //   ConnectivityService.internetErrorDialog();
-  //   return;
-  // }/
+    _isLoading(true);
 
-  _isLoading(true);
+    // Prepare payload
+    Map<String, dynamic> payload = employee.value!.toMap();
 
-  // Prepare payload
-  Map<String, dynamic> payload = employee.value!.toMap();
-
-
-  
-
-  // Check for fields that were not updated (i.e., remain null or default)
-  Map<String, dynamic> unsentFields = {};
-  employee.value!.toMap().forEach((key, value) {
-    if (value == null || value == '') {
-      unsentFields[key] = value;
-    }
-  });
-
-  // Print unsent fields
-  print("Fields not being sent (null or empty): $unsentFields");
-
-  // Make the API request
-  dynamic response = await _apiProvider.updateEmployeeProfile(payload);
-  print("  RED MODEL: ${employee.value!.toMap()}");
-   await DatabaseHelper().updateData({
-    'EnglishName':employeeNameController.text,
-    'ArabicName':arabicNameController.text,
-    'emp_birthday':dobController.text,
-    'emp_cid_num':civilIdController.text,
-    'Next2KinName':nextToKinNameController.text,
-    'Next2KinMobNumber':nextToKinNameController.text,
-    'MobileNumber':mobileController.text,
-    'emp_work_telephone':landLineController.text,
+    // Check for fields that were not updated (i.e., remain null or default)
+    Map<String, dynamic> unsentFields = {};
+    employee.value!.toMap().forEach((key, value) {
+      if (value == null || value == '') {
+        unsentFields[key] = value;
+      }
     });
 
-  if (response == null) {
+    // Print unsent fields
+    print("Fields not being sent (null or empty): $unsentFields");
+
+    // Make the API request
+    dynamic response = await _apiProvider.updateEmployeeProfile(payload);
+    print("  RED MODEL: ${employee.value!.toMap()}");
+    await DatabaseHelper().updateData({
+      'EnglishName': employeeNameController.text,
+      'ArabicName': arabicNameController.text,
+      'emp_birthday': dobController.text,
+      'emp_cid_num': civilIdController.text,
+      'Next2KinName': nextToKinNameController.text,
+      'Next2KinMobNumber': nextToKinNameController.text,
+      'MobileNumber': mobileController.text,
+      'emp_work_telephone': landLineController.text,
+    });
+
+    if (response == null) {
+      _isLoading(false);
+      return;
+    }
+
+    // Handle success
+    Toaster.showConfirm("Successfully Updated");
+
+    await nDb.updateData(employee.value!.toMap());
     _isLoading(false);
-    return;
+    // controller.detailedEmployeeModel = detailedEmployeeModel!;
   }
-  
-  // Handle success
-  Toaster.showConfirm("Successfully Updated");
- 
-  await nDb.updateData(employee.value!.toMap());
-  _isLoading(false);
-  // controller.detailedEmployeeModel = detailedEmployeeModel!;
-}
 
   Future<void> init() async {
     // if (controller.checkStatus()) return;
@@ -266,7 +256,6 @@ class ProfileBodyController extends GetxController
     // ? LanguageConstants.male.tr
     // : LanguageConstants.female.tr;
 
-
     // marital.value = detailedEmployeeModel!.empMaritalStatus != null &&
     //         detailedEmployeeModel!.empMaritalStatus == 1
     //     ? LanguageConstants.married.tr
@@ -274,7 +263,6 @@ class ProfileBodyController extends GetxController
     // marital.value = detailedEmployeeModel!.empMaritalStatus != null && detailedEmployeeModel!.empMaritalStatus == 1
     // ? LanguageConstants.married.tr
     // : LanguageConstants.single.tr;
-
 
     // mobileController.text = detailedEmployeeModel!.mobileNumber ?? "";
     // landLineController.text = detailedEmployeeModel!.empWorkTelephone??"";
@@ -292,7 +280,6 @@ class ProfileBodyController extends GetxController
     // await getDepartment();
     // await getOccupation();
   }
-
 
   TabController get tabController => _tabController;
 

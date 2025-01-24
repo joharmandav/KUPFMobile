@@ -19,7 +19,6 @@ import '../../../presentation/models/web_page_url_model.dart';
 import '../../../presentation/models/web_pages_model.dart';
 import 'db_constant.dart';
 
-
 class DbManager extends GetxService {
   static DbManager? _databaseManger;
   static late Database _database;
@@ -35,57 +34,54 @@ class DbManager extends GetxService {
     _database = await initializeDatabase();
     return _database;
   }
+
   // new
   Future<Database> initializeDatabase() async {
-  var databasesPath = await getDatabasesPath();
-  var path = join(databasesPath, Constants.kupfDatabase);
+    var databasesPath = await getDatabasesPath();
+    var path = join(databasesPath, Constants.kupfDatabase);
 
-  // Check if the database exists
-  var exists = await databaseExists(path);
+    // Check if the database exists
+    var exists = await databaseExists(path);
 
-  if (!exists) {
-    Get.log("Creating new copy from asset");
+    if (!exists) {
+      Get.log("Creating new copy from asset");
 
-    // Make sure the parent directory exists
-    try {
-      await Directory(dirname(path)).create(recursive: true);
-    } catch (e) {
-      Get.log("Error creating directory: $e");
-      rethrow;  // rethrow the error after logging
-    }
-
-    // Copy the database from assets
-    try {
-      ByteData data = await rootBundle.load(join("assets/database", Constants.kupfDatabase));
-      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-      // Write and flush the bytes written
-      await File(path).writeAsBytes(bytes, flush: true);
-    } catch (e) {
-      Get.log("Error copying database from assets: $e");
-      rethrow;  // rethrow the error after logging
-    }
-  } else {
-    Get.log("Opening existing database");
-  }
-
-  // Open the database and handle the version or upgrade logic
-  return await openDatabase(
-    path,
-    version: 1,  // specify your database version here
-    onUpgrade: (db, oldVersion, newVersion) async {
-      if(oldVersion< newVersion){
-    
+      // Make sure the parent directory exists
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (e) {
+        Get.log("Error creating directory: $e");
+        rethrow; // rethrow the error after logging
       }
+
+      // Copy the database from assets
+      try {
+        ByteData data = await rootBundle
+            .load(join("assets/database", Constants.kupfDatabase));
+        List<int> bytes =
+            data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+        // Write and flush the bytes written
+        await File(path).writeAsBytes(bytes, flush: true);
+      } catch (e) {
+        Get.log("Error copying database from assets: $e");
+        rethrow; // rethrow the error after logging
+      }
+    } else {
+      Get.log("Opening existing database");
+    }
+
+    // Open the database and handle the version or upgrade logic
+    return await openDatabase(path,
+        version: 1, // specify your database version here
+        onUpgrade: (db, oldVersion, newVersion) async {
+      if (oldVersion < newVersion) {}
       Get.log("Upgrading database from version $oldVersion to $newVersion");
       // Handle the database schema upgrade logic here
-    },
-    onOpen: (db) {
+    }, onOpen: (db) {
       Get.log("Database opened successfully");
-    }
-  );
-}
-
+    });
+  }
 
   // Future<Database> initializeDatabase() async {
   //   var databasesPath = await getDatabasesPath();
@@ -121,34 +117,29 @@ class DbManager extends GetxService {
     // final db = await database;
     return await _database.query(table);
   }
-  
-   Future<void> insertEmployee(LoginResModel employee) async {
-  int result = await insert('DetailedEmployee', employee);
 
-  if (result > 0) {
-    print('Employee inserted successfully with row id: $result');
-  } else {
-    print('Failed to insert employee');
+  Future<void> insertEmployee(LoginResModel employee) async {
+    int result = await insert('DetailedEmployee', employee);
+
+    if (result > 0) {
+      print('Employee inserted successfully with row id: $result');
+    } else {
+      print('Failed to insert employee');
+    }
   }
-}
 
   Future<int> insert(String table, dynamic model) async {
     // final db = await database;
-    try{
-      return await _database.insert(
-      table,
-      model.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace);
-    }catch(e){
-       print('Error inserting data: $e');
-    return -1; // Return -1 in case of an error   q   
+    try {
+      return await _database.insert(table, model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace);
+    } catch (e) {
+      print('Error inserting data: $e');
+      return -1; // Return -1 in case of an error   q
     }
   }
- 
-
 
   Future<int> update(String table, dynamic model) async {
-
     final db = await database;
     return await _database.update(
       table,
@@ -172,7 +163,6 @@ class DbManager extends GetxService {
   }
 
   Future<int> updateEmployeeDetails(LoginResModel model) async {
-
     // final db = await database;
     try {
       return await _database.update(
@@ -200,17 +190,15 @@ class DbManager extends GetxService {
     // return 1;
   }
 
-
-
   Future<int> delete(String table, int? id) async {
     final db = await database;
     return await _database.delete(
-        table,
-        // Use a `where` clause to delete a specific table.
-        where: '${Constants.tenentID} = ?',
-        // Pass the table id as a whereArg to prevent SQL injection.
-        whereArgs: [id],
-      );
+      table,
+      // Use a `where` clause to delete a specific table.
+      where: '${Constants.tenentID} = ?',
+      // Pass the table id as a whereArg to prevent SQL injection.
+      whereArgs: [id],
+    );
   }
 
   Future<List<CRUPAuditModel>> getCRUPAuditByTenantID(int value) async {
@@ -230,7 +218,8 @@ class DbManager extends GetxService {
     return adultList;
   }
 
-  // Future<LoginResModel?> getLogin(String loginID, String password, String deviceID) async {
+
+// Future<LoginResModel?> getLogin(String loginID, String password, String deviceID) async {
   //   final db = await database;
   //   // List<FunctionMSTModel> adultList = [];
   //   LoginResModel? detailedEmployeeModel;
@@ -249,7 +238,6 @@ class DbManager extends GetxService {
   //   }
   //   return detailedEmployeeModel;
   // }
-
   Future<List<RefTableModel>> getDepartments() async {
     final db = await database;
     List<RefTableModel> departmentList = [];
@@ -395,8 +383,6 @@ class DbManager extends GetxService {
     return adultList;
   }
 
- 
-
   Future<List<WebPagesModel>> getWebPages() async {
     final db = await database;
     List<WebPagesModel> adultList = [];
@@ -461,7 +447,8 @@ class DbManager extends GetxService {
     return adultList;
   }
 
-  Future<List<TransactionHDDApprovalDetailsModel>> getTransactionHDDApprovalDetail() async {
+  Future<List<TransactionHDDApprovalDetailsModel>>
+      getTransactionHDDApprovalDetail() async {
     final db = await database;
     List<TransactionHDDApprovalDetailsModel> adultList = [];
     var adult = await db.query(

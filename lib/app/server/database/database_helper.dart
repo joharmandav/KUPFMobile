@@ -78,30 +78,29 @@ class DatabaseHelper {
 
 //   // insert all data in tables
 
- // creating a view
- Future<void> createEmployeeView(Database db) async {
-  await db.execute('''
+  // creating a view
+  Future<void> createEmployeeView(Database db) async {
+    await db.execute('''
     CREATE VIEW IF NOT EXISTS employee_view AS
     SELECT EnglishName
     FROM ${Constants.detailedEmployeeTablel}
     WHERE employeeID='18101949'
   ''');
-}
+  }
+
 // fetching views
-Future<List<EmployeeViewModel>> fetchEmployeeView() async {
-  final db = _database.database;
-  final List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * FROM employee_view');
-  return List.generate(maps.length, (i) {
-    return EmployeeViewModel(
-      englishName: maps[i]['EnglishName'],
-    
-    );
-  });
-}
+  Future<List<EmployeeViewModel>> fetchEmployeeView() async {
+    final db = _database.database;
+    final List<Map<String, dynamic>> maps =
+        await db.rawQuery('SELECT * FROM employee_view');
+    return List.generate(maps.length, (i) {
+      return EmployeeViewModel(
+        englishName: maps[i]['EnglishName'],
+      );
+    });
+  }
 
-
-
-Future<int> updateData(Map<String, dynamic> data) async {
+  Future<int> updateData(Map<String, dynamic> data) async {
     final db = _database.database;
 
     return await db.update(
@@ -122,239 +121,295 @@ Future<int> updateData(Map<String, dynamic> data) async {
     db.close();
   }
 
-
 // new
 // Make fuction s of others tables and add it like below added
-Future<void> insertDetailedEmployeeData(Map<String,dynamic> data)async{
-final db = _database;
-var detailEmployeeData = data['detailedEmployee'];
-if(detailEmployeeData is Map<String,dynamic>){
-      DetailedEmployeeModel detailEmployeeModel = DetailedEmployeeModel.fromMap(detailEmployeeData);
+  Future<void> insertDetailedEmployeeData(Map<String, dynamic> data) async {
+    final db = _database;
+    var detailEmployeeData = data['detailedEmployee'];
+    if (detailEmployeeData is Map<String, dynamic>) {
+      DetailedEmployeeModel detailEmployeeModel =
+          DetailedEmployeeModel.fromMap(detailEmployeeData);
 
-  
       print("Inserting detailedEmployee DATA: ${detailEmployeeModel.toMap()}");
 
-    await db.insert(Constants.detailedEmployeeTablel, detailEmployeeModel.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-     var insertedData = await db.query(
-      Constants.detailedEmployeeTablel,
-      where: 'employeeId = ?', 
-      whereArgs: [detailEmployeeModel.employeeId],
-
-    );
-    // Print the inserted data
-    if (insertedData.isNotEmpty) {
-      print("Inserted Employee Data: ${insertedData.first}");
-    } else {
-      print("No data found after insertion");
-    }
-
-
-
-  
-  }
- 
-}
-Future<void> insertransactionHdData(Map<String,dynamic> data)async{
-  final db = _database;
-var transactionHdData = data['transactionHD'];
-if(transactionHdData is List){
-   List<TransactionHDModel> transactionHdModelList =  transactionHdData.map((item)=>TransactionHDModel.fromMap(item)).toList();
-    for(var model in transactionHdModelList){
-            print("Inserting transactionHD DATA: ${model.toMap()}");
-
-    await db.insert('TransactionHD', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> inserttransactionDTData(Map<String,dynamic> data)async{
-  final db = _database;
-  var transactionDT = data['transactionDT'];
-  if(transactionDT is List){
-   List<TransactionDtModel> transactionDTModelList =  transactionDT.map((item)=>TransactionDtModel.fromMap(item)).toList();
-    for(var model in transactionDTModelList){
-      print("Inserting transactionDT DATA: ${model.toMap()}");
-    await db.insert('TransactionDT', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertrefTableData(Map<String,dynamic> data)async{
-  final db = _database;
-  var refTabledata = data['refTable'];
-  if(refTabledata is List){
-   List<RefTableModel> refTablModelList =  refTabledata.map((item)=>RefTableModel.fromMap(item)).toList();
-    for(var model in refTablModelList){
-                                    print("Inserting refTable DATA: ${model.toMap()}");
-
-    await db.insert('REFTABLE', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertwebPagesData(Map<String,dynamic> data)async{
-  final db = _database;
-  var webPagesData = data['webPages'];
-  if(webPagesData is List){
-   List<WebPagesModel> webPagesModelList =  webPagesData.map((item)=>WebPagesModel.fromMap(item)).toList();
-    for(var model in webPagesModelList){
-                              print("Inserting webPages DATA: ${model.toMap()}");
-
-    await db.insert('WebPages', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertWebPageUrlData(Map<String,dynamic> data)async{
-  final db = _database;
-  var webPageUrlData = data['webPageUrl'];
-  if(webPageUrlData is List){
-   List<WebPageUrlModel> webPageUrlModelList =  webPageUrlData.map((item)=>WebPageUrlModel.fromMap(item)).toList();
-    for(var model in webPageUrlModelList){
-                        print("Inserting webPageUrl DATA: ${model.toMap()}");
-
-    await db.insert('WebPageUrls', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertWebContentData(Map<String,dynamic> data)async{
-  final db = _database;
-  var webContentData = data['webContent'];
-   if(webContentData is List){
-   List<WebContentModel> webContentModelList =  webContentData.map((item)=>WebContentModel.fromMap(item)).toList();
-    for(var model in webContentModelList){
-                  print("Inserting webContent DATA: ${model.toMap()}");
-
-    await db.insert('WebContent', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertCrupAuditData(Map<String,dynamic> data)async{
-  final db = _database;
-  var crupAuditData = data['crupAudit'];
-   if(crupAuditData is List){
-   List<CRUPAuditModel> crupAuditModelList =  crupAuditData.map((item)=>CRUPAuditModel.fromMap(item)).toList();
-    for(var model in crupAuditModelList){
-            print("Inserting crupAudit DATA: ${model.toMap()}");
-    await db.insert('table', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertFuctionMstData(Map<String,dynamic> data)async{
-  final db = _database;
-  var fuctionMstData = data['function_MST'];
-   if(fuctionMstData is List){
-   List<FunctionMSTModel> fuctionMSTModelList =  fuctionMstData.map((item)=>FunctionMSTModel.fromJson(item)).toList();
-    for(var model in fuctionMSTModelList){
-              print("Inserting function_MST DATA: ${model.toMap()}");
-
-    await db.insert('FUNCTION_MST', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertfunctionUsrData(Map<String,dynamic> data)async{
-  final db = _database;
-  var fuctionUsrData = data['fuctioN_USER'];
-  if(fuctionUsrData is List){
-   List<FunctionUserModel> fuctionUsrDataList =  fuctionUsrData.map((item)=>FunctionUserModel.fromJson(item)).toList();
-    for(var model in fuctionUsrDataList){
-        print("Inserting fuctioN_USER DATA: ${model.toMap()}");
-    await db.insert('FUNCTION_USER', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertTransDtSubMonData(Map<String,dynamic> data)async{
-  final db = _database;
-  var transactionDtSubMonData = data['transDTSubMonthly'];
-   if(transactionDtSubMonData is List){
-   List<TransactionDtSubMonthlyModel> transactionDtSubMonModelList =  transactionDtSubMonData.map((item)=>TransactionDtSubMonthlyModel.fromMap(item)).toList();
-    for(var model in transactionDtSubMonModelList){
-       print("Inserting transDTSubMonthly DATA: ${model.toMap()}");
-    await db.insert('TransDTSubMonthly', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertTrnsHdAproDetailsData(Map<String,dynamic> data)async{
-  final db = _database;
-  var transHdAproDetaData = data['transactionHddapprovalDetail'];
-  if(transHdAproDetaData is List){
-   List<TransactionHDDApprovalDetailsModel> transHdAproDetaDataModelList =  transHdAproDetaData.map((item)=>TransactionHDDApprovalDetailsModel.fromMap(item)).toList();
-    for(var model in transHdAproDetaDataModelList){
-       print("Inserting transactionHddapprovalDetail DATA: ${model.toMap()}");
-    await db.insert('TransactionHDDApprovalDetails', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-Future<void> insertTrnsHddMData(Map<String,dynamic> data)async{
-  final db = _database;
-  var transHddMData = data['transactionHddm'];
-  if(transHddMData is List){
-    List<TransactionHddmsModel> transHddMModelList =  transHddMData.map((item)=>TransactionHddmsModel.fromMap(item)).toList();
-    for(var model in transHddMModelList){
-       print("Inserting transactionHddm DATA: ${model.toMap()}");
-    await db.insert('TransactionHDDMS', model.toMap(),
-    conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-    }
-  }
-}
-//  service setup table data
-  Future<void> insertServiceSetupData(Map<String, dynamic> data) async {
-    final db = _database;
-  // Extract service setup data from the provided data map
-  var serviceSetupData = data['serviceSetup'];
-
-  // Check if service setup data is not null and is a list
-  if (serviceSetupData is List) {
-    // Map the data to a list of ServiceSetupModel objects
-    List<ServiceSetupModel> serviceSetupModels = serviceSetupData
-        .map((item) => ServiceSetupModel.fromMap(item))
-        .toList();
-
-    // Insert each ServiceSetupModel into the database
-    for (var model in serviceSetupModels) {
-       print("Inserting SERVICE SETUP DATA: ${model.toMap()}");
       await db.insert(
-        'ServiceSetup',
-        model.toMap(),
+        Constants.detailedEmployeeTablel,
+        detailEmployeeModel.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
+      var insertedData = await db.query(
+        Constants.detailedEmployeeTablel,
+        where: 'employeeId = ?',
+        whereArgs: [detailEmployeeModel.employeeId],
+      );
+      // Print the inserted data
+      if (insertedData.isNotEmpty) {
+        print("Inserted Employee Data: ${insertedData.first}");
+      } else {
+        print("No data found after insertion");
+      }
     }
   }
-}
- 
-//  selecting employee details from employee table to shpow in profile
-Future<EmployeeViewModel> getDetailedEmployeeDetails()async{
-  final db = _database;
-   var empDet = await db.rawQuery("SELECT * FROM ${Constants.employeeViewTable} WHERE ${Constants.employeeID}=?",['18101949']);
- if (empDet.isNotEmpty) {
-  print("Employee DETALAl>>>>>>>>>  $empDet");
-  print("FIRSt VAL>>>>>>>>>...  ${empDet.first}");
-    return EmployeeViewModel.fromMap(empDet.first);  
-  } else {
-    throw Exception('No employee data found');
+
+  Future<void> insertransactionHdData(Map<String, dynamic> data) async {
+    final db = _database;
+    var transactionHdData = data['transactionHD'];
+    if (transactionHdData is List) {
+      List<TransactionHDModel> transactionHdModelList = transactionHdData
+          .map((item) => TransactionHDModel.fromMap(item))
+          .toList();
+      for (var model in transactionHdModelList) {
+        print("Inserting transactionHD DATA: ${model.toMap()}");
+
+        await db.insert(
+          'TransactionHD',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
   }
-}
+
+  Future<void> inserttransactionDTData(Map<String, dynamic> data) async {
+    final db = _database;
+    var transactionDT = data['transactionDT'];
+    if (transactionDT is List) {
+      List<TransactionDtModel> transactionDTModelList = transactionDT
+          .map((item) => TransactionDtModel.fromMap(item))
+          .toList();
+      for (var model in transactionDTModelList) {
+        print("Inserting transactionDT DATA: ${model.toMap()}");
+        await db.insert(
+          'TransactionDT',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertrefTableData(Map<String, dynamic> data) async {
+    final db = _database;
+    var refTabledata = data['refTable'];
+    if (refTabledata is List) {
+      List<RefTableModel> refTablModelList =
+          refTabledata.map((item) => RefTableModel.fromMap(item)).toList();
+      for (var model in refTablModelList) {
+        print("Inserting refTable DATA: ${model.toMap()}");
+
+        await db.insert(
+          'REFTABLE',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertwebPagesData(Map<String, dynamic> data) async {
+    final db = _database;
+    var webPagesData = data['webPages'];
+    if (webPagesData is List) {
+      List<WebPagesModel> webPagesModelList =
+          webPagesData.map((item) => WebPagesModel.fromMap(item)).toList();
+      for (var model in webPagesModelList) {
+        print("Inserting webPages DATA: ${model.toMap()}");
+
+        await db.insert(
+          'WebPages',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertWebPageUrlData(Map<String, dynamic> data) async {
+    final db = _database;
+    var webPageUrlData = data['webPageUrl'];
+    if (webPageUrlData is List) {
+      List<WebPageUrlModel> webPageUrlModelList =
+          webPageUrlData.map((item) => WebPageUrlModel.fromMap(item)).toList();
+      for (var model in webPageUrlModelList) {
+        print("Inserting webPageUrl DATA: ${model.toMap()}");
+
+        await db.insert(
+          'WebPageUrls',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertWebContentData(Map<String, dynamic> data) async {
+    final db = _database;
+    var webContentData = data['webContent'];
+    if (webContentData is List) {
+      List<WebContentModel> webContentModelList =
+          webContentData.map((item) => WebContentModel.fromMap(item)).toList();
+      for (var model in webContentModelList) {
+        print("Inserting webContent DATA: ${model.toMap()}");
+
+        await db.insert(
+          'WebContent',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertCrupAuditData(Map<String, dynamic> data) async {
+    final db = _database;
+    var crupAuditData = data['crupAudit'];
+    if (crupAuditData is List) {
+      List<CRUPAuditModel> crupAuditModelList =
+          crupAuditData.map((item) => CRUPAuditModel.fromMap(item)).toList();
+      for (var model in crupAuditModelList) {
+        print("Inserting crupAudit DATA: ${model.toMap()}");
+        await db.insert(
+          'table',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertFuctionMstData(Map<String, dynamic> data) async {
+    final db = _database;
+    var fuctionMstData = data['function_MST'];
+    if (fuctionMstData is List) {
+      List<FunctionMSTModel> fuctionMSTModelList = fuctionMstData
+          .map((item) => FunctionMSTModel.fromJson(item))
+          .toList();
+      for (var model in fuctionMSTModelList) {
+        print("Inserting function_MST DATA: ${model.toMap()}");
+
+        await db.insert(
+          'FUNCTION_MST',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertfunctionUsrData(Map<String, dynamic> data) async {
+    final db = _database;
+    var fuctionUsrData = data['fuctioN_USER'];
+    if (fuctionUsrData is List) {
+      List<FunctionUserModel> fuctionUsrDataList = fuctionUsrData
+          .map((item) => FunctionUserModel.fromJson(item))
+          .toList();
+      for (var model in fuctionUsrDataList) {
+        print("Inserting fuctioN_USER DATA: ${model.toMap()}");
+        await db.insert(
+          'FUNCTION_USER',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertTransDtSubMonData(Map<String, dynamic> data) async {
+    final db = _database;
+    var transactionDtSubMonData = data['transDTSubMonthly'];
+    if (transactionDtSubMonData is List) {
+      List<TransactionDtSubMonthlyModel> transactionDtSubMonModelList =
+          transactionDtSubMonData
+              .map((item) => TransactionDtSubMonthlyModel.fromMap(item))
+              .toList();
+      for (var model in transactionDtSubMonModelList) {
+        print("Inserting transDTSubMonthly DATA: ${model.toMap()}");
+        await db.insert(
+          'TransDTSubMonthly',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertTrnsHdAproDetailsData(Map<String, dynamic> data) async {
+    final db = _database;
+    var transHdAproDetaData = data['transactionHddapprovalDetail'];
+    if (transHdAproDetaData is List) {
+      List<TransactionHDDApprovalDetailsModel> transHdAproDetaDataModelList =
+          transHdAproDetaData
+              .map((item) => TransactionHDDApprovalDetailsModel.fromMap(item))
+              .toList();
+      for (var model in transHdAproDetaDataModelList) {
+        print("Inserting transactionHddapprovalDetail DATA: ${model.toMap()}");
+        await db.insert(
+          'TransactionHDDApprovalDetails',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertTrnsHddMData(Map<String, dynamic> data) async {
+    final db = _database;
+    var transHddMData = data['transactionHddm'];
+    if (transHddMData is List) {
+      List<TransactionHddmsModel> transHddMModelList = transHddMData
+          .map((item) => TransactionHddmsModel.fromMap(item))
+          .toList();
+      for (var model in transHddMModelList) {
+        print("Inserting transactionHddm DATA: ${model.toMap()}");
+        await db.insert(
+          'TransactionHDDMS',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<void> insertServiceSetupData(Map<String, dynamic> data) async {
+    final db = _database;
+    // Extract service setup data from the provided data map
+    var serviceSetupData = data['serviceSetup'];
+
+    // Check if service setup data is not null and is a list
+    if (serviceSetupData is List) {
+      // Map the data to a list of ServiceSetupModel objects
+      List<ServiceSetupModel> serviceSetupModels = serviceSetupData
+          .map((item) => ServiceSetupModel.fromMap(item))
+          .toList();
+
+      // Insert each ServiceSetupModel into the database
+      for (var model in serviceSetupModels) {
+        print("Inserting SERVICE SETUP DATA: ${model.toMap()}");
+        await db.insert(
+          'ServiceSetup',
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    }
+  }
+
+  Future<DetailedEmployeeModel> getDetailedEmployeeDetails( ) async {
+    final db = _database;
+    var empDet = await db.rawQuery(
+        "SELECT * FROM ${Constants.detailedEmployeeTablel} WHERE ${Constants.employeeID} = ?",
+       );
+
+    if (empDet.isEmpty) {
+      print("Employee DETALAl>>>>>>>>>  $empDet");
+      print("FIRSt VAL>>>>>>>>>...  ${empDet.first}");
+      return DetailedEmployeeModel.fromMap(empDet.first);
+    } else {
+      throw Exception('No employee data found');
+    }
+  }
+
+
 // Future<List<RefTableModel>> getOccupation() async {
 //     final db = await database;
 //     List<RefTableModel> occupationList = [];
@@ -370,8 +425,4 @@ Future<EmployeeViewModel> getDetailedEmployeeDetails()async{
 //     }
 //     return occupationList;
 //   }
-
-
-
-
 }

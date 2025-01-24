@@ -12,10 +12,10 @@ import 'package:kupf_mobile/widgets/curve_box_decoration.dart';
 import 'package:kupf_mobile/widgets/k_text.dart';
 import '../../../widgets/bottom/bottom_navigation_bar.dart';
 import '../../../widgets/drawer/drawer_view.dart';
+import '../../controller/login/forgot_password_dialog_controller.dart';
 import '../../controller/main/home_controller.dart';
 import 'home/dashboard_view.dart';
 import 'online_form_body/online_form_view.dart';
-
 
 class MainView extends GetView<HomeController> {
   const MainView({super.key});
@@ -26,7 +26,19 @@ class MainView extends GetView<HomeController> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: KText('KUPF', style: TextStyle( fontFamily: 'Zillaslab' ,fontSize: 25)),
+          title: KText('KUPF',
+              style: TextStyle(fontFamily: 'Zillaslab', fontSize: 25)),
+          actions: [
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgetPasswordScreen()),
+                  );
+                },
+                child: Icon(Icons.add))
+          ],
           bottom: const PreferredSize(
               preferredSize: Size(0.0, 5), child: AppUtility.emptyBox),
         ),

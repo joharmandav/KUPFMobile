@@ -248,7 +248,7 @@ class Constants {
   static const englishWebPageName = "EnglishWebPageName";
   static const arabicWebPageName = "ArabicWebPageName";
 
-  /// Transaction DT
+
   static const myTransID = "MYTRANSID";
   static const myID = "MYID";
   static const employeeID = "employeeID";

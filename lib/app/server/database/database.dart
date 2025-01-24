@@ -2,7 +2,6 @@
 import 'package:get/get.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
-
 import 'db_constant.dart';
 
 class DatabaseManager extends GetxService {

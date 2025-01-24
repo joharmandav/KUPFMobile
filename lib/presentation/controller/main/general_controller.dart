@@ -11,62 +11,56 @@ class GeneralController extends GetxController {
   GetStorage storageBox = GetStorage();
   var token = ''.obs;
 
-   @override
+  @override
   void onInit() {
     super.onInit();
     // Load token if it exists
     token.value = storageBox.read('token') ?? '';
   }
 
-
-   Future<void> saveBearerToken(String newToken) async {
+  Future<void> saveBearerToken(String newToken) async {
     token.value = newToken;
     await storageBox.write('token', newToken);
     print("NEW TOKEN SAVED: $newToken");
   }
 
- Future<String?> getBearerToken() async {
-  final storage = GetStorage();
-  String? token = storage.read('bearerToken');
-  if (token == null || token.isEmpty) {
-    print('Token is null or empty');
-  }else{
-    print("BEARER TOKEN PRESENT: $token");
+  Future<String?> getBearerToken() async {
+    final storage = GetStorage();
+    String? token = storage.read('bearerToken');
+    if (token == null || token.isEmpty) {
+      print('Token is null or empty');
+    } else {
+      print("BEARER TOKEN PRESENT: $token");
+    }
+    return token;
   }
-  return token;
-}
 
   Locale? selectedLocale;
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   // final Rxn<DetailedEmployeeModel> _detailedEmployeeModel = Rxn<DetailedEmployeeModel>();
-    final _detailedEmployeeModel = Rx<LoginResModel?>(null);
+  final _detailedEmployeeModel = Rx<LoginResModel?>(null);
 
   // final Rxn<CRUPAuditModel> _crupAuditModel = Rxn<CRUPAuditModel>();
   // final Rxn<FunctionMSTModel> _functionMSTModel = Rxn<FunctionMSTModel>();
   // final Rxn<FunctionUserModel> _functionUserModel = Rxn<FunctionUserModel>();
 
   // final RxInt _status = RxInt(0);
-   final RxInt _status = 0.obs;   
-   RxBool isVisible = true.obs;
+  final RxInt _status = 0.obs;
+  RxBool isVisible = true.obs;
 
-    int get status => _status.value;
+  int get status => _status.value;
 
   void toggleVisibility() {
-   
-  isVisible.value = !isVisible.value;
+    isVisible.value = !isVisible.value;
+  }
 
-   }
-  
-    
-  
   bool checkStatus() {
     if (storageBox.hasData('status') && storageBox.read('status') == 1) {
       _status(storageBox.read('status'));
       return true;
-    }else if(isVisible.value == false){
+    } else if (isVisible.value == false) {
       return true;
-    }
-     else {
+    } else {
       storageBox.write('status', 0);
       _status(storageBox.read('status'));
       return false;
@@ -112,7 +106,8 @@ class GeneralController extends GetxController {
 
   checkLanguage() {
     if (storageBox.hasData('languageIndex')) {
-      updateSelectedLocale(localeList[int.parse(storageBox.read('languageIndex').toString())]);
+      updateSelectedLocale(
+          localeList[int.parse(storageBox.read('languageIndex').toString())]);
     } else {
       storageBox.write('languageCode', localeList[0].languageCode);
       storageBox.write('countryCode', localeList[0].countryCode);

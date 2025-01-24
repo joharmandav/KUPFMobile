@@ -9,12 +9,13 @@ class KTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool readOnly;
 
-  const KTextField({Key? key,
-    this.editingController,
-    this.hintText,
-    this.title,
-    this.suffixIcon,
-    this.readOnly = false})
+  const KTextField(
+      {Key? key,
+      this.editingController,
+      this.hintText,
+      this.title,
+      this.suffixIcon,
+      this.readOnly = false})
       : super(key: key);
 
   @override
@@ -26,17 +27,16 @@ class KTextField extends StatelessWidget {
         title == null
             ? AppSpacing.emptyBox
             : KText(title!,
-            style: Theme
-                .of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(letterSpacing: 2)),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(letterSpacing: 2)),
         AppSpacing.vertical,
         TextField(
           controller: editingController,
           readOnly: readOnly,
           decoration:
-          InputDecoration(hintText: hintText, suffixIcon: suffixIcon),
+              InputDecoration(hintText: hintText, suffixIcon: suffixIcon),
         ),
       ],
     );
@@ -54,16 +54,21 @@ class LabelTextField extends StatelessWidget {
   final bool readOnly;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final String? initialValue;
 
-  const LabelTextField({Key? key,
-    this.labelText,
-    this.controller,
-    this.prefixIcon,
-    this.validator,
-    this.autovalidateMode,
-    this.hintText,
-    this.obscureText = false,
-    this.suffixIcon, this.keyboardType, this.readOnly = false})
+  const LabelTextField(
+      {Key? key,
+      this.labelText,
+      this.controller,
+      this.prefixIcon,
+      this.validator,
+      this.autovalidateMode,
+      this.hintText,
+      this.obscureText = false,
+      this.suffixIcon,
+      this.keyboardType,
+      this.readOnly = false,
+      this.initialValue})
       : super(key: key);
 
   @override
@@ -71,6 +76,7 @@ class LabelTextField extends StatelessWidget {
     return TextFormField(
       autovalidateMode: autovalidateMode,
       controller: controller,
+      initialValue: initialValue,
       keyboardType: keyboardType,
       readOnly: readOnly,
       obscureText: obscureText,

@@ -6,8 +6,11 @@ import 'package:kupf_mobile/app_utility/image_string.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 
 import '../../../app/routes/routes.dart';
+import '../../../app/server/database/db_constant.dart';
 import '../../../app_utility/common_function.dart';
 import '../../../languages/language_constants.dart';
+import '../../../name.dart';
+import '../../models/login_response_model.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -36,6 +39,7 @@ class _SplashViewState extends State<SplashView> {
             ),
           ),
           child: TweenAnimationBuilder<double>(
+
             onEnd: () => Get.find<GeneralController>().checkStatus() ? Get.offAllNamed(AppRoutes.home) :
                 Get.offNamed(AppRoutes.login),
             tween: Tween(begin: 0.0, end: 1.0),
@@ -57,7 +61,11 @@ class _SplashViewState extends State<SplashView> {
                     flex: 0,
                     child: Column(
                       children: [
-                        Text("${format.format(DateTime.parse(LanguageConstants.date))} ${LanguageConstants.updated.tr}", style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColor.blackLight),),
+                        Text(
+                          "${format.format(DateTime.parse(LanguageConstants.date))} ${LanguageConstants.updated.tr}",
+                          style: Get.theme.textTheme.bodySmall!
+                              .copyWith(color: AppColor.blackLight),
+                        ),
                         AppUtility.heightBoxMin,
                         Text(
                           "${LanguageConstants.version.tr} ${LanguageConstants.versionNo}",

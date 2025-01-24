@@ -7,13 +7,17 @@ import 'package:kupf_mobile/app_utility/app_color.dart';
 import 'package:kupf_mobile/app_utility/app_text_theme.dart';
 import 'package:kupf_mobile/app_utility/common_function.dart';
 import 'package:kupf_mobile/app_utility/image_string.dart';
+import 'package:kupf_mobile/presentation/controller/login/forgot_password_dialog_controller.dart';
 import 'package:kupf_mobile/presentation/controller/login/login_controller.dart';
+import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 import 'package:kupf_mobile/widgets/button_widget.dart';
 import 'package:kupf_mobile/widgets/curve_box_decoration.dart';
 import 'package:kupf_mobile/widgets/k_text.dart';
 import 'package:kupf_mobile/widgets/k_textfield.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import '../../../app/server/database/db_constant.dart';
+import '../../../name.dart';
 import '../../../widgets/loading.dart';
 import '../../../app/routes/routes.dart';
 import '../../../languages/language_constants.dart';
@@ -67,40 +71,38 @@ class SignInView extends GetView<LoginController> {
                           AppUtility.heightBox,
                           // gove selection switch here
                           Row(
-                                children: [
-                                  // mobile switch
+                            children: [
+                              // mobile switch
 
-                             Obx(() =>      Radio<String>(
-                                      value: 'Mobile',
-                                      groupValue:
-                                          controller.selectedLoginType.value,
-                                      onChanged: (value) {
-                                        controller
-                                            .isPhone(true);
-                                        controller.changeLoginType(value!);
-                                        controller.employeeIdController.clear();
-                                        controller.passwordController.clear();
-                                        controller.seletionController.clear();
-                                      })),
-                                  Text(LanguageConstants.mobileNumber.tr),
-                                  const SizedBox(width: 20),
-                                  // emplyid switch
-                                Obx(() =>  Radio<String>(
+                              Obx(() => Radio<String>(
+                                  value: 'Mobile',
+                                  groupValue:
+                                      controller.selectedLoginType.value,
+                                  onChanged: (value) {
+                                    controller.isPhone(true);
+                                    controller.changeLoginType(value!);
+                                    controller.employeeIdController.clear();
+                                    controller.passwordController.clear();
+                                    controller.seletionController.clear();
+                                  })),
+                              Text(LanguageConstants.mobileNumber.tr),
+                              const SizedBox(width: 20),
+                              // emplyid switch
+                              Obx(() => Radio<String>(
                                     value: 'EmployeeId',
                                     groupValue:
                                         controller.selectedLoginType.value,
                                     onChanged: (value) {
-                                      controller
-                                          .isPhone(false);
+                                      controller.isPhone(false);
                                       controller.changeLoginType(value ?? '');
                                       controller.passwordController.clear();
                                       controller.phoneController.clear();
                                       controller.seletionController.clear();
                                     },
                                   )),
-                                  Text(LanguageConstants.employeeID.tr),
-                                ],
-                              ),
+                              Text(LanguageConstants.employeeID.tr),
+                            ],
+                          ),
                           if (controller.isPhone.value)
                             // mobile number
                             Container(
@@ -221,54 +223,64 @@ class SignInView extends GetView<LoginController> {
                                   }),
                               Text(LanguageConstants.rememberMe.tr),
                               const Spacer(),
-                              InkWell(
-                                onTap: () {
-                                  Get.defaultDialog(
-                                    backgroundColor: scaffoldColor.value,
-                                    title: LanguageConstants.forgotPassword.tr
-                                        .replaceAll("?", ""),
-                                    // titlePadding: const EdgeInsets.symmetric(
-                                    //   horizontal: 8,
-                                    //   vertical: 16,
-                                    // ),
-                                    titleStyle: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 20),
-                                    content: const ForgotPasswordDialog(),
-                                  );
-                                },
-                                child:
-                                    KText(LanguageConstants.forgotPassword.tr),
-                              )
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ForgetPasswordScreen(),
+                                        ));
+                                  },
+                                  child: const Text("Forgot Password")),
+                              // InkWell(
+                              //   onTap: () {
+                              //     Get.defaultDialog(
+                              //       backgroundColor: scaffoldColor.value,
+                              //       title: LanguageConstants.forgotPassword.tr
+                              //           .replaceAll("?", ""),
+                              //       // titlePadding: const EdgeInsets.symmetric(
+                              //       //   horizontal: 8,
+                              //       //   vertical: 16,
+                              //       // ),
+                              //       titleStyle: const TextStyle(
+                              //           fontWeight: FontWeight.w700,
+                              //           fontSize: 20),
+                              //       content: const ForgotPasswordDialog(),
+                              //     );
+                              //   },
+                              //   child:
+                              //       KText(LanguageConstants.forgotPassword.tr),
+                              // )
                             ],
                           ),
                           AppUtility.heightBox,
                           // sign in btn
                           AppButtonElevated(
                             text: LanguageConstants.signIn.tr,
-                            onPressed: controller.login,
+                            onPressed: () => controller.login(context),
                           ),
                           AppUtility.height32Box,
                           // signup
-                          RichText(
-                            text: TextSpan(
-                              text: LanguageConstants.dontHaveAccount.tr,
-                              style: AppTextTheme.bodyText1grey,
-                              children: [
-                                TextSpan(
-                                  text: LanguageConstants.signUp.tr,
-                                  style: AppTextTheme.bodyText1Primary
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                const SignUpView())),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // RichText(
+                          //   text: TextSpan(
+                          //     text: LanguageConstants.dontHaveAccount.tr,
+                          //     style: AppTextTheme.bodyText1grey,
+                          //     children: [
+                          //       TextSpan(
+                          //         text: LanguageConstants.signUp.tr,
+                          //         style: AppTextTheme.bodyText1Primary
+                          //             .copyWith(fontWeight: FontWeight.bold),
+                          //         // recognizer: TapGestureRecognizer()
+                          //         //   ..onTap = () => Navigator.push(
+                          //         //       context,
+                          //         //       MaterialPageRoute(
+                          //         //           builder: (_) =>
+                          //         //               const SignUpView())),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           AppUtility.height32Box,
                           // social signin
                           Row(
@@ -349,18 +361,16 @@ class SignInView extends GetView<LoginController> {
                               style: AppTextTheme.bodyText1grey,
                               children: [
                                 TextSpan(
-                                  text: LanguageConstants.guest.tr,
-                                  style: AppTextTheme.bodyText1Primary
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = (){
-                                      generalController.toggleVisibility();
-                                      Get.offAllNamed(AppRoutes.home);
-                                      
-                                    }
-                                      
-                                        
-                                ),
+                                    text: LanguageConstants.guest.tr,
+                                    style: AppTextTheme.bodyText1Primary
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        generalController.toggleVisibility();
+                                        // Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeProfileScreen(loginResModel: LoginResModel(),),));
+
+                                        Get.offAllNamed(AppRoutes.home);
+                                      }),
                               ],
                             ),
                           ),
