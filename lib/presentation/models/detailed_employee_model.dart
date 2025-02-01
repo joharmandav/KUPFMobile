@@ -5,7 +5,7 @@ class DetailedEmployeeModel {
   int? locationId;
   int?  employeeId;
   String? contractType;
-  int? pfid;
+  String? pfid;
     dynamic subscribedDate;
     dynamic agreedSubAmount;
     dynamic reSubscribed;
@@ -196,7 +196,7 @@ class DetailedEmployeeModel {
         locationId: json["locationId"]??0,
         employeeId: json["employeeId"]??0,
         contractType: json["contractType"],
-        pfid: json["pfid"]??0,
+        pfid: json["pfid"]??"",
         subscribedDate: json["subscribedDate"] != null 
     ? DateTime.parse(json["subscribedDate"]) 
     : null,

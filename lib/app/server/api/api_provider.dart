@@ -107,8 +107,9 @@ class ApiProvider extends GetConnect {
     Map<String, dynamic> data = {
       "username": userName,
       "password": password,
-      "Type": type,
+      "type": type,
     };
+    print("LOGIN PAYLOAD : $data");
     try {
       final controller = Get.find<GeneralController>();
 

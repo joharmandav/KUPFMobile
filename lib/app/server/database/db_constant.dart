@@ -11,6 +11,7 @@ class Constants {
   static const webPagesTable = 'WebPages';
   static const webPageUrlTable = 'WebPageUrls';
   static const employeeViewTable = 'EmployeeView';
+  static const employeeTransView = 'EmployeeTransView';
   static const transactionDTTable = 'TransactionDT';
   static const transactionHdTable = 'TransactionHD';
   static const transactionHDDApprovalDetailsTable = 'TransactionHDDApprovalDetails';
@@ -339,7 +340,7 @@ class Constants {
   static const url = "Url";
 
   // detailed employee table
-   static const String detailEmpTableScehma = '''
+  static const String detailEmpTableScehma = '''
    CREATE TABLE  $detailedEmployeeTablel (
   TenentID               INTEGER        NOT NULL,
   LocationID             INTEGER        NOT NULL DEFAULT 1,
@@ -527,7 +528,7 @@ class Constants {
   //     "$synID	INTEGER DEFAULT NULL,"
   //     "PRIMARY KEY($tenentID,$refID,$refType,$refSubType))";
 //  add data from syncemploye api TODO
-  static const serviceSetupTableSchemal =''' 
+  static const serviceSetupTableSchemal = '''
   CREATE TABLE $serviceSetupTable (
     TenentID             INTEGER        NOT NULL,
     ServiceID            INTEGER        NOT NULL,
@@ -636,7 +637,7 @@ class Constants {
 );
   ''';
 
-static const crupAuditTablelSchema = '''
+  static const crupAuditTablelSchema = '''
 CREATE TABLE $crupAuditTable (
     MYSERIAL   INTEGER        NOT NULL,
     CRUP_ID    INTEGER,
@@ -651,9 +652,9 @@ CREATE TABLE $crupAuditTable (
     SEVERITY   NVARCHAR (50)  COLLATE NOCASE,
     CRUDTYPE   NVARCHAR (50)  COLLATE NOCASE
 );
-''';  
+''';
 
-static const functionMSTModelSchema = '''
+  static const functionMSTModelSchema = '''
 CREATE TABLE $functionMSTTable (
     TenentID            INTEGER        NOT NULL,
     MENU_ID             INTEGER        NOT NULL,
@@ -712,8 +713,8 @@ CREATE TABLE $functionMSTTable (
         MENU_ID
     )
 );
-'''; 
-static const functionUserModelScehema = '''
+''';
+  static const functionUserModelScehema = '''
 CREATE TABLE $functionUserTable (
     TenentID         INTEGER        NOT NULL,
     LOCATION_ID      INTEGER        NOT NULL,
@@ -777,7 +778,7 @@ CREATE TABLE $functionUserTable (
 
 
 ''';
- static const refTableScheme = ''' 
+  static const refTableScheme = '''
  CREATE TABLE $refTable (
     TenentID       INTEGER        NOT NULL
                                   DEFAULT 1,
@@ -821,7 +822,7 @@ CREATE TABLE $functionUserTable (
 
  ''';
 
- static const transactionDTSchema = '''
+  static const transactionDTSchema = '''
 CREATE TABLE $transactionDTTable (
     TenentID          INTEGER       NOT NULL
                                     DEFAULT 1,
@@ -865,7 +866,7 @@ CREATE TABLE $transactionDTTable (
 
  ''';
 
- static const transactionHdScehma = ''' 
+  static const transactionHdScehma = '''
  CREATE TABLE $transactionHdTable (
     TenentID                INTEGER        NOT NULL
                                            DEFAULT 1,
@@ -1027,7 +1028,7 @@ CREATE TABLE $transactionDTTable (
     )
 );
  ''';
- static const transactionHDDApprovalDetailScehma = ''' 
+  static const transactionHDDApprovalDetailScehma = '''
  CREATE TABLE $transactionHDDApprovalDetailsTable (
     TenentID           INTEGER        NOT NULL
                                       DEFAULT 1,
@@ -1069,7 +1070,7 @@ CREATE TABLE $transactionDTTable (
 );
 
  ''';
- static const transactionHDDMSSchema = ''' 
+  static const transactionHDDMSSchema = '''
  CREATE TABLE $transactionHDDMSTable (
     TenentID          INTEGER        NOT NULL,
     MYTRANSID         INTEGER        NOT NULL,
@@ -1103,7 +1104,7 @@ CREATE TABLE $transactionDTTable (
 
  ''';
 
- static const transactionHDTerminationScehma = '''
+  static const transactionHDTerminationScehma = '''
 CREATE TABLE $transactionHDTerminationTable (
     TenentID               INTEGER         NOT NULL
                                            DEFAULT 1,
@@ -1175,7 +1176,7 @@ CREATE TABLE $transactionHDTerminationTable (
 
 ''';
 
-static const transDTSubMonSchema = '''
+  static const transDTSubMonSchema = '''
 CREATE TABLE $transDTSubMonTable (
     TenentID          INTEGER       NOT NULL
                                     DEFAULT 1,
@@ -1220,7 +1221,7 @@ CREATE TABLE $transDTSubMonTable (
 
  ''';
 
- static const webContentScehma = '''
+  static const webContentScehma = '''
 CREATE TABLE $webContentTable (
     ContentId               INTEGER           PRIMARY KEY AUTOINCREMENT
                                               NOT NULL,
@@ -1299,7 +1300,7 @@ CREATE TABLE $webContentTable (
 );
 
 ''';
-static const webPagesSchema = '''
+  static const webPagesSchema = '''
 CREATE TABLE $webPagesTable (
     WebPageID       INTEGER        NOT NULL,
     Parent_ID       INTEGER,
@@ -1314,7 +1315,7 @@ CREATE TABLE $webPagesTable (
 );
 
 ''';
-static const webPagesUrlScehma = '''
+  static const webPagesUrlScehma = '''
 CREATE TABLE $webPageUrlTable (
     WebPageUrlID INTEGER      NOT NULL,
     WebPage_ID   INTEGER,
@@ -1322,7 +1323,7 @@ CREATE TABLE $webPageUrlTable (
 );
  ''';
 //  This below view is combination from various table to display directly all the data into profile
- static const employeeViewScehma = ''' 
+  static const employeeViewScehma = '''
  CREATE VIEW $employeeViewTable AS
     SELECT a.EmployeeLoginID,
            a.empWorkEmail,
@@ -1367,10 +1368,47 @@ CREATE TABLE $webPageUrlTable (
            d.REFSUBTYPE = 'GENDER' AND 
            d.RefID = a.emp_gender;
  ''';
+
+  static const employeeTransViewScehma = '''
+  CREATE VIEW $employeeTransView AS
+     SELECT A.EmployeeLoginID,
+            B.MYTRANSID,
+            B.PeriodEnd,
+            B.TOTAMT,
+            B.AmtPaid,
+            B.TOTAMT - B.AmtPaid AS Pending,
+            C.ServiceName2,
+	          D.PERIOD_CODE,
+            E.PRD_PERIOD1,
+            D.PendingAmount,
+            D.ReceivedAmount,
+            D.ReceivedDate,
+            D.OtherReference
+      FROM ${Constants.detailedEmployeeTablel}  a ,
+           ${Constants.transactionHdTable} b, 
+           ${Constants.serviceSetupTable} c ,
+           ${Constants.transDTSubMonTable} d,
+           ${Constants.periodBegin}  e
+    WHERE  A.TenentID=21
+           AND A.LocationID IN (1,2)
+           AND A.employeeID = 19200282
+           AND B.TenentID = A.TenentID
+           AND B.LocationID = A.LocationID
+           AND B.employeeID =A.employeeID 
+           AND C.TenentID = A.TenentID
+           AND C.ServiceType = B.ServiceTypeID
+           AND C.ServiceSubType = B.ServiceSubTypeId
+           AND D.TenentID = A.TenentID
+           AND D.LocationID = A.LocationID
+           AND D.employeeID =A.employeeID 
+           AND D.MYTRANSID =B.MYTRANSID 
+           AND E.TenentID = A.TenentID
+           AND E.MYSYSNAME = 'KUPF'
+           AND E.PERIOD_CODE =B.PeriodEnd
+  ''';
+
 // select * from EmployeeView where employeeID='16700756'
 
 // select * from pragma_table_info('DetailedEmployee') as tblInfo;
 // select * from EmployeeView where employeeID='16700756'
- 
- }
- 
+}
