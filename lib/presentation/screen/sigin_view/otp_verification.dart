@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flare_flutter/flare_actor.dart';
+// import 'package:flare_flutter/flare_actor.dart';
 import 'package:get/get.dart';
 import 'package:kupf_mobile/widgets/buttons/custom_back_pressed.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -30,15 +30,15 @@ class OTPVerification extends GetView<OTPVerificationController> {
                 AppUtility.heightBox,
                 const CustomBackPressed(),
                 AppUtility.height32Box,
-                SizedBox(
-                  height: Get.height / 3,
-                  child: const FlareActor(
-                    "assets/animation/otp.flr",
-                    animation: "otp",
-                    fit: BoxFit.fitHeight,
-                    alignment: Alignment.center,
-                  ),
-                ),
+                // SizedBox(
+                //   height: Get.height / 3,
+                //   child: const FlareActor(
+                //     "assets/animation/otp.flr",
+                //     animation: "otp",
+                //     fit: BoxFit.fitHeight,
+                //     alignment: Alignment.center,
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Text(

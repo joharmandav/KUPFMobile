@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 class DetailedEmployeeModel {
-     dynamic tenentId;
-  dynamic locationId;
-   dynamic employeeId;
-    dynamic contractType;
-  dynamic pfid;
+  int? tenentId;
+  int? locationId;
+  int?  employeeId;
+  String? contractType;
+  String? pfid;
     dynamic subscribedDate;
     dynamic agreedSubAmount;
     dynamic reSubscribed;
@@ -195,21 +195,21 @@ class DetailedEmployeeModel {
         tenentId: json["tenentId"]??0,
         locationId: json["locationId"]??0,
         employeeId: json["employeeId"]??0,
-        contractType: json["contractType"]??0,
-        pfid: json["pfid"]??0,
+        contractType: json["contractType"],
+        pfid: json["pfid"]??"",
         subscribedDate: json["subscribedDate"] != null 
     ? DateTime.parse(json["subscribedDate"]) 
     : null,
-        agreedSubAmount: json["agreedSubAmount"]??"",
+        agreedSubAmount: json["agreedSubAmount"]??0,
         reSubscribed: json["reSubscribed"]??"",
         employeeType: json["employeeType"]??"",
         arabicName: json["arabicName"]??"",
         englishName: json["englishName"]??"",
-        jobTitleCode: json["jobTitleCode"]??"",
+        jobTitleCode: json["jobTitleCode"]??0,
         jobTitleName: json["jobTitleName"]??"",
-        department: json["department"]??"",
+        department: json["department"]??0,
         departmentName: json["departmentName"]??"",
-        empGender: json["empGender"]??"",
+        empGender: json["empGender"]??0,
         empBirthday:json["empBirthday"] != null 
     ? DateTime.parse(json["empBirthday"]) 
     : null,
@@ -220,17 +220,17 @@ class DetailedEmployeeModel {
         mobileNumber: json["mobileNumber"]??"",
         next2KinName: json["next2KinName"]??"",
         next2KinMobNumber: json["next2KinMobNumber"]??"",
-        nationCode: json["nationCode"]??"",
+        nationCode: json["nationCode"]??0,
         nationName: json["nationName"]??"",
         empCidNum: json["empCidNum"]??"",
         empPaciNum: json["empPaciNum"]??"",
         empOtherId: json["empOtherId"]??"",
-        empStatus: json["empStatus"]??"",
+        empStatus: json["empStatus"]??0,
         joinedDate:json["joinedDate"] != null 
     ? DateTime.parse(json["joinedDate"]) 
     : null,
         endDate: json["endDate"]??"",
-        terminationId: json["terminationId"]??"",
+        terminationId: json["terminationId"]??0,
         subscriptionDate: json["subscriptionDate"]??"",
         reSubscripedDate: json["reSubscripedDate"]??"",
         consumerLoanAct: json["consumerLoanAct"]??"",
@@ -245,12 +245,12 @@ class DetailedEmployeeModel {
         empStreet1: json["empStreet1"]??"",
         empStreet2: json["empStreet2"]??"",
         cityCode: json["cityCode"]??"",
-        counCode: json["counCode"]??"",
+        counCode: json["counCode"]??0,
         remarks: json["remarks"]??"",
         userId: json["userId"]??"",
         imageUrl: json["imageUrl"]??"",
         activeDirectoryId: json["activeDirectoryId"]??"",
-        mainHrroleId: json["mainHrroleId"] ?? "",
+        mainHrroleId: json["mainHrroleId"] ??0  ,
         employeeLoginId: json["employeeLoginId"],
         employeePassword: json["employeePassword"],
         active: json["active"] ?? "",
@@ -265,7 +265,7 @@ class DetailedEmployeeModel {
         uploadby: json["uploadby"] ?? "",
         syncDate: json["syncDate"] ?? "",
         syncby: json["syncby"] ?? "",
-        synId: json["synId"] ?? "",
+        synId: json["synId"] ?? 0,
         membership: json["membership"] ?? "",
         membershipJoiningDate: json["membershipJoiningDate"] != null 
     ? DateTime.parse(json["membershipJoiningDate"]) 
@@ -275,17 +275,17 @@ class DetailedEmployeeModel {
         isKuEmployee: json["isKUEmployee"] ?? "",
         isOnSickLeave: json["isOnSickLeave"] ?? "",
         isMemberOfFund: json["isMemberOfFund"] ?? "",
-        cruPId: json["cruP_ID"] ?? "",
-        settlementSerMonths: json["settlementSerMonths"] ?? "",
-        settlementAmount: json["settlementAmount"] ?? "",
+        cruPId: json["cruP_ID"] ?? 0,
+        settlementSerMonths: json["settlementSerMonths"] ?? 0,
+        settlementAmount: json["settlementAmount"] ?? 0,
         nextSetlementPayDate: json["nextSetlementPayDate"] ?? "",
-        nextSetlementPayAmount: json["nextSetlementPayAmount"] ?? "",
-        subscriptionStatus: json["subscription_status"] ?? "",
-        loanOpNotPaidAmount: json["loanOPNotPaidAmount"] ?? "",
-        loanOpAmount: json["loanOPAmount"] ?? "",
-        subOpNotPaidAmount: json["subOPNotPaidAmount"] ?? "",
-        subOpAmount: json["subOPAmount"] ?? "",
-        holdQty: json["holdQty"] ?? "",
+        nextSetlementPayAmount: json["nextSetlementPayAmount"] ?? 0,
+        subscriptionStatus: json["subscription_status"] ?? 0,
+        loanOpNotPaidAmount: json["loanOPNotPaidAmount"] ?? 0,
+        loanOpAmount: json["loanOPAmount"] ?? 0,
+        subOpNotPaidAmount: json["subOPNotPaidAmount"] ?? 0,
+        subOpAmount: json["subOPAmount"] ?? 0,
+        holdQty: json["holdQty"] ?? 0,
         holdRemarks: json["holdRemarks"] ?? "",
         unHoldDate: json["unHoldDate"] ?? "",
         unHoldBy: json["unHoldBy"] ?? "",

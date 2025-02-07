@@ -1,44 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:kupf_mobile/presentation/models/login_response_model.dart';
 
-import '../../app/server/api/api_provider.dart';
 import '../../app_utility/app_color.dart';
 import '../../app_utility/common_function.dart';
 import '../../languages/language_constants.dart';
 import '../../presentation/controller/main/general_controller.dart';
-import '../../presentation/controller/profile/profile_body_controller.dart';
 import '../../presentation/providers/drawer_provider.dart';
 import '../../app/routes/routes.dart';
 import 'drawer_tile.dart';
 
-class DrawerView extends StatefulWidget {
+class DrawerView extends StatelessWidget {
   const DrawerView({Key? key}) : super(key: key);
-
-  @override
-  State<DrawerView> createState() => _DrawerViewState();
-}
-
-class _DrawerViewState extends State<DrawerView> {
-  late Future<LoginResModel?> _employeeProfileFuture;
-  GetStorage storageBox = GetStorage();
-  late ApiProvider _apiProvider;
-  final ProfileBodyController controller = Get.put(ProfileBodyController());
-
-  @override
-  void initState() {
-    super.initState();
-    _apiProvider = ApiProvider();
-    final generalController = Get.find<GeneralController>();
-    final employeeId = generalController.storageBox.read('employeeId');
-    _employeeProfileFuture = _apiProvider.getEmployeeProfile(employeeId);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final generalController = Get.find<GeneralController>();
+  final generalController = Get.find<GeneralController>();
 
     var format = DateFormat('d MMM y');
     return Drawer(
@@ -58,53 +34,33 @@ class _DrawerViewState extends State<DrawerView> {
                         backgroundColor: mainColor.value,
                       ),
                       // if (Get.find<GeneralController>().status == 1)
-                      Obx(() {
-                        return generalController.status == 1
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Flexible(
-                                      child: SizedBox(
-                                          width: 145,
-                                          child: Text(
-                                            controller.employee.value?.englishName ?? "d",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              color: AppColor.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            maxLines: 1,
-                                          ))),
-                                ],
-                              )
-                            : const Text(
-                                "Welcome Guestofer",
-                                style: TextStyle(
-                                  color: AppColor.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              );
+                      Obx((){
+                      return generalController.status == 1
+                      ?  Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(child: SizedBox(width: 145, child: Text(generalController.detailedEmployeeModel?.englishName ?? "Guest User", overflow: TextOverflow.ellipsis, style: const TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700, overflow: TextOverflow.ellipsis,), maxLines: 1, ))),
+                          ],
+                        )
+                        :   const Text("Welcome Guestofer", style: TextStyle(color: AppColor.white, fontSize: 16, fontWeight: FontWeight.w700,),);
                       }),
+                        
+                        
                     ],
                   ),
                 ),
                 DrawerTile(
                     title: LanguageConstants.profile.tr,
-                    leading:
-                        const Icon(Icons.account_circle, color: AppColor.white),
+                    leading: const Icon(Icons.account_circle, color: AppColor.white),
                     onTap: () async {
                       if (!Get.find<GeneralController>().checkStatus()) {
                         await Get.find<GeneralController>()
                             .storeData('route', 'profile');
-                        var result = await Get.toNamed(AppRoutes.login);
+                        var result =
+                        await Get.toNamed(AppRoutes.login);
                         if (result ?? false) {
-                          await Get.find<GeneralController>()
-                              .storageBox
-                              .remove("route");
+                          await Get.find<GeneralController>().storageBox.remove("route");
                           drawerNotifier.value = DrawerState.profile;
                           Get.back();
                         }
@@ -114,42 +70,41 @@ class _DrawerViewState extends State<DrawerView> {
                       }
                     }),
 
-                Obx(() => generalController.isVisible.value
-                    ? DrawerTile(
-                        title: LanguageConstants.serviceProcured.tr,
-                        leading: const Icon(Icons.design_services,
-                            color: AppColor.white),
-                        onTap: () async {
-                          if (!Get.find<GeneralController>().checkStatus()) {
-                            await Get.find<GeneralController>()
-                                .storeData('route', 'service');
-                            var result = await Get.toNamed(AppRoutes.login);
-                            if (result ?? false) {
-                              await Get.find<GeneralController>()
-                                  .storageBox
-                                  .remove("route");
-                              drawerNotifier.value = DrawerState.service;
-                              Get.back();
-                            }
-                          } else {
-                            drawerNotifier.value = DrawerState.service;
-                            Get.back();
-                          }
-                        })
-                    : const SizedBox.shrink()),
-                // online form
-                Obx(
-                  () => generalController.isVisible.value
-                      ? DrawerTile(
-                          title: LanguageConstants.onLineForm.tr,
-                          leading: const Icon(Icons.format_align_center,
-                              color: AppColor.white),
-                          onTap: () async {
-                            drawerNotifier.value = DrawerState.onlineForm;
-                            Get.back();
-                          },
-                        )
-                      : const SizedBox.shrink(),
+             Obx(()=> generalController.isVisible.value
+           ?  DrawerTile(
+                    title: LanguageConstants.serviceProcured.tr,
+                    leading: const Icon(Icons.design_services,
+                        color: AppColor.white),
+                    onTap: () async {
+                      if (!Get.find<GeneralController>().checkStatus()) {
+                        await Get.find<GeneralController>()
+                            .storeData('route', 'service');
+                        var result =
+                        await Get.toNamed(AppRoutes.login);
+                        if (result ?? false) {
+                          await Get.find<GeneralController>().storageBox.remove("route");
+                          drawerNotifier.value = DrawerState.service;
+                          Get.back();
+                        }
+                      } else {
+                        drawerNotifier.value = DrawerState.service;
+                        Get.back();
+                      }
+                    }):
+                    const SizedBox.shrink()),
+                    // online form
+              Obx(()=> 
+              generalController.isVisible.value
+             ?  DrawerTile(
+                  title: LanguageConstants.onLineForm.tr,
+                  leading: const Icon(Icons.format_align_center,
+                      color: AppColor.white),
+                  onTap: () async {
+                    drawerNotifier.value = DrawerState.onlineForm;
+                    Get.back();
+                  },
+                ) :
+                 const SizedBox.shrink(),
                 ),
                 DrawerTile(
                     title: LanguageConstants.specialService.tr,
@@ -160,26 +115,25 @@ class _DrawerViewState extends State<DrawerView> {
                     }),
                 DrawerTile(
                     title: LanguageConstants.settings.tr,
-                    leading: const Icon(Icons.settings, color: AppColor.white),
+                    leading:
+                    const Icon(Icons.settings, color: AppColor.white),
                     onTap: () {
                       drawerNotifier.value = DrawerState.settings;
                       Get.back();
                     }),
-                DrawerTile(
-                    title: (Get.find<GeneralController>().checkStatus() &&
-                            generalController.isVisible.value == true)
+                 DrawerTile(
+                    title:  (Get.find<GeneralController>().checkStatus() && generalController.isVisible.value == true)
                         ? LanguageConstants.logout.tr
                         : LanguageConstants.signIn.tr,
-                    leading: Icon(
-                        (Get.find<GeneralController>().checkStatus() &&
-                                generalController.isVisible.value == true)
+                    leading:  
+                    Icon(
+                       ( Get.find<GeneralController>().checkStatus()  && generalController.isVisible.value == true)
                             ? Icons.logout
                             : Icons.login_outlined,
                         color: AppColor.white),
                     onTap: () async {
                       //drawerNotifier.value = DrawerState.logout;
-                      if (Get.find<GeneralController>().checkStatus() &&
-                          generalController.isVisible.value == true) {
+                      if (Get.find<GeneralController>().checkStatus() &&  generalController.isVisible.value == true) {
                         await Get.find<GeneralController>().logout();
                         Get.offAllNamed(AppRoutes.login);
                       } else {
@@ -233,11 +187,7 @@ class _DrawerViewState extends State<DrawerView> {
               flex: 0,
               child: Column(
                 children: [
-                  Text(
-                    "${format.format(DateTime.parse(LanguageConstants.date))} ${LanguageConstants.updated.tr}",
-                    style: Get.theme.textTheme.bodySmall!
-                        .copyWith(color: AppColor.white),
-                  ),
+                  Text("${format.format(DateTime.parse(LanguageConstants.date))} ${LanguageConstants.updated.tr}", style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColor.white),),
                   AppUtility.heightBoxMin,
                   Text(
                     "${LanguageConstants.version.tr} ${LanguageConstants.versionNo}",
