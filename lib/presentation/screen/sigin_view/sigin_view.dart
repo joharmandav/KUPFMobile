@@ -10,6 +10,7 @@ import 'package:kupf_mobile/app_utility/image_string.dart';
 import 'package:kupf_mobile/presentation/controller/login/forgot_password_dialog_controller.dart';
 import 'package:kupf_mobile/presentation/controller/login/login_controller.dart';
 import 'package:kupf_mobile/presentation/models/login_response_model.dart';
+import 'package:kupf_mobile/presentation/screen/sigin_view/forgot_password_view.dart';
 import 'package:kupf_mobile/widgets/button_widget.dart';
 import 'package:kupf_mobile/widgets/curve_box_decoration.dart';
 import 'package:kupf_mobile/widgets/k_text.dart';
@@ -225,12 +226,7 @@ class SignInView extends GetView<LoginController> {
                               const Spacer(),
                               GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ForgetPasswordScreen(),
-                                        ));
+                                    Get.to(const ForgotPasswordView());
                                   },
                                   child: const Text("Forgot Password")),
                               // InkWell(

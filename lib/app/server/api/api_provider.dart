@@ -145,21 +145,45 @@ class ApiProvider extends GetConnect {
     }
   }
 
+
   Future<List<ServiceSetupModel>> getServiceSetup() async {
     try {
-      final response = await get(
-        "/ServiceSetup/GetServiceSetup",
-      );
-      if (response.statusCode == 200) {
-        return List<ServiceSetupModel>.from(
-            response.body.map((x) => ServiceSetupModel.fromJson(x)));
+      final response = await get("/ServiceSetup/GetServiceSetup");
+
+
+      print("Response body: ${response.body}");
+
+      dynamic responseData;
+
+      if (response.body is String) {
+
+        responseData = jsonDecode(response.body);
+      } else {
+        responseData = response.body;
       }
-      return <ServiceSetupModel>[];
-    } on Exception catch (e) {
+
+      if (responseData is List) {
+        return responseData.map((x) => ServiceSetupModel.fromJson(x)).toList();
+      } else if (responseData is Map<String, dynamic>) {
+
+        if (responseData.containsKey('data')) {
+          final listData = responseData['data'];
+          if (listData is List) {
+            return listData.map((x) => ServiceSetupModel.fromJson(x)).toList();
+          }
+        }
+        return [ServiceSetupModel.fromJson(responseData)];
+      } else {
+        throw Exception("Unexpected response format: ${response.body}");
+      }
+    } catch (e) {
+      print("Error: $e"); // Debugging log
       Toaster.showError(e.toString());
     }
     return <ServiceSetupModel>[];
   }
+
+
 
   Future<ServiceSetupModel?> getServiceSetupById(int id) async {
     try {
@@ -208,34 +232,13 @@ class ApiProvider extends GetConnect {
     return null;
   }
 
-  // Future<LoginResModel?> getEmployeeProfileById(int id) async {
-  //   try {
-  //     final response = await get("/Employee/GetEmployeeById?employeeId=$id");
-  //
-  //     if (response.statusCode == 200) {
-  //       LoginResModel employee = LoginResModel.fromJson(response.body);
-  //
-  //       return employee;
-  //     } else {
-  //       // Handle non-200 responses
-  //       print(
-  //           'Failed to load employee data. Status code: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     // Handle exceptions
-  //     print('Error occurred: $e');
-  //     Toaster.showError(e.toString()); // Show error to the user or log it
-  //   }
-  //
-  //   return null;
-  // }
+
 
   Future<dynamic> updateEmployeeProfile(
     Map<String, dynamic> data,
   ) async {
     try {
       String? bearerToken = storageBox.read('token');
-
       final headers = {
         'Authorization': 'Bearer $bearerToken',
         'Content-Type': 'application/json',

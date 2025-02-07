@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../app/routes/routes.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-
+import 'package:kupf_mobile/presentation/screen/sigin_view/sigin_view.dart';
 import '../main/general_controller.dart';
 
 class ForgotPasswordDialogController extends GetxController {
@@ -13,44 +11,6 @@ class ForgotPasswordDialogController extends GetxController {
   final RxnString countryCode = RxnString();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
-
-  void onTapEmail() {
-    Get.back();
-    isPhone(false);
-    Get.toNamed(AppRoutes.forgot);
-  }
-
-  void onTapPhone() {
-    Get.back();
-    isPhone(true);
-    Get.toNamed(AppRoutes.forgot);
-  }
-}
-
-final generalController = Get.find<GeneralController>();
-
-// Ensure the values are converted to Strings
-String? device = generalController.storageBox.read("device")?.toString();
-String? tenentId = generalController.storageBox.read('tenentId')?.toString();
-String? locationId =
-    generalController.storageBox.read('locationId')?.toString();
-
-class ForgetPasswordScreen extends StatefulWidget {
-  @override
-  _ForgetPasswordScreenState createState() => _ForgetPasswordScreenState();
-}
-
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  final TextEditingController _usernameController = TextEditingController();
-
-  @override
-  void initState() {
-    print('Device: $device');
-    print('Tenant ID: $tenentId');
-    print('Location ID: $locationId');
-    // print('Location ID: $_usernameController');
-    super.initState();
-  }
 
   String determineUserType(String username) {
     if (username.startsWith('+') &&
@@ -64,9 +24,18 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     }
   }
 
-  Future<void> forgetPassword(String username) async {
+  Future<void> forgetPassword() async {
     const String apiUrl = 'https://api.kupfkw.com/api/Employee/ForgetPassword';
+    String username = emailController.text.trim();
     String type = determineUserType(username);
+
+    final generalController = Get.find<GeneralController>();
+    String? device = generalController.storageBox.read("device")?.toString();
+    String? tenentId =
+        generalController.storageBox.read('tenentId')?.toString();
+    String? locationId =
+        generalController.storageBox.read('locationId')?.toString();
+
     final Map<String, dynamic> queryParams = {
       'tenentId': tenentId,
       'locationId': locationId,
@@ -74,57 +43,46 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       'type': type,
       'deviceId': device,
     };
-    print('Location ID: $type');
+
     final Uri uri = Uri.parse(apiUrl).replace(queryParameters: queryParams);
+
+    isLoading(true); // Start loading
 
     try {
       final response = await http.get(uri);
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = jsonDecode(response.body);
-        print(response.statusCode);
+      // Log the response body for debugging
+      print("Response body: ${response.body}");
 
-        if (responseData.containsKey('message') &&
-            responseData['message'] == 'Reset Password') {
-          print('Please reset your password.');
-        } else {
-          print('Response Data: ${responseData.toString()}');
-        }
-      } else {
-        print(
-            'Error: ${response.statusCode}, Message: ${response.reasonPhrase}');
-      }
+      // Show the response directly in a dialog
+      Get.defaultDialog(
+        title: response.statusCode == 200 ? 'Success' : 'Error',
+        content: Text(response.body), // Show the raw response body
+        textConfirm: 'OK',
+        confirmTextColor: Colors.white,
+        onConfirm: () {
+          // Navigate to the login screen
+          Get.offAll(() =>
+              const SignInView()); // Replace with your login screen widget
+        },
+      );
     } catch (e) {
-      print('An error occurred: $e');
-    }
-  }
+      // Handle exceptions (e.g., network errors)
+      print("error : ${e.toString()}");
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Forget Password'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                labelText: 'Enter Mobile No, Email, or Employee ID',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => forgetPassword(_usernameController.text.trim()),
-              child: const Text('Submit'),
-            ),
-          ],
-        ),
-      ),
-    );
+      Get.defaultDialog(
+        title: 'Error',
+        content: Text('An error occurred: ${e.toString()}'),
+        textConfirm: 'OK',
+        confirmTextColor: Colors.white,
+        onConfirm: () {
+          // Navigate to the login screen even if there's an error
+          Get.offAll(() =>
+              const SignInView()); // Replace with your login screen widget
+        },
+      );
+    } finally {
+      isLoading(false); // Stop loading
+    }
   }
 }

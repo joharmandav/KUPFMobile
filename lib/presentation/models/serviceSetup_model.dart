@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class ServiceSetupModel {
- final int tenentId;
+    final int tenentId;
     final int serviceId;
     final dynamic serviceIconMob;
     final dynamic serviceIconWeb;
@@ -195,9 +195,9 @@ class ServiceSetupModel {
         required this.menUId,
     });
 
-    factory ServiceSetupModel.fromJson(String str) => ServiceSetupModel.fromMap(json.decode(str));
+    factory ServiceSetupModel.fromJson(Map<String, dynamic> json) => ServiceSetupModel.fromMap(json);
 
-    String toJson() => json.encode(toMap());
+    Map<String, dynamic> toJson() => toMap();
 
     factory ServiceSetupModel.fromMap(Map<String, dynamic> json) => ServiceSetupModel(
         tenentId: json["tenentId"],

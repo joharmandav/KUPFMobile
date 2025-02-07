@@ -8,6 +8,7 @@ import 'package:kupf_mobile/presentation/screen/main_view/profile_body/profile_b
 import 'package:kupf_mobile/presentation/screen/main_view/service_body/sevice_body.dart';
 import 'package:kupf_mobile/presentation/screen/main_view/settings/settings.dart';
 import 'package:kupf_mobile/presentation/screen/main_view/special_service_body/special_service_body.dart';
+import 'package:kupf_mobile/presentation/screen/sigin_view/forgot_password_view.dart';
 import 'package:kupf_mobile/widgets/curve_box_decoration.dart';
 import 'package:kupf_mobile/widgets/k_text.dart';
 import '../../../widgets/bottom/bottom_navigation_bar.dart';
@@ -26,19 +27,9 @@ class MainView extends GetView<HomeController> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: KText('KUPF',
+          title: const KText('KUPF',
               style: TextStyle(fontFamily: 'Zillaslab', fontSize: 25)),
-          actions: [
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgetPasswordScreen()),
-                  );
-                },
-                child: Icon(Icons.add))
-          ],
+
           bottom: const PreferredSize(
               preferredSize: Size(0.0, 5), child: AppUtility.emptyBox),
         ),

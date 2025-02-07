@@ -149,6 +149,7 @@ class GeneralController extends GetxController {
   LoginResModel? get detailedEmployeeModel => _detailedEmployeeModel.value;
 
   set detailedEmployeeModel(LoginResModel? value) {
+    print(_detailedEmployeeModel(value));
     _detailedEmployeeModel(value);
   }
 }

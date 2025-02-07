@@ -1,21 +1,18 @@
-// import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:kupf_mobile/presentation/controller/login/forgot_password_dialog_controller.dart';
-import 'package:kupf_mobile/presentation/screen/sigin_view/otp_verification.dart';
-
-import '../../../app_utility/app_text_theme.dart';
-import '../../../app_utility/common_function.dart';
-import '../../../app_utility/image_string.dart';
-import '../../../languages/language_constants.dart';
 import '../../../widgets/button_widget.dart';
-import '../../../widgets/curve_box_decoration.dart';
 import '../../../widgets/k_textfield.dart';
 import '../../../widgets/loading.dart';
-
-class ForgotPasswordView extends GetView<ForgotPasswordDialogController> {
+class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({Key? key}) : super(key: key);
+
+  @override
+  State<ForgotPasswordView> createState() => _ForgotPasswordViewState();
+}
+
+class _ForgotPasswordViewState extends State<ForgotPasswordView> {
+  final ForgotPasswordDialogController controller = Get.put(ForgotPasswordDialogController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +20,16 @@ class ForgotPasswordView extends GetView<ForgotPasswordDialogController> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: Text(LanguageConstants.forgotPassword.tr.replaceAll("?", "")),
-          bottom: PreferredSize(
-            preferredSize: const Size(0, 50),
+          title: const Text("Forgot Password"),
+          bottom: const PreferredSize(
+            preferredSize: Size(0, 50),
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 12, left: 24),
+              padding: EdgeInsets.only(bottom: 12, left: 24),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  LanguageConstants.forgotPasswordAppBarSubtitle.tr,
-                  style: AppTextTheme.bodyText1white,
+                  "Please enter your Email, Employee ID, or Phone Number.",
+                  style: TextStyle(fontSize: 16, color: Colors.white70),
                 ),
               ),
             ),
@@ -41,78 +38,45 @@ class ForgotPasswordView extends GetView<ForgotPasswordDialogController> {
         body: Obx(
               () => Stack(
             children: [
-              CurvedBoxDecoration(
-                child: Form(
-                  key: controller.formKey,
-                  child: Column(
-                    //  crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 24),
-                        child: Image(image: ImageString.logo),
-                      ),
-                      AppUtility.heightBox,
-                      if(controller.isPhone.value)
-                        IntlPhoneField(
-                        // labelText: AppString.phoneNumber,
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Form(
+                    key: controller.formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        const SizedBox(height: 32),
+                        // Input Field for Email/Employee ID/Phone
+                        LabelTextField(
                           controller: controller.emailController,
+                          hintText: "Enter Email, Employee ID, or Phone Number",
+                          keyboardType: TextInputType.text,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          // invalidNumberMessage: ,
                           validator: (value) {
-                            if (value == null || value.completeNumber.isEmpty) {
-                              return LanguageConstants.required.tr;
+                            if (value == null || value.isEmpty) {
+                              return "This field is required.";
                             }
-                            return null;
+                            return null; // Validation is handled in the controller
                           },
-                            onCountryChanged: (code) {
-                              controller.countryCode(code.dialCode);
-                            },
-                            initialCountryCode: 'KW',
-                            onChanged: (value) {
-                              controller.countryCode(value.countryCode);
-                            },
-                          // keyboardType: TextInputType.number,
                         ),
-                      if (!controller.isPhone.value)
-                        Column(
-                          children: [
-                            AppUtility.heightBox,
-                            LabelTextField(
-                              // labelText: AppString.phoneNumber,
-                              controller: controller.emailController,
-                              hintText: LanguageConstants.email.tr,
-                              keyboardType: TextInputType.emailAddress,
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return LanguageConstants.emailRequired.tr;
-                                } else if (!GetUtils.isEmail(value)) {
-                                  return LanguageConstants.invalidEmail.tr;
-                                }
-                                return null;
-                              },
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.email_outlined),
-                                onPressed: () {},
-                              ),
-                            ),
-                          ],
+                        const SizedBox(height: 24),
+                        // Submit Button
+                        AppButtonElevated(
+                          text: "Submit",
+                          onPressed: () {
+                            if (controller.formKey.currentState!.validate()) {
+                              controller.forgetPassword();
+                            }
+                          },
                         ),
-                      AppUtility.heightBox,
-                      AppUtility.heightBox,
-                      AppButtonElevated(
-                        text: LanguageConstants.submit.tr,
-                        onPressed: () {
-                          // controller.signIn();
-                          Get.off(() => const OTPVerification());
-                        },
-                      ),
-                      AppUtility.height32Box,
-                      // social signin
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
+              // Loading Indicator
               if (controller.isLoading.value) const LoadingWidget(),
             ],
           ),

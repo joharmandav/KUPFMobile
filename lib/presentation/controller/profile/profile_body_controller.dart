@@ -5,13 +5,12 @@ import 'package:kupf_mobile/app/server/api/api_provider.dart';
 import 'package:kupf_mobile/app/server/database/database_helper.dart';
 import 'package:kupf_mobile/presentation/controller/main/general_controller.dart';
 import 'package:kupf_mobile/presentation/models/detailed_employee_model.dart';
-import 'package:kupf_mobile/presentation/models/employee_view_model.dart';
 import 'package:kupf_mobile/presentation/models/ref_table_model.dart';
-
-import '../../../app/server/database/db_constant.dart';
 import '../../../helper/toaster.dart';
 import '../../../languages/language_constants.dart';
+import '../../models/login_response_model.dart';
 import '../connectivity_controller.dart';
+import 'dart:io';
 
 class ProfileBodyController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -37,6 +36,10 @@ class ProfileBodyController extends GetxController
   final TextEditingController paciController = TextEditingController();
   final TextEditingController otherIDController = TextEditingController();
   final TextEditingController userIdController = TextEditingController();
+  final TextEditingController departmentController = TextEditingController();
+  final TextEditingController departmentNameController =
+      TextEditingController();
+  final TextEditingController occupationController = TextEditingController();
   int tenantID = 21;
   String RejectedDate = "2024-09-12T12:34:56";
   DetailedEmployeeModel? employeeViewModel;
@@ -48,9 +51,24 @@ class ProfileBodyController extends GetxController
   final RxList<RefTableModel> _departmentList = RxList<RefTableModel>();
 
   final RxList<RefTableModel> _occupationList = RxList<RefTableModel>();
-  // var employee = DetailedEmployeeModel;
-  Rxn<EmployeeViewModel> employee = Rxn<EmployeeViewModel>();
-  Rxn<XFile> pickedFile = Rxn<XFile>();
+
+  Rxn<LoginResModel> employee = Rxn<LoginResModel>();
+  Rx<File?> selectedImage = Rx<File?>(null);
+  RxString imageUrl = ''.obs; // Holds the image URL (for display purposes)
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> pickImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      selectedImage.value = File(pickedFile.path);
+      // Generate a local URL for now (if needed)
+      imageUrl.value = pickedFile.path;
+      update();
+    } else {
+      Get.snackbar('Error', 'No image selected',
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
 
   @override
   void onInit() {
@@ -71,35 +89,39 @@ class ProfileBodyController extends GetxController
   }
 
   Future<void> getDetailedEmployeeProfile() async {
+    final controller = Get.find<GeneralController>();
+    final employeeId = controller.storageBox.read('employeeId');
+
     try {
       _isLoading(true);
 
-      final empProfileDetails = await nDb.getDetailedEmployeeDetails();
+      LoginResModel? emprofileDetails =
+          await _apiProvider.getEmployeeProfile(employeeId);
 
-      employee.value = empProfileDetails as EmployeeViewModel?;
-      print("EMPLOYE VALUEE =>>>>>.. ${employee.value}");
-      // Ensure employee value is not null before accessing fields
+      employee.value = emprofileDetails;
+      print("EMPLOYEE VALUE =>>>>> ${employee.value}");
+
       if (employee.value != null) {
-        employeeNameController.text = employee.value!.englishName;
-        arabicNameController.text = employee.value!.arabicName;
-        dobController.text = employee.value!.dateofBirth;
+        employeeNameController.text = employee.value!.englishName!;
+        arabicNameController.text = employee.value!.arabicName!;
+        dobController.text = employee.value!.empBirthday!;
         genderController.text = (employee.value!.empGender != null &&
                     employee.value!.empGender == LanguageConstants.male.tr
                 ? 1
                 : 0)
             .toString();
-        maritalStatusController.text = (employee.value!.maritalStatus != null &&
-                    employee.value!.maritalStatus ==
-                        LanguageConstants.married.tr
-                ? 1
-                : 0)
-            .toString();
-        mobileController.text = employee.value!.mobileNumber;
-        landLineController.text = employee.value!.landlineNumber;
-        emailController.text = employee.value!.empWorkEmail;
-        nextToKinNameController.text = employee.value!.next2KinName;
-        nextToKinMobileController.text = employee.value!.next2KinMobNumber;
-        civilIdController.text = employee.value!.empCidNum;
+        maritalStatusController.text =
+            (employee.value!.empMaritalStatus != null &&
+                        employee.value!.empMaritalStatus ==
+                            LanguageConstants.married.tr
+                    ? 1
+                    : 0)
+                .toString();
+        mobileController.text = employee.value!.mobileNumber!;
+        emailController.text = employee.value!.empWorkEmail!;
+        nextToKinNameController.text = employee.value!.next2KinName!;
+        nextToKinMobileController.text = employee.value!.next2KinMobNumber!;
+        civilIdController.text = employee.value!.empCidNum!;
       } else {
         throw Exception("Employee data is null after fetching");
       }
@@ -110,65 +132,22 @@ class ProfileBodyController extends GetxController
     }
   }
 
-  // Future<void> getDepartment() async {
-  //   final departmentResult = await db.getDepartments();
-  //   if (departmentResult.isEmpty) return;
-  //   Get.log(departmentResult.length.toString());
-  //   _departmentList.assignAll(departmentResult);
-  //   if (detailedEmployeeModel!.department != null &&
-  // detailedEmployeeModel!.department != 0) {
-  //     department.value = _departmentList.firstWhere(
-  //         (element) => element.refid == detailedEmployeeModel!.department);
-  //   }
-  // }
-
-  // Future<void> getOccupation() async {
-  //   final occupationResults = await db.getOccupation();
-  //   if (occupationResults.isEmpty) return;
-  //   Get.log(occupationResults.length.toString());
-  //   _occupationList.assignAll(occupationResults);
-  //   if (detailedEmployeeModel!.departmentName != null &&
-  //       detailedEmployeeModel!.departmentName!.isNotEmpty) {
-  //     try {
-  //       occupation.value = _occupationList.firstWhere((element) =>
-  //           element.shortname == detailedEmployeeModel!.departmentName,
-  //           // returning first itel wwr no match is foun
-  //           orElse: (){
-  //             return _occupationList[0];
-  //           }
-  //           );
-
-  //     } on Exception catch (e) {
-  //       Toaster.showError(e.toString());
-  //     }
-  //   }
-  // }
-
   Future<void> updateProfile() async {
     employee.value?.englishName = employeeNameController.text;
     employee.value?.arabicName = arabicNameController.text;
-    employee.value?.dateofBirth = dobController.text;
+    employee.value?.empBirthday = dobController.text;
+    employee.value?.empGender = int.parse(genderController.text.toString());
+    employee.value?.empMaritalStatus = maritalStatusController.text.toString();
     employee.value?.mobileNumber = mobileController.text;
-    employee.value?.landlineNumber = landLineController.text;
-    employee.value?.empPaciNum = civilIdController.text;
     employee.value?.next2KinMobNumber = nextToKinMobileController.text;
     employee.value?.next2KinName = nextToKinNameController.text;
-    employee.value?.empGender = genderController.text;
+    employee.value?.empPaciNum = civilIdController.text;
 
-    // detailedEmployeeModel!.empGender =
-    //     gender.value != null && gender.value == LanguageConstants.male.tr
-    //         ? 1
-    //         : 0;
-    // // detailedEmployeeModel!.empMaritalStatus =
-    // //     marital.value != null && marital.value == LanguageConstants.married.tr
-    // //         ? 1
-    // //         : 0;
 
-    // if (controller.status == 0) return;
-    // if (await _connectivityService.checkConnectivity()) {
-    //   ConnectivityService.internetErrorDialog();
-    //   return;
-    // }/
+    // employee.value?. = landLineController.text;
+    employee.value?.department = int.parse(departmentController.text);
+    employee.value?.departmentName = int.parse(departmentNameController.text);
+
 
     _isLoading(true);
 
@@ -188,97 +167,21 @@ class ProfileBodyController extends GetxController
 
     // Make the API request
     dynamic response = await _apiProvider.updateEmployeeProfile(payload);
-    print("  RED MODEL: ${employee.value!.toMap()}");
-    await DatabaseHelper().updateData({
-      'EnglishName': employeeNameController.text,
-      'ArabicName': arabicNameController.text,
-      'emp_birthday': dobController.text,
-      'emp_cid_num': civilIdController.text,
-      'Next2KinName': nextToKinNameController.text,
-      'Next2KinMobNumber': nextToKinNameController.text,
-      'MobileNumber': mobileController.text,
-      'emp_work_telephone': landLineController.text,
-    });
 
     if (response == null) {
       _isLoading(false);
       return;
     }
 
-    // Handle success
     Toaster.showConfirm("Successfully Updated");
 
-    await nDb.updateData(employee.value!.toMap());
     _isLoading(false);
-    // controller.detailedEmployeeModel = detailedEmployeeModel!;
   }
 
   Future<void> init() async {
-    // if (controller.checkStatus()) return;
-    // String device = await controller.deviceID();
     _isLoading(true);
-    // if (await _connectivityService.checkConnectivity()) {
-    //   try {
-    //     print(controller.storageBox.read("employeeId").runtimeType);
 
-    //     detailedEmployeeModel =
-    //         await _apiProvider.getEmployeeProfileById(controller.storageBox.read("employeeId"));
-    //   } on Exception catch (e) {
-    //     _isLoading(false);
-    //     Toaster.showError(e.toString());
-    //     return;
-    //   }
-    // } else {
-    //   // TODO uncomment later
-    //   // detailedEmployeeModel = await db.getLogin(
-    //   //         controller.storageBox.read("phone"),
-    //   //     controller.storageBox.read("password"),
-    //   //     controller.storageBox.read("device"));
-    // }
-    // _isLoading(false);
-    // if (detailedEmployeeModel == null) {
-    //   controller.storageBox.write("status", 0);
-    //   return;
-    // }
-
-    // controller.detailedEmployeeModel = detailedEmployeeModel;
-
-    // employeeNameController.text = detailedEmployeeModel!.englishName??"";
-    // arabicNameController.text = detailedEmployeeModel!.arabicName??"";
-    // dobController.text = detailedEmployeeModel?.empBirthday != null ? DateFormat('yyyy-MM-dd')
-    //     .format(DateTime.parse(detailedEmployeeModel?.empBirthday ?? "")) : "";
-
-    // gender.value = detailedEmployeeModel!.empGender != null &&
-    //         detailedEmployeeModel!.empGender == 1
-    //     ? LanguageConstants.male.tr
-    //     : LanguageConstants.female.tr;
-    // gender.value = detailedEmployeeModel!.empGender != null && detailedEmployeeModel!.empGender == 1
-    // ? LanguageConstants.male.tr
-    // : LanguageConstants.female.tr;
-
-    // marital.value = detailedEmployeeModel!.empMaritalStatus != null &&
-    //         detailedEmployeeModel!.empMaritalStatus == 1
-    //     ? LanguageConstants.married.tr
-    //     : LanguageConstants.single.tr;
-    // marital.value = detailedEmployeeModel!.empMaritalStatus != null && detailedEmployeeModel!.empMaritalStatus == 1
-    // ? LanguageConstants.married.tr
-    // : LanguageConstants.single.tr;
-
-    // mobileController.text = detailedEmployeeModel!.mobileNumber ?? "";
-    // landLineController.text = detailedEmployeeModel!.empWorkTelephone??"";
-    // emailController.text = detailedEmployeeModel!.empWorkEmail??"";
-    // nextToKinMobileController.text =
-    //     detailedEmployeeModel!.next2KinMobNumber ?? "";
-    // nextToKinNameController.text = detailedEmployeeModel!.next2KinName ?? "";
-
-    // if (detailedEmployeeModel!.uploadBy != null &&
-    //     detailedEmployeeModel!.uploadBy!.isNotEmpty &&
-    //     detailedEmployeeModel!.uploadBy != "string") {
-    //   pickedFile(XFile(detailedEmployeeModel!.uploadBy!));
-    // }
     await getDetailedEmployeeProfile();
-    // await getDepartment();
-    // await getOccupation();
   }
 
   TabController get tabController => _tabController;
