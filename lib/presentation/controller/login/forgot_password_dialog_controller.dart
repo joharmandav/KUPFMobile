@@ -25,7 +25,7 @@ class ForgotPasswordDialogController extends GetxController {
   }
 
   Future<void> forgetPassword() async {
-    const String apiUrl = 'https://api.kupfkw.com/api/Employee/ForgetPassword';
+    const String apiUrl = 'https://kupftestapi.erp53.com/api/Employee/ForgetPassword';
     String username = emailController.text.trim();
     String type = determineUserType(username);
 

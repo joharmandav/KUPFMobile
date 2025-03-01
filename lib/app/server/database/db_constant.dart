@@ -3,7 +3,7 @@ class Constants {
   static const kupfDatabase = 'kupf_new.db';
   static const socialUserInfoTable = 'socialUserInfoTable';
   static const crupAuditTable = 'CRUPAudit';
-  static const String  detailedEmployeeTablel = "DetailedEmployee";
+  static const String detailedEmployeeTablel = "DetailedEmployee";
   static const functionMSTTable = 'FUNCTION_MST';
   static const functionUserTable = 'FUNCTION_USER';
   static const kupfImageTable = 'KUPFImageTable';
@@ -14,7 +14,8 @@ class Constants {
   static const employeeTransView = 'EmployeeTransView';
   static const transactionDTTable = 'TransactionDT';
   static const transactionHdTable = 'TransactionHD';
-  static const transactionHDDApprovalDetailsTable = 'TransactionHDDApprovalDetails';
+  static const transactionHDDApprovalDetailsTable =
+      'TransactionHDDApprovalDetails';
   static const transactionHDDMSTable = 'TransactionHDDMS';
   static const transactionHDTerminationTable = 'TransactionHDTermination';
   static const transDTSubMonTable = 'TransDTSubMonthly';
@@ -81,7 +82,6 @@ class Constants {
   static const deleted = "Deleted";
   static const dateTime = "DateTime";
   static const deviceID = "DeviceID";
-
 
   // Image
   static const imageID = 'ImageID';
@@ -249,7 +249,6 @@ class Constants {
   static const englishWebPageName = "EnglishWebPageName";
   static const arabicWebPageName = "ArabicWebPageName";
 
-
   static const myTransID = "MYTRANSID";
   static const myID = "MYID";
   static const employeeID = "employeeID";
@@ -311,7 +310,6 @@ class Constants {
   static const signatures = "signatures";
   static const extraSwitch1 = "ExtraSwitch1";
   static const extraSwitch2 = "ExtraSwitch2";
-
 
   /// Transaction HDD Approval Details
   static const thLocationID = "locationID";
@@ -451,8 +449,6 @@ class Constants {
 )
 
 ''';
- 
-
 
   static const socialUserInfoScheme =
       "CREATE TABLE $socialUserInfoTable ($id TEXT, $name TEXT, "
@@ -1406,6 +1402,32 @@ CREATE TABLE $webPageUrlTable (
            AND E.MYSYSNAME = 'KUPF'
            AND E.PERIOD_CODE =B.PeriodEnd
   ''';
+
+
+
+
+
+  static const String detailEmpTableScehm = '''create table [TBLPERIODS] (
+[TenentID] integer DEFAULT '1'  not null ,
+[PERIOD_CODE] integer not null ,
+[MYSYSNAME] varchar(50) not null ,
+[PRD_YEAR] integer not null ,
+[PRD_MONTH] varchar(50) not null ,
+[PRD_PERIOD1] varchar(10) not null ,
+[PRD_PERIOD2] varchar(10) not null ,
+[PRD_PERIOD3] varchar(10) not null ,
+[PRD_START_DATE] datetime not null ,
+[PRD_END_DATE] datetime not null ,
+[GLPOST] char(1) DEFAULT '2' ,
+[GLPOSTREF] varchar(20),
+[ICPOST] char(1) DEFAULT '2' ,
+[ICPOSTREF] varchar(20),
+[STATUS1] char(1) DEFAULT '2' ,
+[CRUP_ID] integer,
+[PRD_PERIOD] nvarchar(10),
+CONSTRAINT pk_TBLPERIODS PRIMARY KEY([TenentID],[PERIOD_CODE],[MYSYSNAME])
+);''';
+
 
 // select * from EmployeeView where employeeID='16700756'
 

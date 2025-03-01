@@ -77,7 +77,7 @@ class DatabaseHelper {
   Future<void> addNewColums(Database db) async {}
 
 //   // insert all data in tables
-
+//HERE I HAVE TO CREATE TRANSVIEW
   // creating a view
   Future<void> createEmployeeView(Database db) async {
     await db.execute('''
@@ -87,6 +87,7 @@ class DatabaseHelper {
     WHERE employeeID='18101949'
   ''');
   }
+
 
 // fetching views
   Future<List<EmployeeViewModel>> fetchEmployeeView() async {

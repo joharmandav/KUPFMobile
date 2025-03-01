@@ -20,7 +20,7 @@ class ApiProvider extends GetConnect {
     super.onInit();
     Get.log("Testing");
 
-    httpClient.baseUrl = 'https://api.kupfkw.com/api';
+    httpClient.baseUrl = 'https://kupftestapi.erp53.com/api/';
     httpClient.addAuthenticator((Request request) async {
       request.headers["Authorization"] =
           "Bearer ${Get.find<GeneralController>().readData("token")}";
@@ -113,7 +113,7 @@ class ApiProvider extends GetConnect {
     try {
       final controller = Get.find<GeneralController>();
 
-      Response response = await post("/Login/MobileLogin", data);
+      Response response = await post("Login/MobileLogin", data);
 
       if (response.statusCode == 200) {
         if (rememberUser) {
@@ -149,7 +149,7 @@ class ApiProvider extends GetConnect {
 
   Future<List<ServiceSetupModel>> getServiceSetup() async {
     try {
-      final response = await get("/ServiceSetup/GetServiceSetup");
+      final response = await get("ServiceSetup/GetServiceSetup");
 
 
       print("Response body: ${response.body}");
@@ -189,7 +189,7 @@ class ApiProvider extends GetConnect {
   Future<ServiceSetupModel?> getServiceSetupById(int id) async {
     try {
       final response = await get(
-        "/ServiceSetup/GetServiceSetupById/$id",
+        "ServiceSetup/GetServiceSetupById/$id",
       );
       if (response.statusCode == 200) {
         return ServiceSetupModel.fromJson(json.decode(response.body));
@@ -212,7 +212,7 @@ class ApiProvider extends GetConnect {
 
       final response = await http.get(
         Uri.parse(
-            "https://api.kupfkw.com/api/Employee/GetEmployeeById?employeeId=$id"),
+            "https://kupftestapi.erp53.com/api/Employee/GetEmployeeById?employeeId=$id"),
         headers: headers,
       );
 
@@ -266,7 +266,7 @@ class ApiProvider extends GetConnect {
 
   Future<List<OffersModel>> getOffers() async {
     try {
-      final response = await get("/Offers/GetOffers");
+      final response = await get("Offers/GetOffers");
       Get.log(response.body.toString());
       if (response.statusCode == 200) {
         return ServiceSetupDto.fromJson(response.body).serviceSetupDto;
